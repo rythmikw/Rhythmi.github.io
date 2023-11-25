@@ -91,41 +91,61 @@
     <!-- end header section -->
   </div>
 
-  <section class="image_section py-5">
-    <div class="container">
+  <div class="container">
+    <section class="image_section py-5">
         <div class="row justify-content-center">
             <div class="col-md-8 text-center">
-                <img src="images\heart.gif" alt="Upload Image">
+                <img src="images\ecgred.gif" alt="Upload Image" class="img-fluid">
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
+
 
 <!-- test section with enhanced design -->
 <section class="test_section py-5">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="test_form text-center p-4 rounded shadow bg-light">
-            <h2 class="mb-4">Upload your ECG File and Start Testing</h2>
-            <form id="textForm" action="your_server_script.php" method="post" enctype="multipart/form-data">
-              <div class="form-group">
-                <label for="textFile" class="sr-only">Select a .txt File:</label>
-                <div class="input-group">
-                  <input type="file" name="textFile" id="textFile" accept=".txt" class="form-control file-input" style="display: none;">
-                  <label for="textFile" class="btn btn-primary btn-choose-file">Choose a File</label>
-                  <span id="selectedFile" class="ml-3 file-name"></span>
-                </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="test_form text-center p-4 rounded shadow bg-light">
+          <h2 class="mb-4">Upload your ECG File and Start Testing</h2>
+          <form id="textForm" action="http://localhost:5000/testing_code" method="post" enctype="multipart/form-data" onsubmit="startTesting(event)">
+            <div class="form-group">
+              <label for="textFile" class="sr-only">Select a .txt File:</label>
+              <div class="input-group">
+                <input type="file" name="textFile" id="textFile" accept=".txt" class="form-control file-input" style="display: none;">
+                <label for="textFile" class="btn btn-primary btn-choose-file" onclick="document.getElementById('textFile').click();">Choose a File</label>
+                <span id="selectedFile" class="ml-3 file-name"></span>
               </div>
-              <button type="submit" class="btn btn-success btn-lg">Start Testing!</button>
-            </form>
-          </div>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg">Start Testing!</button>
+          </form>
+          <p class="mt-3 text-muted">Your data will <span style="color: red;">NOT</span> be saved in our system</p>
+          <div id="output"></div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- end test section with enhanced design -->
-  
+  </div>
+</section>
+<!-- end test section with enhanced design -->
+
+<script>
+function startTesting(event) {
+  event.preventDefault();
+  var formData = new FormData(document.getElementById('textForm'));
+  fetch('http://localhost:5000/testing_code', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('output').innerText = JSON.stringify(data);
+  });
+}
+</script>
+
+
+
   <!-- file deletion section -->
   <section class="delete_file_section py-4">
     <div class="container">
