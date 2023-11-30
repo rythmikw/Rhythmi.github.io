@@ -131,12 +131,12 @@
       <div class="col-md-8">
         <div class="test_form text-center p-4 rounded shadow bg-light">
           <h2 class="mb-4">Upload your ECG File and Start Testing</h2>
-          <form id="textForm" action="/" method="post" enctype="multipart/form-data">
+          <form id="textForm" action="/" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <div class="form-group">
               <label for="textFile" class="sr-only">Select a .txt File:</label>
               <div class="input-group">
-                <input type="file" name="file" id="textFile" accept=".txt" class="form-control file-input" style="display: none;">
-                <label for="textFile" class="btn btn-primary btn-choose-file" onclick="document.getElementById('textFile').click();">Choose a File</label>
+                <input type="file" name="file" id="textFile" class="form-control file-input" style="display: none;" accept=".txt" onchange="displayFileName(this);">
+                <label for="textFile" class="btn btn-primary btn-choose-file">Choose a File</label>
                 <span id="selectedFile" class="ml-3 file-name"></span>
               </div>
             </div>
@@ -151,124 +151,125 @@
 </section>
 <!-- end test section with enhanced design -->
 
+<script>
+  function displayFileName(input) {
+    var selectedFile = document.getElementById('selectedFile');
+    if (input.files.length > 0) {
+      selectedFile.textContent = input.files[0].name;
+    } else {
+      selectedFile.textContent = "";
+    }
+  }
+
+  function validateForm() {
+    var fileInput = document.getElementById('textFile');
+    var fileName = fileInput.value;
+    var ext = fileName.slice(((fileName.lastIndexOf(".") - 1) >>> 0) + 2).toLowerCase(); // Get the file extension
+
+    if (ext !== 'txt') {
+      return false; // Prevent form submission
+    }
+
+    return true;
+  }
+</script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
+  $(document).ready(function(){
     $("#textForm").submit(function(e){
-        e.preventDefault();
-        var fileInput = document.getElementById('textFile');
-        var file = fileInput.files[0];
-        var formData = new FormData();
-        formData.append('file', file);
-        $.ajax({
-            url: 'http://127.0.0.1:5000/upload',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(data){
-                $("#output").text(data);
-            }
-        });
+      e.preventDefault();
+      var fileInput = document.getElementById('textFile');
+      var file = fileInput.files[0];
+      var formData = new FormData();
+      formData.append('file', file);
+      $.ajax({
+        url: 'http://127.0.0.1:5000/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data){
+          $("#output").text(data);
+        }
+      });
     });
-});
+  });
 </script>
-
-
-
-
 
 <script>
-function startTesting(event) {
-  event.preventDefault();
-  var formData = new FormData(document.getElementById('textForm'));
-  fetch('http://localhost:5000/testing_code', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    document.getElementById('output').innerText = JSON.stringify(data);
-  });
-}
+  function startTesting(event) {
+    event.preventDefault();
+    var formData = new FormData(document.getElementById('textForm'));
+    fetch('http://localhost:5000/testing_code', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('output').innerText = JSON.stringify(data);
+    });
+  }
 </script>
 
-
-
-  <!-- file deletion section -->
-  <section class="delete_file_section py-4">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="text-center">
-            <h2 class="mb-4">Delete Uploaded File</h2>
-            <p>Click the button below to delete the uploaded .txt file.</p>
-            <button id="deleteFileButton" class="btn btn-danger">Delete File</button>
-          </div>
+<!-- file deletion section -->
+<section class="delete_file_section py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="text-center">
+          <h2 class="mb-4">Delete Uploaded File</h2>
+          <p>Click the button below to delete the uploaded .txt file.</p>
+          <button id="deleteFileButton" class="btn btn-danger">Delete File</button>
         </div>
       </div>
     </div>
-  </section>
-  <!-- end file deletion section -->
-  
-  <!-- view file section -->
-  <section class="view_file_section py-4">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="text-center">
-            <h2 class="mb-4">View Uploaded File</h2>
-            <div id="fileContent" class="text-left"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- end view file section -->
-  
-  <!-- jQery -->
+  </div>
+</section>
+<!-- end file deletion section -->
+
+<!-- jQuery -->
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <!-- popper js -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <!-- bootstrap js -->
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <!-- owl slider -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
-</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <!-- custom js -->
 <script type="text/javascript" src="js/custom.js"></script>
 <!-- Google Map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
 
 <script>
-document.getElementById("textForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-  const file = formData.get("textFile");
+  document.getElementById("textForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const file = formData.get("file");
 
-  if (file && file.name.endsWith(".txt")) {
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      const fileContent = event.target.result;
-      document.getElementById("fileContent").textContent = fileContent;
-    };
-    reader.readAsText(file);
-    document.getElementById("selectedFile").textContent = "Selected File: " + file.name;
-  } else {
-    alert("Please select a valid .txt file.");
-  }
-});
+    if (file && file.name.endsWith(".txt")) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const fileContent = event.target.result;
+        document.getElementById("output").textContent = fileContent;
+      };
+      reader.readAsText(file);
+      document.getElementById("selectedFile").textContent = "Selected File: " + file.name;
+    } else {
+      alert("Please select a valid .txt file.");
+    }
+  });
 
-document.getElementById("deleteFileButton").addEventListener("click", function () {
-  // Add code to delete the uploaded file on the server (not shown in this example).
-  document.getElementById("fileContent").textContent = "";
-  document.getElementById("selectedFile").textContent = "";
-});
+  document.getElementById("deleteFileButton").addEventListener("click", function () {
+    // Add code to delete the uploaded file on the server (not shown in this example).
+    document.getElementById("output").textContent = "";
+    document.getElementById("selectedFile").textContent = "";
+  });
 </script>
+
 </body>
 </html>
+
 
   
 
