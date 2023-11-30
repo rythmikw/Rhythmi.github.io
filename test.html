@@ -122,6 +122,8 @@
 </div>
 
 
+
+
 <!-- test section with enhanced design -->
 <section class="test_section py-5">
   <div class="container">
@@ -129,11 +131,11 @@
       <div class="col-md-8">
         <div class="test_form text-center p-4 rounded shadow bg-light">
           <h2 class="mb-4">Upload your ECG File and Start Testing</h2>
-          <form id="textForm" action="http://localhost:5000/testing_code" method="post" enctype="multipart/form-data" onsubmit="startTesting(event)">
+          <form id="textForm" action="/" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label for="textFile" class="sr-only">Select a .txt File:</label>
               <div class="input-group">
-                <input type="file" name="textFile" id="textFile" accept=".txt" class="form-control file-input" style="display: none;">
+                <input type="file" name="file" id="textFile" accept=".txt" class="form-control file-input" style="display: none;">
                 <label for="textFile" class="btn btn-primary btn-choose-file" onclick="document.getElementById('textFile').click();">Choose a File</label>
                 <span id="selectedFile" class="ml-3 file-name"></span>
               </div>
@@ -148,6 +150,33 @@
   </div>
 </section>
 <!-- end test section with enhanced design -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#textForm").submit(function(e){
+        e.preventDefault();
+        var fileInput = document.getElementById('textFile');
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+        $.ajax({
+            url: 'http://127.0.0.1:5000/upload',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(data){
+                $("#output").text(data);
+            }
+        });
+    });
+});
+</script>
+
+
+
+
 
 <script>
 function startTesting(event) {
