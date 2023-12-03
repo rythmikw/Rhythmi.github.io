@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login Page</title>
+    <script src="credentials.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 1;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-container h2 {
+            color: #333;
+        }
+
+        .login-container label {
+            display: block;
+            margin-top: 10px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #8b0000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #750000;
+        }
+
+        .error-message {
+            color: #750000;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .contact-message {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .contact-message p {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .contact-message strong {
+            font-weight: bold;
+            color: #8b0000; /* Red color */
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        .contact-links a {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #8b0000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .login-container {
+                width: 80%;
+            }
+
+            .contact-message {
+                width: 80%;
+            }
+        }
+
+        @media only screen and (max-width: 400px) {
+            .login-container {
+                width: 90%;
+            }
+
+            .contact-message {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay"></div>
+    <iframe src="test.html"></iframe>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required autocomplete="on">
+
+            <label for="password">Password:</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required autocomplete="on">
+                <span class="password-toggle" onclick="togglePasswordVisibility()">👁️</span>
+            </div>
+
+            <button type="button" onclick="submitForm()">Login</button>
+
+            <div class="error-message" id="errorMessage"></div>
+        </form>
+    </div>
+
+    <div class="contact-message">
+        <p><strong>Email:</strong> <span>rhythmi.info@gmail.com</span></p>
+        <p><strong>Instagram:</strong> <span>@rhythmi.co</span></p>
+        <p><strong>Live Chat:</strong> (corner right)</p>
+
+        <div class="contact-links">
+            <a href="mailto:rhythmi.info@gmail.com">Send Email</a>
+            <a href="https://www.instagram.com/rhythmi.co/" target="_blank">Visit Instagram</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                submitForm();
+            }
+        });
+
+        var savedCredentials = JSON.parse(localStorage.getItem('credentials')) || {};
+        document.getElementById('username').value = savedCredentials.username || '';
+
+        document.querySelector('.overlay').addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+
+        function submitForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (validCredentials[username] && validCredentials[username] === password) {
+                localStorage.setItem('credentials', JSON.stringify({ username: username, password: password }));
+                window.location.href = 'test.html';
+            } else {
+                if (!validCredentials[username]) {
+                    document.getElementById('errorMessage').innerText = 'Username not found';
+                } else {
+                    document.getElementById('errorMessage').innerText = 'Incorrect password';
+                }
+            }
+        }
+
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('password');
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+        }
+    </script>
+</body>
+
+</html>
