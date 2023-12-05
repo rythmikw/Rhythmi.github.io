@@ -10,6 +10,8 @@ import keras
 from io import StringIO
 import requests
 import configparser
+import os
+from keras.models import load_model
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
@@ -99,7 +101,15 @@ def upload_file():
 
         base_line_removal = pd.DataFrame(base_line_removal)
 
-        model = keras.models.load_model('raw.h5')
+        app_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Construct the path to the model file
+        model_path = os.path.join(app_dir, 'raw.h5')
+
+        # Load the model
+        model = load_model(model_path)
+    
+        #model = keras.models.load_model('D:\application\Rhythmi.github.io-main\app\raw.h5')
 
         from scipy import signal
 
