@@ -175,41 +175,45 @@
   }
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-  $(document).ready(function(){
-    $("#textForm").submit(function(e){
+  $(document).ready(function () {
+    $("#textForm").submit(function (e) {
       e.preventDefault();
       var fileInput = document.getElementById('textFile');
       var file = fileInput.files[0];
       var formData = new FormData();
       formData.append('file', file);
       $.ajax({
-        url: 'https://rhythmikw.pythonanywhere.com/upload',  // Removed the extra slash here
+        url: 'https://rhythmikw.pythonanywhere.com/upload',
         type: 'POST',
         data: formData,
         processData: false,
         contentType: false,
-        success: function(data){
-          $("#output").text(data);
+        success: function (data) {
+          // Handle the response here
+          startTesting();
+        },
+        error: function (error) {
+          console.error("Error uploading file:", error);
         }
       });
     });
   });
-</script>
 
-<script>
-  function startTesting(event) {
-    event.preventDefault();
+  function startTesting() {
     var formData = new FormData(document.getElementById('textForm'));
-    fetch('https://rhythmikw.pythonanywhere.com/testing_code', {  // Removed the extra slash here
+    fetch('https://rhythmikw.pythonanywhere.com/testing_code', {
       method: 'POST',
       body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('output').innerText = JSON.stringify(data);
-    });
+      .then(response => response.json())
+      .then(data => {
+        // Display the result in the #output element
+        $("#output").text(JSON.stringify(data));
+      })
+      .catch(error => {
+        console.error("Error fetching result:", error);
+      });
   }
 </script>
 <!-- file deletion section -->
