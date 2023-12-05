@@ -185,7 +185,7 @@
       var formData = new FormData();
       formData.append('file', file);
       $.ajax({
-        url: 'https://rhythmikw.pythonanywhere.com/',
+        url: 'https://rhythmikw.pythonanywhere.com//upload',
         type: 'POST',
         data: formData,
         processData: false,
@@ -202,7 +202,7 @@
   function startTesting(event) {
     event.preventDefault();
     var formData = new FormData(document.getElementById('textForm'));
-    fetch('https://rhythmikw.pythonanywhere.com/', {
+    fetch('https://rhythmikw.pythonanywhere.com//testing_code', {
       method: 'POST',
       body: formData
     })
