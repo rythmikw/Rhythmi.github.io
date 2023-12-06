@@ -176,7 +176,7 @@
       var formData = new FormData();
       formData.append('file', file);
       $.ajax({
-        url: 'http://192.168.8.129:8080/upload',
+        url: 'http://51.20.94.247:5000/upload',
         type: 'POST',
         data: formData,
         processData: false,
@@ -196,7 +196,7 @@
   function startTesting(event) {
     event.preventDefault();
     var formData = new FormData(document.getElementById('textForm'));
-    fetch('http://192.168.8.129:8080/testing_code', {
+    fetch('http://51.20.94.247:5000/testing_code', {
       method: 'POST',
       body: formData
     })
