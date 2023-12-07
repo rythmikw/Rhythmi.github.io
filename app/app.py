@@ -137,11 +137,11 @@ def upload_file():
 
         # Print the corresponding message
         if highest_count_class == int(target_names[0]):
-            result = f"Arrhythmia Detected with probability of {100*average_probability:.2f}"
+            result = f"Arrhythmia Detected"
         elif highest_count_class == int(target_names[1]):
-            result = f"Congestive Heart Failure Detected with probability of {100*average_probability:.2f}"
+            result = f"Congestive Heart Failure Detected"
         elif highest_count_class == int(target_names[2]):
-            result = f"Normal Beat Detected with probability of {100*average_probability:.2f}"
+            result = f"Normal Beat Detected"
         else:
             result = "No Prediction"
         return jsonify(result)
