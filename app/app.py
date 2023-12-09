@@ -16,6 +16,7 @@ from keras.models import load_model
 app = Flask(__name__)
 
 CORS(app)  # This will enable CORS for all routes
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
