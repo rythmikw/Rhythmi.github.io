@@ -131,7 +131,7 @@
       <div class="col-md-8">
         <div class="test_form text-center p-4 rounded shadow bg-light">
           <h2 class="mb-4">Upload your ECG File and Start Testing</h2>
-          <form id="textForm" action="https://rhythmi.xyz/upload" method="post" enctype="multipart/form-data">
+          <form id="textForm" action="https://rhythmi.onrender.com/upload" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label for="textFile" class="sr-only">Select a .txt File:</label>
               <div class="input-group">
@@ -175,7 +175,7 @@
       var formData = new FormData();
       formData.append('file', file);
       $.ajax({
-        url: 'https://rhythmi.xyz/upload',
+        url: 'https://rhythmi.onrender.com/upload',
         type: 'POST',
         data: formData,
         processData: false,
@@ -195,7 +195,7 @@
   function startTesting(event) {
     event.preventDefault();
     var formData = new FormData(document.getElementById('textForm'));
-    fetch('https://rhythmi.xyz/testing_code', {
+    fetch('https://rhythmi.onrender.com/testing_code', {
       method: 'POST',
       body: formData
     })
