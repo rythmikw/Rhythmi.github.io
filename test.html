@@ -131,7 +131,7 @@
       <div class="col-md-8">
         <div class="test_form text-center p-4 rounded shadow bg-light">
           <h2 class="mb-4">Upload your ECG File and Start Testing</h2>
-          <form id="textForm" action="https://rhythmi.onrender.com/upload" method="post" enctype="multipart/form-data">
+          <form id="textForm" enctype="multipart/form-data">
             <div class="form-group">
               <label for="textFile" class="sr-only">Select a .txt File:</label>
               <div class="input-group">
@@ -144,6 +144,7 @@
           </form>
           <p class="mt-3 text-muted">Your data will <span style="color: red;">NOT</span> be saved in our system</p>
           <div id="output"></div> <!-- This div will show the result from the server -->
+          <button id="download" class="btn btn-success btn-lg" style="display: none;">Download PDF</button>
         </div>
       </div>
     </div>
@@ -152,58 +153,38 @@
 <!-- end test section with enhanced design -->
 
 <script>
-  document.getElementById("textForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const file = formData.get("file");
-
-    if (file && file.name.endsWith(".txt")) {
-      document.getElementById("selectedFile").textContent = "Selected File: " + file.name;
-    } else {
-      alert("Please select a valid .txt file.");
-    }
-  });
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-  $(document).ready(function(){
-    $("#textForm").submit(function(e){
+  document.getElementById('textForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      var fileInput = document.getElementById('textFile');
-      var file = fileInput.files[0];
-      var formData = new FormData();
-      formData.append('file', file);
-      $.ajax({
-        url: 'https://rhythmi.onrender.com/upload',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(data){
-          $("#output").html('<strong>' + data + '</strong>'); // Display the result from the server
 
+      let formData = new FormData();
+      formData.append('file', document.getElementById('textFile').files[0]);
 
-          
-        }
-      });
-    });
+      try {
+          // Make a POST request to the Flask app
+          let response = await fetch('http://localhost:8080/upload', {
+              method: 'POST',
+              body: formData
+          });
+
+          let result = await response.json();
+
+          // Display the result
+          document.getElementById('output').innerText = result.result || result.error;
+
+          // Show the download button if processing was successful
+          if (result.output_file) {
+              document.getElementById('download').style.display = 'inline-block';
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          document.getElementById('output').innerText = 'An error occurred while processing the file.';
+      }
   });
-</script>
 
-<script>
-  function startTesting(event) {
-    event.preventDefault();
-    var formData = new FormData(document.getElementById('textForm'));
-    fetch('https://rhythmi.onrender.com/testing_code', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('output').innerText = JSON.stringify(data);
-    });
-  }
+  document.getElementById('download').addEventListener('click', function () {
+      // Trigger the download
+      window.location.href = 'http://localhost:8080/download/output.pdf';
+  });
 </script>
 
 <!-- file deletion section -->
@@ -240,6 +221,7 @@
     // Add code to delete the uploaded file on the server (not shown in this example).
     document.getElementById("output").textContent = "";
     document.getElementById("selectedFile").textContent = "";
+    document.getElementById("download").remove();
   });
 </script>
 
