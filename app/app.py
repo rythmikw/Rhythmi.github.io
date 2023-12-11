@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, send_file
 from scipy import signal
 from flask_cors import CORS
 from keras.models import load_model
+from datetime import datetime
 import numpy as np
 import pandas as pd
 from fpdf import FPDF
@@ -11,10 +12,12 @@ import matplotlib.pyplot as plt
 
 app_directory = "app"
 static_directory = "static"
+images_directory = "images"
 
 project_directory = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(project_directory, "raw.h5")
 output_file_path = os.path.join(project_directory, static_directory, "output.pdf")
+logo = os.path.join(os.path.dirname(project_directory), images_directory, "rhythmilogo.png")
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -114,14 +117,27 @@ def process_ecg_file(file_path):
         pdf = FPDF()
         pdf.add_page()
         pdf.set_font("Times", size=15)
-        pdf.cell(200, 10, txt="RHYTHMI Health CO. ", ln=1, align='L')
+        # Header section
+        pdf.image(logo, x=10, y=10, w=0, h=30)
+        image_width = 30
+        line_start_x = 12 + image_width + 20
+        line_y_start = 10
+        # pdf.line(line_start_x, 10, line_start_x, 40)
+        pdf.line(line_start_x, line_y_start, line_start_x, line_y_start + 30)
+        text_line_y = 12
+        today_date = datetime.today().strftime('%Y-%m-%d')
+        current_time = datetime.now().strftime('%H:%M:%S')
+        pdf.text(line_start_x + 2, text_line_y, "Rhythmi.co")
+        pdf.text(line_start_x + 2, text_line_y + 10, f"Date: {today_date}")
+        pdf.text(line_start_x + 2, text_line_y + 20, f"Time: {current_time}")
+        # End of header section
         pdf.set_font("Times", "B", size=15)
-        pdf.set_xy(10, 30)
-        pdf.cell(200, 10, txt="RHYTHMI's ECG Test Result", ln=2, align='C')
+        pdf.set_xy(10, 45)
+        pdf.cell(200, 10, txt="RHYTHMI's ECG Test", ln=2, align='C')
 
         temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
         plt.savefig(temp_file.name, format='png')
-        pdf.image(temp_file.name, x=-20, y=50, w=250, h=100, type='png', link='')
+        pdf.image(temp_file.name, x=-20, y=60, w=250, h=100, type='png', link='')
 
         if message == "Normal Beat Detected":
             pdf.set_font("Times", "B", size=15)
@@ -136,6 +152,16 @@ def process_ecg_file(file_path):
             pdf.set_xy(31, 150)
             pdf.set_text_color(0, 0, 0)
             pdf.cell(200, 10, txt=message.split()[2], ln=1, align='C')
+
+            explanation_nrml = 'Explanation: A normal ECG indicates that the heart is functioning properly. The heart rate should range from 60 to 80 beats per minute, but it may be lower in physically fit individuals.'
+
+            recommendation_nrml = "Recommendation: Maintain a healthy lifestyle, which includes regular exercise and a balanced diet. Regular check-ups with your healthcare provider are also important to monitor your heart health. The heart rate should be between 50 and 100 beats per minute, with the P-wave preceding every QRS complex, and the PR interval being constant. Any significant deviations from these norms should be discussed with a healthcare provider."
+
+            pdf.set_font("Times", size=12)
+
+            pdf.multi_cell(0, 10, txt=explanation_nrml, align='L')
+            pdf.ln(5)
+            pdf.multi_cell(0, 10, txt=recommendation_nrml, align='L')
 
         if message == "Arrhythmia Detected":
             pdf.set_font("Times", "B", size=15)
@@ -170,9 +196,21 @@ def process_ecg_file(file_path):
             pdf.set_text_color(0, 0, 0)
             pdf.cell(200, 10, txt=message.split()[3], ln=3, align='C')
 
+            explanation_chf = 'Explanation: Heart failure is a serious condition where the heart doesn’t pump blood as well as it should. It can be caused by conditions that damage the heart, such as coronary artery disease and high blood pressure.'
+
+            recommendation_chf = "Recommendation: Treatment for heart failure typically involves lifestyle changes, medications, and sometimes devices or surgical procedures. Lifestyle changes could include quitting smoking, limiting salt and fluid intake, and getting regular exercise. Medications could include ACE-inhibitors or angiotensin receptor blockers for patients with left ventricular ejection fraction (LVEF) ≤40%, and cholesterol-lowering statins for people with a history of a myocardial infarction or acute coronary syndrome5. Regular follow-ups with a healthcare provider are crucial for managing this condition. It’s also important to fully vaccinate against respiratory illnesses including COVID-19."
+
+            pdf.set_font("Times", size=12)
+
+            pdf.multi_cell(0, 10, txt=explanation_chf, align='L')
+            pdf.ln(5)
+            pdf.multi_cell(0, 10, txt=recommendation_chf, align='L')
+
         pdf.output(output_file_path)
 
         temp_file.close()
+
+        os.unlink(temp_file.name)
 
         return {'result': result, 'output_file': output_file_path}
 
@@ -202,4 +240,4 @@ def download(filename):
     return send_file(output_file_path, as_attachment=True, download_name=filename)
 
 if __name__ == '__main__':
-    app.run(port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
