@@ -33,7 +33,13 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+<style>
+.bold-text {
+    font-weight: bold;
+}
 
+
+</style>
 </head>
 
 
@@ -143,7 +149,7 @@
             <button type="submit" class="btn btn-success btn-lg">Start Testing!</button>
           </form>
           <p class="mt-3 text-muted">Your data will <span style="color: red;">NOT</span> be saved in our system</p>
-          <div id="output"></div> <!-- This div will show the result from the server -->
+          <div id="output" class="bold-text"></div> <!-- This div will show the result from the server -->
           <div id="loading" style="display: none;">
             <i class="fa fa-spinner fa-spin"></i> Processing results...
           </div>
