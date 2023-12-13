@@ -144,6 +144,9 @@
           </form>
           <p class="mt-3 text-muted">Your data will <span style="color: red;">NOT</span> be saved in our system</p>
           <div id="output"></div> <!-- This div will show the result from the server -->
+          <div id="loading" style="display: none;">
+            <i class="fa fa-spinner fa-spin"></i> Processing results...
+          </div>
           <button id="download" class="btn btn-success btn-lg" style="display: none;">Download PDF</button>
         </div>
       </div>
@@ -152,40 +155,70 @@
 </section>
 <!-- end test section with enhanced design -->
 
+
 <script>
-  document.getElementById('textForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
+const loadingElement = document.getElementById('loading');
+const outputElement = document.getElementById('output');
+const downloadButton = document.getElementById('download');
 
-      let formData = new FormData();
-      formData.append('file', document.getElementById('textFile').files[0]);
+document.getElementById('textForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
 
-      try {
-          // Make a POST request to the Flask app
-          let response = await fetch('http://localhost:8080/upload', {
-              method: 'POST',
-              body: formData
-          });
+  const file = document.getElementById('textFile').files[0];
+  if (!file) {
+    outputElement.innerText = 'Please select a file to upload.';
+    return;
+  }
 
-          let result = await response.json();
+  loadingElement.style.display = 'block';
+  outputElement.innerText = '';
 
-          // Display the result
-          document.getElementById('output').innerText = result.result || result.error;
+  const formData = new FormData();
+  formData.append('file', file);
 
-          // Show the download button if processing was successful
-          if (result.output_file) {
-              document.getElementById('download').style.display = 'inline-block';
-          }
-      } catch (error) {
-          console.error('Error:', error);
-          document.getElementById('output').innerText = 'An error occurred while processing the file.';
-      }
-  });
+  try {
+    const response = await fetch('http://localhost:8080/upload', {
+      method: 'POST',
+      body: formData,
+    });
 
-  document.getElementById('download').addEventListener('click', function () {
-      // Trigger the download
-      window.location.href = 'http://localhost:8080/download/output.pdf';
-  });
+    const result = await response.json();
+
+    loadingElement.style.display = 'none';
+
+    if (result.error) {
+      outputElement.innerText = result.error;
+    } else if (result.output_file) {
+      outputElement.innerText = result.result;
+      downloadButton.style.display = 'inline-block';
+      downloadButton.href = result.output_file;
+    } else {
+      outputElement.innerText = 'An unexpected error occurred. Please try again later.';
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    outputElement.innerText = 'An error occurred while processing the file.';
+  }
+});
+
+downloadButton.addEventListener('click', function () {
+  window.location.href = 'http://localhost:8080/download/output.pdf';
+});
+
+
 </script>
+
+<script>
+  function displayFileName(input) {
+      var fileNameDisplay = document.getElementById("selectedFile");
+  
+      if (input.files && input.files.length > 0) {
+          fileNameDisplay.textContent = input.files[0].name;
+      } else {
+          fileNameDisplay.textContent = "No file selected";
+      }
+  }
+  </script>
 
 <!-- file deletion section -->
 <section class="delete_file_section py-4">
@@ -221,7 +254,7 @@
     // Add code to delete the uploaded file on the server (not shown in this example).
     document.getElementById("output").textContent = "";
     document.getElementById("selectedFile").textContent = "";
-    document.getElementById("download").remove();
+    document.getElementById("download").style.display="none";
   });
 </script>
 
