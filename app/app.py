@@ -22,6 +22,42 @@ logo = os.path.join(os.path.dirname(project_directory), images_directory, "rhyth
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
+def add_section(pdf, title, content):
+    pdf.set_font("Times", "B", size=15)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_x(10)
+    pdf.cell(200, 10, txt=title, align='L')
+    pdf.ln(10)
+    pdf.set_font("Times", size=12)
+    pdf.set_xy(15, pdf.get_y())
+    pdf.multi_cell(0, 10, txt=content, align='L')
+    pdf.ln(3)
+
+def add_contact_info(pdf):
+    pdf.line(10, pdf.get_y(), 200, pdf.get_y())
+    pdf.set_font("Times", "B", size=15)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_x(10)
+    pdf.cell(200, 10, txt="Contacts:", align='L')
+    pdf.set_x(40)
+    pdf.cell(200, 10, txt="Website: www.rhythmi.org ", align='L')
+    pdf.set_x(110)
+    pdf.cell(200, 10, txt="Instagram: @rhythmi.co ", align='L')
+
+def add_result_section(pdf, result_label, disease, disease_notify):
+    pdf.set_xy(10, 145)
+    pdf.set_font("Times", "B", size=15)
+    pdf.set_xy(10, pdf.get_y())
+    pdf.set_text_color(0, 0, 0)
+    pdf.cell(200, 10, txt=result_label, align='L')
+    pdf.set_x(28)
+    pdf.set_text_color(255, 0, 0)
+    pdf.cell(200, 10, txt=f"{disease}", align='L')
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_x(55)
+    pdf.cell(200, 10, txt=f" {disease_notify}", align='L')
+    pdf.ln(10)
+
 def process_ecg_file(file_path):
     try:
         file_content = pd.read_csv(file_path, comment='#', delimiter='\t', header=None)
@@ -101,7 +137,7 @@ def process_ecg_file(file_path):
             axs[0].plot(base_line_removal.iloc[0] / 200)
             axs[1].plot(base_line_removal.iloc[1] / 200)
             axs[2].plot(base_line_removal.iloc[2] / 200)
-            message = "Congestive Heart Failure Detected"
+            message = "Heart Failure Detected"
 
         elif highest_count_class == int(target_names[2]):
             fig, axs = plt.subplots(3, 1, figsize=(12, 6))
@@ -122,7 +158,7 @@ def process_ecg_file(file_path):
         image_width = 30
         line_start_x = 12 + image_width + 20
         line_y_start = 10
-        # pdf.line(line_start_x, 10, line_start_x, 40)
+        pdf.set_line_width(0.5)
         pdf.line(line_start_x, line_y_start, line_start_x, line_y_start + 30)
         text_line_y = 12
         today_date = datetime.today().strftime('%Y-%m-%d')
@@ -132,79 +168,71 @@ def process_ecg_file(file_path):
         pdf.text(line_start_x + 2, text_line_y + 20, f"Time: {current_time}")
         # End of header section
         pdf.set_font("Times", "B", size=15)
-        pdf.set_xy(10, 45)
+        pdf.set_xy(10, 38)
         pdf.cell(200, 10, txt="RHYTHMI's ECG Test", ln=2, align='C')
 
         temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
         plt.savefig(temp_file.name, format='png')
-        pdf.image(temp_file.name, x=-20, y=60, w=250, h=100, type='png', link='')
+        pdf.image(temp_file.name, x=-20, y=45, w=250, h=100, type='png', link='')
 
         if message == "Normal Beat Detected":
-            pdf.set_font("Times", "B", size=15)
-            pdf.set_text_color(0, 255, 0)
-            pdf.set_xy(0, 150)
-            pdf.cell(200, 10, txt=message.split()[0], ln=1, align='C')
 
-            pdf.set_xy(15, 150)
-            pdf.set_text_color(0, 0, 0)
-            pdf.cell(200, 10, txt=" ".join(message.split()[1:2]), ln=3, align='C')
+            normal = message.split()[0] + message.split()[1]
+            normal_detected = message.split()[2]
 
-            pdf.set_xy(31, 150)
-            pdf.set_text_color(0, 0, 0)
-            pdf.cell(200, 10, txt=message.split()[2], ln=1, align='C')
+            add_result_section(pdf, "Result:", normal, normal_detected)  
 
-            explanation_nrml = 'Explanation: A normal ECG indicates that the heart is functioning properly. The heart rate should range from 60 to 80 beats per minute, but it may be lower in physically fit individuals.'
+            explanation_nrml = 'A normal ECG indicates that the heart is functioning properly. The heart rate should range from 60 to 80 beats per minute, but it may be lower in physically fit individuals.'
 
-            recommendation_nrml = "Recommendation: Maintain a healthy lifestyle, which includes regular exercise and a balanced diet. Regular check-ups with your healthcare provider are also important to monitor your heart health. The heart rate should be between 50 and 100 beats per minute, with the P-wave preceding every QRS complex, and the PR interval being constant. Any significant deviations from these norms should be discussed with a healthcare provider."
+            recommendation_nrml = "Maintain a healthy lifestyle, which includes regular exercise and a balanced diet. Regular check-ups with your healthcare provider are also important to monitor your heart health. The heart rate should be between 50 and 100 beats per minute, with the P-wave preceding every QRS complex, and the PR interval being constant. Any significant deviations from these norms should be discussed with a healthcare provider."
 
-            pdf.set_font("Times", size=12)
-
-            pdf.multi_cell(0, 10, txt=explanation_nrml, align='L')
-            pdf.ln(5)
-            pdf.multi_cell(0, 10, txt=recommendation_nrml, align='L')
+            add_section(pdf, "Explanation:", explanation_nrml)
+            add_section(pdf, "Recommendation:", recommendation_nrml)
+            add_contact_info(pdf)
 
         if message == "Arrhythmia Detected":
+
+            arrhythmia = message.split()[0]
+            arr_detected = message.split()[1]
+
+            add_result_section(pdf, "Result:", arrhythmia, arr_detected)
+            
+            explanation_arr = "Arrhythmias are disturbances in the normal cardiac rhythm of the heart, which occur as a result of alterations within the conduction of electrical impulses. They can be caused by various factors, including heart disease, stress, certain medications, and caffeine or nicotine use."
+
+            recommendation_arr = "The treatment for arrhythmias depends on the type and severity of the arrhythmia. This could include medication, lifestyle changes such as reducing stress and limiting caffeine or nicotine use, or in some cases, medical procedures or surgery. Regular monitoring of the heart's electrical activity is crucial for managing arrhythmias. It's also important to identify and manage any underlying conditions that may be causing the arrhythmia, such as heart disease."
+
+            add_section(pdf, "Explanation:", explanation_arr)
+            add_section(pdf, "Recommendation:", recommendation_arr)
+            add_contact_info(pdf)
+
+        if message == "Heart Failure Detected":
+
+            chf = message.split()[0] + message.split()[1]
+            chf_detected = message.split()[2]
+
+            # add_result_section(pdf, "Result:", chf, chf_detected)
+            pdf.set_xy(10, 145)
             pdf.set_font("Times", "B", size=15)
-            pdf.set_text_color(255, 0, 0)
-            pdf.set_xy(0, 150)
-            pdf.cell(200, 10, txt=message.split()[0], ln=1, align='C')
-
-            pdf.set_xy(25, 150)
+            pdf.set_xy(10, pdf.get_y())
             pdf.set_text_color(0, 0, 0)
-            pdf.cell(200, 10, txt=message.split()[1], ln=3, align='C')
-
-            explanation_arr = 'Explanation: Arrhythmias are disturbances in the normal cardiac rhythm of the heart, which occur as a result of alterations within the conduction of electrical impulses. They can be caused by various factors, including heart disease, stress, certain medications, and caffeine or nicotine use.'
-
-            recommendation_arr = "Recommendation: The treatment for arrhythmias depends on the type and severity of the arrhythmia. This could include medication, lifestyle changes such as reducing stress and limiting caffeine or nicotine use, or in some cases, medical procedures or surgery. Regular monitoring of the heart's electrical activity is crucial for managing arrhythmias. It's also important to identify and manage any underlying conditions that may be causing the arrhythmia, such as heart disease."
-
-            pdf.set_font("Times", size=12)
-
-            pdf.multi_cell(0, 10, txt=explanation_arr, align='L')
-            pdf.ln(5)
-            pdf.multi_cell(0, 10, txt=recommendation_arr, align='L')
-
-        if message == "Congestive Heart Failure Detected":
-            pdf.set_font("Times", "B", size=15)
+            pdf.cell(200, 10, txt="Result:", align='L')
+            pdf.set_x(28)
             pdf.set_text_color(255, 0, 0)
-            pdf.set_xy(0, 150)
+            pdf.cell(200, 10, txt="Heart", align='L')
+            pdf.set_x(44)
+            pdf.cell(200, 10, txt="Failure", align='L')
             pdf.set_text_color(0, 0, 0)
-            pdf.cell(200, 10, txt=message.split()[0], ln=1, align='C')
-            pdf.set_xy(33, 150)
-            pdf.set_text_color(255, 0, 0)
-            pdf.cell(200, 10, txt=" ".join(message.split()[1:3]), ln=3, align='C')
-            pdf.set_xy(65, 150)
-            pdf.set_text_color(0, 0, 0)
-            pdf.cell(200, 10, txt=message.split()[3], ln=3, align='C')
+            pdf.set_x(62)
+            pdf.cell(200, 10, txt="Detected", align='L')
+            pdf.ln(10)
 
-            explanation_chf = 'Explanation: Heart failure is a serious condition where the heart doesn’t pump blood as well as it should. It can be caused by conditions that damage the heart, such as coronary artery disease and high blood pressure.'
+            explanation_chf = "Heart failure is a serious condition where the heart doesn't pump blood as well as it should. It can be caused by conditions that damage the heart, such as coronary artery disease and high blood pressure."
 
-            recommendation_chf = "Recommendation: Treatment for heart failure typically involves lifestyle changes, medications, and sometimes devices or surgical procedures. Lifestyle changes could include quitting smoking, limiting salt and fluid intake, and getting regular exercise. Medications could include ACE-inhibitors or angiotensin receptor blockers for patients with left ventricular ejection fraction (LVEF) ≤40%, and cholesterol-lowering statins for people with a history of a myocardial infarction or acute coronary syndrome5. Regular follow-ups with a healthcare provider are crucial for managing this condition. It’s also important to fully vaccinate against respiratory illnesses including COVID-19."
+            recommendation_chf = "Treatment for heart failure typically involves lifestyle changes, medications, and sometimes devices or surgical procedures. Lifestyle changes could include quitting smoking, limiting salt and fluid intake, and getting regular exercise. Medications could include ACE-inhibitors or angiotensin receptor blockers for patients with left ventricular ejection fraction (LVEF) <=40%, and cholesterol-lowering statins for people with a history of a myocardial infarction or acute coronary syndrome5. Regular follow-ups with a healthcare provider are crucial for managing this condition. It's also important to fully vaccinate against respiratory illnesses including COVID-19.".replace('\u2264', '<=')
 
-            pdf.set_font("Times", size=12)
-
-            pdf.multi_cell(0, 10, txt=explanation_chf, align='L')
-            pdf.ln(5)
-            pdf.multi_cell(0, 10, txt=recommendation_chf, align='L')
+            add_section(pdf, "Explanation:", explanation_chf)
+            add_section(pdf, "Recommendation:", recommendation_chf)
+            add_contact_info(pdf)
 
         pdf.output(output_file_path)
 
@@ -216,10 +244,6 @@ def process_ecg_file(file_path):
 
     except Exception as e:
         return {'error': str(e)}
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
