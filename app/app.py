@@ -232,7 +232,7 @@ def process_ecg_file(file_path):
             pdf.set_text_color(0, 0, 0)
             pdf.cell(200, 10, txt="Result:", align='L')
             pdf.set_x(28)
-            pdf.set_text_color(255, 0, 0)
+            pdf.set_text_color(0, 0, 255)
             pdf.cell(200, 10, txt="Heart", align='L')
             pdf.set_x(43)
             pdf.cell(200, 10, txt="Failure", align='L')
