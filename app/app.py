@@ -20,7 +20,7 @@ output_file_path = os.path.join(project_directory, static_directory, "output.pdf
 logo = os.path.join(os.path.dirname(project_directory), images_directory, "rhythmilogo.png")
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, origins=['https://rhythmi.org'])  # Enable CORS for all routes
 
 def add_section(pdf, title, content):
     pdf.set_font("Times", "B", size=15)
