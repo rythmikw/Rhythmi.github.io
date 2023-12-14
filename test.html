@@ -183,7 +183,7 @@ document.getElementById('textForm').addEventListener('submit', async function (e
   formData.append('file', file);
 
   try {
-    const response = await fetch('http://localhost:8080/upload', {
+    const response = await fetch('https://rhythmi.xyz/upload', {
       method: 'POST',
       body: formData,
     });
@@ -208,7 +208,7 @@ document.getElementById('textForm').addEventListener('submit', async function (e
 });
 
 downloadButton.addEventListener('click', function () {
-  window.location.href = 'http://localhost:8080/download/output.pdf';
+  window.location.href = 'https://rhythmi.xyz/download/output.pdf';
 });
 
 
