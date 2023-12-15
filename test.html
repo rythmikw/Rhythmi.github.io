@@ -266,7 +266,7 @@ downloadButton.addEventListener('click', function () {
       <div class="col-md-8">
         <div class="test_form text-center p-4 rounded shadow bg-light">
           <h2 class="mb-4">Delete Uploaded File</h2>
-          <button id="deleteFileButton" class="btn btn-success btn-lg" style="display: none;" onclick="deleteFileSection()">Delete File</button>
+          <button id="deleteFileButton" class="btn btn-success btn-lg" style="display: none; background-color: #006400;" onclick="deleteFileSection()">Delete File</button>
         </div>
       </div>
     </div>
@@ -295,7 +295,7 @@ downloadButton.addEventListener('click', function () {
     document.getElementById("download").style.display = "none";
     document.getElementById("delete_file_section").style.display = "none"; // Hide the delete section
     alert("File deleted successfully!");
-    location.reload();
+     location.reload();
   }
   </script>
   
