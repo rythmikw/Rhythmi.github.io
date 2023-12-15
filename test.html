@@ -33,12 +33,41 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+
+
 <style>
-.bold-text {
-    font-weight: bold;
+/* Style the upload heading */
+.upload-heading {
+  background-color: #881111; /* Dark red background color */
+  color: #fff; /* White text color */
+  padding: 10px; /* Add some padding to the box */
+  border-radius: 5px; /* Add rounded corners */
+  font-weight: bold; /* Make the text bold */
+  margin-bottom: 20px; /* Adjust margin as needed */
 }
 
 
+.bold-text {
+    font-weight: bold;
+}
+.file-name-box {
+    background-color: #f8f9fa; /* Light gray background color */
+    width: 300px; /* Set your desired fixed width here */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inner shadow */
+  }
+
+  .file-name {
+    color: #525252; /* Gray text color */
+    font-weight: bold;
+  }
+
+
+
+.btn-success.btn-lg[style="display: none;"] {
+  margin-top: 0; /* Remove margin when the button is not displayed */
+}
 </style>
 </head>
 
@@ -136,17 +165,19 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="test_form text-center p-4 rounded shadow bg-light">
-          <h2 class="mb-4">Upload your ECG File and Start Testing</h2>
+          <h2 class="upload-heading mb-4">Upload your ECG File and Start Testing</h2>
           <form id="textForm" enctype="multipart/form-data">
             <div class="form-group">
               <label for="textFile" class="sr-only">Select a .txt File:</label>
-              <div class="input-group">
+              <div class="input-group d-flex justify-content-center"> <!-- Center the button -->
                 <input type="file" name="file" id="textFile" class="form-control file-input" style="display: none;" accept=".txt" onchange="displayFileName(this);">
-                <label for="textFile" class="btn btn-primary btn-choose-file">Choose a File</label>
-                <span id="selectedFile" class="ml-3 file-name"></span>
+                <label for="textFile" class="btn btn-success btn-lg btn-choose-file">Choose a File</label> <!-- Add btn-danger class -->
+              </div>
+              <div class="file-name-box mt-3 d-inline-block"style="width: 300px;">
+                <span id="selectedFile" class="file-name">Please choose your ECG file</span>
               </div>
             </div>
-            <button type="submit" class="btn btn-success btn-lg">Start Testing!</button>
+            <button type="submit" id="startTestingButton" class="btn btn-success btn-lg" style="display: none;">Start Testing!</button>
           </form>
           <p class="mt-3 text-muted">Your data will <span style="color: red;">NOT</span> be saved in our system</p>
           <div id="output" class="bold-text"></div> <!-- This div will show the result from the server -->
@@ -157,10 +188,21 @@
         </div>
       </div>
     </div>
-  </div>
+
+  <section class="delete_file_section py-5" style="display: none;" id="delete_file_section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="test_form text-center p-4 rounded shadow bg-light">
+            <h2 class="mb-4">Delete Uploaded File</h2>
+            <button id="deleteFileButton" class="btn btn-success btn-lg" style="display: none;" onclick="deleteFileSection()">Delete File</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </section>
 <!-- end test section with enhanced design -->
-
 
 <script>
 const loadingElement = document.getElementById('loading');
@@ -214,27 +256,16 @@ downloadButton.addEventListener('click', function () {
 
 </script>
 
-<script>
-  function displayFileName(input) {
-      var fileNameDisplay = document.getElementById("selectedFile");
-  
-      if (input.files && input.files.length > 0) {
-          fileNameDisplay.textContent = input.files[0].name;
-      } else {
-          fileNameDisplay.textContent = "No file selected";
-      }
-  }
-  </script>
 
-<!-- file deletion section -->
-<section class="delete_file_section py-4">
+
+<!-- File deletion section -->
+<section class="delete_file_section py-5" style="display: none;" id="delete_file_section">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="text-center">
+        <div class="test_form text-center p-4 rounded shadow bg-light">
           <h2 class="mb-4">Delete Uploaded File</h2>
-          <p>Click the button below to delete the uploaded .txt file.</p>
-          <button id="deleteFileButton" class="btn btn-danger">Delete File</button>
+          <button id="deleteFileButton" class="btn btn-success btn-lg" style="display: none;" onclick="deleteFileSection()">Delete File</button>
         </div>
       </div>
     </div>
@@ -256,20 +287,51 @@ downloadButton.addEventListener('click', function () {
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
 
 <script>
-  document.getElementById("deleteFileButton").addEventListener("click", function () {
+  function deleteFileSection() {
     // Add code to delete the uploaded file on the server (not shown in this example).
     document.getElementById("output").textContent = "";
     document.getElementById("selectedFile").textContent = "";
-    document.getElementById("download").style.display="none";
-  });
+    document.getElementById("download").style.display = "none";
+    document.getElementById("delete_file_section").style.display = "none"; // Hide the delete section
+    alert("File deleted successfully!");
+  }
+  </script>
+  
 </script>
+<script>
+function displayFileName(input) {
+  var selectedFile = document.getElementById("selectedFile");
+  var fileNameBox = document.querySelector('.file-name-box');
+  var deleteFileSection = document.querySelector('.delete_file_section');
+  var deleteButton = document.getElementById("deleteFileButton");
+  var startTestingButton = document.getElementById("startTestingButton"); // Add this line
+
+  if (input.files.length > 0) {
+    selectedFile.textContent = input.files[0].name;
+    fileNameBox.style.width = '300px';
+    // Always show the Delete File button when a file is selected
+    deleteButton.style.display = 'inline-block';
+    deleteFileSection.style.display = 'block';
+
+    // Show the Start Testing button when a file is selected
+    startTestingButton.style.display = 'inline-block'; // Add this line
+  } else {
+    selectedFile.textContent = "";
+    fileNameBox.style.width = '300px';
+    // Hide the Delete File button when no file is selected
+    deleteButton.style.display = 'none';
+    deleteFileSection.style.display = 'none';
+
+    // Hide the Start Testing button when no file is selected
+    startTestingButton.style.display = 'none'; // Add this line
+  }
+}
+</script>
+
 
 
 </body>
 </html>
-
-
-  
 
   <!-- footer section -->
   <footer class="footer_section">
