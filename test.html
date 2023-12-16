@@ -81,6 +81,23 @@
 .btn-success.btn-lg[style="display: none;"] {
   margin-top: 0; /* Remove margin when the button is not displayed */
 }
+
+/* Dark green style for the "Download PDF" button */
+.download-button {
+  background-color: #006400; /* Dark green color */
+  border-color: #006400; /* Dark green border color */
+  color: #fff; /* White text color */
+}
+
+/* Gray style for the "Download PDF" button when clicked */
+.download-button.clicked {
+  background-color: #808080; /* Gray color */
+  border-color: #808080; /* Gray border color */
+  color: #fff; /* White text color */
+}
+
+
+
 </style>
 </head>
 
@@ -197,7 +214,7 @@
           <div id="loading" style="display: none;">
             <i class="fa fa-spinner fa-spin"></i> Processing results...
           </div>
-          <button id="download" class="btn btn-success btn-lg" style="display: none;">Download PDF</button>
+          <button id="download" class="btn btn-success btn-lg download-button" style="display: none;">Download PDF</button>
         </div>
       </div>
     </div>
@@ -263,8 +280,14 @@ document.getElementById('textForm').addEventListener('submit', async function (e
 });
 
 downloadButton.addEventListener('click', function () {
+  // Change the button style when clicked
+  downloadButton.classList.add('clicked');
+  // Prevent further clicks
+  downloadButton.disabled = true;
+  // Add your download logic here (e.g., window.location.href)
   window.location.href = 'https://rhythmi.xyz/download/output.pdf';
 });
+
 
 
 </script>
