@@ -3,6 +3,7 @@ from scipy import signal
 from flask_cors import CORS
 from keras.models import load_model
 from datetime import datetime
+import pytz
 import numpy as np
 import pandas as pd
 from fpdf import FPDF
@@ -39,9 +40,9 @@ def add_contact_info(pdf):
     pdf.set_text_color(0, 0, 0)
     pdf.set_x(10)
     pdf.cell(200, 10, txt="Contacts:", align='L')
-    pdf.set_x(40)
+    pdf.set_x(38)
     pdf.cell(200, 10, txt="Email: rhythmi.info@gmail.com ", align='L')
-    pdf.set_x(110)
+    pdf.set_x(115)
     pdf.cell(200, 10, txt="Instagram: rhythmi.co ", align='L')
 
 def add_result_section(pdf, result_label, disease, disease_notify):
@@ -160,11 +161,15 @@ def process_ecg_file(file_path):
         pdf.set_line_width(0.5)
         pdf.line(line_start_x, line_y_start, line_start_x, line_y_start + 30)
         text_line_y = 12
-        today_date = datetime.today().strftime('%Y-%m-%d')
-        current_time = datetime.now().strftime('%H:%M:%S')
+
+
+        kuwait_timezone = pytz.timezone("Asia/Kuwait")
+        kuwait_time = datetime.now(kuwait_timezone)
+        today_date_kuwait = kuwait_time.strftime('%Y-%m-%d')
+        current_time_kuwait = kuwait_time.strftime('%I:%M:%S %p')
         pdf.text(line_start_x + 2, text_line_y, "Rhythmi.co")
-        pdf.text(line_start_x + 2, text_line_y + 10, f"Date: {today_date}")
-        pdf.text(line_start_x + 2, text_line_y + 20, f"Time: {current_time}")
+        pdf.text(line_start_x + 2, text_line_y + 10, f"Date: {today_date_kuwait}")
+        pdf.text(line_start_x + 2, text_line_y + 20, f"Time: {current_time_kuwait}")
 
         # End of header section
         pdf.set_font("Times", "B", size=15)
@@ -185,7 +190,7 @@ def process_ecg_file(file_path):
             pdf.set_text_color(0, 0, 0)
             pdf.cell(200, 10, txt="Result:", align='L')
             pdf.set_x(28)
-            pdf.set_text_color(1, 50, 32)
+            pdf.set_text_color(26, 148, 49)
             pdf.cell(200, 10, txt="Normal", align='L')
             pdf.set_x(47)
             pdf.set_text_color(0, 0, 0)
