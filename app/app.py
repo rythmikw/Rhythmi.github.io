@@ -40,9 +40,9 @@ def add_contact_info(pdf):
     pdf.set_x(10)
     pdf.cell(200, 10, txt="Contacts:", align='L')
     pdf.set_x(40)
-    pdf.cell(200, 10, txt="Website: www.rhythmi.org ", align='L')
+    pdf.cell(200, 10, txt="Email: rhythmi.info@gmail.com ", align='L')
     pdf.set_x(110)
-    pdf.cell(200, 10, txt="Instagram: @rhythmi.co ", align='L')
+    pdf.cell(200, 10, txt="Instagram: rhythmi.co ", align='L')
 
 def add_result_section(pdf, result_label, disease, disease_notify):
     pdf.set_xy(10, 145)
@@ -185,7 +185,7 @@ def process_ecg_file(file_path):
             pdf.set_text_color(0, 0, 0)
             pdf.cell(200, 10, txt="Result:", align='L')
             pdf.set_x(28)
-            pdf.set_text_color(0, 255, 0)
+            pdf.set_text_color(1, 50, 32)
             pdf.cell(200, 10, txt="Normal", align='L')
             pdf.set_x(47)
             pdf.set_text_color(0, 0, 0)
