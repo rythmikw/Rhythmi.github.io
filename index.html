@@ -32,23 +32,6 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
-<style>
-/* Add this to your CSS file */
-#translate-button {
-  
-  background-color: #007bff;
-  color: #fff;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-}
-
-
-
-</style>
-
-
-
 
 </head>
 
@@ -65,26 +48,10 @@
   })();
   </script>
   <!--End of Tawk.to Script-->
-  <script>
-    function translateToArabic() {
-      // Replace 'en' with your source language if it's not English
-      var sourceLanguage = 'en';
-      var targetLanguage = 'ar'; // Arabic
-  
-      // Get the HTML content to be translated
-      var contentToTranslate = document.documentElement.outerHTML;
-  
-      // Create a new URL for Google Translate
-      var translateUrl = `https://translate.google.com/translate?sl=${sourceLanguage}&tl=${targetLanguage}&u=${encodeURIComponent(window.location.href)}&anno=2`;
-  
-      // Redirect the user to the translated page
-      window.location.href = translateUrl;
-    }
-  </script>
-  
 
 
 
+  
 <body>
 
   <div class="hero_area">
