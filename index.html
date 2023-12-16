@@ -32,6 +32,23 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+<style>
+/* Add this to your CSS file */
+#translate-button {
+  
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+</style>
+
+
+
 
 </head>
 
@@ -48,6 +65,25 @@
   })();
   </script>
   <!--End of Tawk.to Script-->
+  <script>
+    function translateToArabic() {
+      // Replace 'en' with your source language if it's not English
+      var sourceLanguage = 'en';
+      var targetLanguage = 'ar'; // Arabic
+  
+      // Get the HTML content to be translated
+      var contentToTranslate = document.documentElement.outerHTML;
+  
+      // Create a new URL for Google Translate
+      var translateUrl = `https://translate.google.com/translate?sl=${sourceLanguage}&tl=${targetLanguage}&u=${encodeURIComponent(window.location.href)}&anno=2`;
+  
+      // Redirect the user to the translated page
+      window.location.href = translateUrl;
+    }
+  </script>
+  
+
+
 
 <body>
 
@@ -77,23 +113,29 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link btn" href="index.html">Home </a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="about.html"> About <span class="sr-only">(current)</span> </a>
+                <a class="nav-link btn" href="about.html"> About <span class="sr-only">(current)</span> </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="services.html">Services</a>
+                <a class="nav-link btn" href="services.html">services</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="engineers.html">Engineers</a>
+                <a class="nav-link btn" href="engineers.html">engineers</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
+                <a class="nav-link btn" href="contact.html">Contact</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="login2.html">Start!</a>
+                <a class="nav-link btn" href="login2.html">start!</a>
               </li>
+              <button id="translate-button" onclick="translateToArabic()">العربية</button>
+              <form class="form-inline">
+                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form>
             </ul>
           </div>
         </nav>

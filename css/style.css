@@ -907,3 +907,13 @@ a:focus {
 }
 /*# sourceMappingURL=style.css.map */
 
+
+/* Add a transition effect to the button */
+.btn {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Define the hover effect */
+.btn:hover {
+  transform: translateY(-5px); /* Adjust the value to control the jump height */
+}
