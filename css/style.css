@@ -132,7 +132,7 @@ a:focus {
 
 .sub_page .hero_area {
   min-height: auto;
-  background-color: #801717;
+  background-color: #6d2121;
 }
 
 .sub_page .hero_area .hero_bg_box {
@@ -182,7 +182,7 @@ a:focus {
 }
 
 .custom_nav-container .nav_search-btn:hover {
-  color: #5f1717;
+  color: #6d2121;
 }
 
 .custom_nav-container .navbar-toggler {
@@ -271,7 +271,7 @@ a:focus {
 }
 
 .slider_section .detail-box {
-  color: #7c1515;
+  color: #6d2121;
 }
 
 .slider_section .detail-box h1 {
@@ -305,7 +305,7 @@ a:focus {
   display: inline-block;
   padding: 10px 15px;
   background-color: #ffffff;
-  color: #571b1b;
+  color: #6d2121;
   border-radius: 5px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;

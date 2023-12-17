@@ -32,6 +32,83 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
 
+  <style>
+    .wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        background-color: #6d2121;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .faq {
+        margin-bottom: 20px;
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+  .accordion {
+    background-color: #6d2121;
+    color: #fff;
+    cursor: pointer;
+    padding: 15px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #e1e1e1;
+    position: relative;
+  }
+
+  .accordion:hover {
+    background-color: #832727; /* Darken the background color on hover */
+  }
+
+  .accordion::before {
+    content: '\25BC'; /* Unicode character for a down-pointing arrow */
+    font-size: 18px;
+    color: #fff;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+  }
+
+  .accordion.active::before {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  .pannel {
+    display: none;
+    padding: 15px;
+    background-color: #f8f9fa;
+  }
+
+  .pannel.show {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+
+  </style>
+
 </head>
 
 <!--Start of Tawk.to Script-->
@@ -105,53 +182,98 @@
     <!-- end header section -->
   </div>
 
-  <section class="department_section layout_padding">
-    <div class="department_container">
-      <div class="container">
-        <div class="text-center">
-          <h2>
-            OUR SERVICES
-          </h2>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-md-3">
-            <div class="box">
-              <div class="img-box">
-                <img src="images/s1.png" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Cardiology
-                </h5>
-                <p class="text-justify">
-                  Explore our Cardiology section to understand heart health, learn about various cardiovascular conditions, and find out how we can help you maintain a healthy heart
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="box">
-              <div class="img-box">
-                <img src="images/s2.png" alt="">
-              </div>
-              <div class="detail-box">
-                <h5>
-                  Diagnosis
-                </h5>
-                  <p class="text-justify">
-                  Our Diagnosis section provides comprehensive insights into various medical tests and procedures, aiding in accurate identification of health issues for effective treatment.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-          </a>
-        </div>
+  <!-- FAQ section -->
+  <div class="wrapper">
+    <h1>Frequently Asked Questions</h1>
+
+    <div class="faq">
+      <button class="accordion">
+        What is RHYTHMI?
+      </button>
+      <div class="pannel">
+        <p>
+          We are a cutting-edge company dedicated to transforming the landscape of healthcare through the power of artificial intelligence. At Rhythmi, our mission is clear: to harness the capabilities of AI and data analytics to enhance the early detection and diagnosis of heart diseases. We are committed to revolutionizing the field of electrocardiography (ECG) by developing innovative AI models that not only assist in accurate ECG interpretation but also make it more accessible and user-friendly for healthcare professionals and patients alike. With a team of passionate experts in AI, cardiology, and data science, we strive to make a significant impact on the lives of millions by providing faster, more accurate, and more convenient tools for predicting and preventing heart diseases. Join us on our journey to create a healthier world through the harmony of technology and healthcare.
+        </p>
       </div>
     </div>
-  </section>
-  
-  <!-- end department section -->
+
+    <div class="faq">
+      <button class="accordion">
+        How does ECG test works?
+      </button>
+      <div class="pannel">
+        <p>
+
+        </p>
+      </div>
+    </div>
+
+    <div class="faq">
+      <button class="accordion">
+        What is the sensor that workes with your website?
+      </button>
+      <div class="pannel">
+        <p>
+
+        </p>
+      </div>
+    </div>
+
+    <div class="faq">
+      <button class="accordion">
+        What are your future works?
+      </button>
+      <div class="pannel">
+        <p>
+
+        </p>
+      </div>
+    </div>
+
+    <div class="faq">
+      <button class="accordion">
+        how can I have credentials to enter the test page?
+      </button>
+      <div class="pannel">
+        <p>
+
+        </p>
+      </div>
+    </div>
+
+    <div class="faq">
+      <button class="accordion">
+        How can I contact RHYTHMI?
+      </button>
+      <div class="pannel">
+        <p>
+
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        this.parentElement.classList.toggle("active");
+
+        var pannel = this.nextElementSibling;
+
+        if (pannel.style.display === "block") {
+          pannel.style.display = "none";
+        } else {
+          pannel.style.display = "block";
+        }
+      });
+    }
+  </script>
+  <!-- end FAQ section -->
+
   <!-- footer section -->
   <footer class="footer_section">
     <div class="container">
@@ -228,7 +350,6 @@
         </div>
         <div class="col-md-6 col-lg-3 footer_col ">
           <h4>
-        </div>
       </div>
       <div class="footer-info">
         <p>
@@ -240,6 +361,7 @@
     </div>
   </footer>
   <!-- footer section -->
+
   <!-- jQery -->
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
   <!-- popper js -->
@@ -253,7 +375,7 @@
   <!-- custom js -->
   <script type="text/javascript" src="js/custom.js"></script>
   <!-- Google Map -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  <script src="https://maps.app.goo.gl/xjhCgjfvR4RqYsRR6">
   </script>
   <!-- End Google Map -->
 
