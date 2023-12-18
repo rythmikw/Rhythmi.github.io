@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="credentials.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000000;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-container h2 {
+            color: #333;
+        }
+
+        .login-container label {
+            display: block;
+            margin-top: 10px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #8b0000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #750000;
+        }
+
+        .error-message {
+            color: #750000;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .contact-message {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .contact-message p {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .contact-message strong {
+            font-weight: bold;
+            color: #8b0000; /* Red color */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        .success-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #4caf4fee;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            z-index: 3;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/65679c37e8301d47ec57f640/1hgebkeoq';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
+
+<body>
+    <div class="overlay"></div>
+    <iframe src="payment/paymentPage.html"></iframe>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required autocomplete="on">
+
+            <label for="password">Password:</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required autocomplete="on">
+                <span class="password-toggle" onclick="togglePasswordVisibility()">
+                    <i id="toggle-icon" class="fas fa-lock"></i>
+                </span>
+            </div>
+
+            <button type="button" onclick="submitForm()">Login</button>
+
+            <div class="error-message" id="errorMessage"></div>
+        </form>
+    </div>
+
+    <div class="contact-message">
+        <p>Contact <strong>RHYTHMI</strong> to get login credentials:</p>
+        <p><strong>Email:</strong> <a href="mailto:rhythmi.info@gmail.com">rhythmi.info@gmail.com</a></p>
+        <p><strong>Instagram:</strong> <a href="https://www.instagram.com/rhythmi.co/" target="_blank">@rhythmi.co</a></p>
+        <p><strong>Live Chat:</strong> (corner right)</p>
+    </div>
+
+    <!-- Success Popup -->
+    <div class="success-popup" id="successPopup">
+        <p>Login successful!</p>
+    </div>
+
+    <script>
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                submitForm();
+            }
+        });
+
+        var savedCredentials = JSON.parse(localStorage.getItem('credentials')) || {};
+        document.getElementById('username').value = savedCredentials.username || '';
+
+        document.querySelector('.overlay').addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+
+        function submitForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (validCredentials[username] && validCredentials[username] === password) {
+                localStorage.setItem('credentials', JSON.stringify({ username: username, password: password }));
+                showSuccessPopup();
+                setTimeout(function () {
+                    window.location.href = 'payment/paymentPage.html';
+                }, 1700); // Redirect after 3 seconds (adjust as needed)
+            } else {
+                if (!validCredentials[username]) {
+                    document.getElementById('errorMessage').innerText = 'Username not found';
+                } else {
+                    document.getElementById('errorMessage').innerText = 'Incorrect password';
+                }
+            }
+        }
+
+        function showSuccessPopup() {
+            var successPopup = document.getElementById('successPopup');
+            successPopup.style.display = 'block';
+            setTimeout(function () {
+                successPopup.style.animation = 'fadeOut 2s';
+                setTimeout(function () {
+                    successPopup.style.display = 'none';
+                    successPopup.style.animation = '';
+                }, 2000);
+            }, 1000); // Adjust the timeout as needed for the desired display duration
+        }
+
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var toggleIcon = document.getElementById("toggle-icon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove("fa-lock");
+                toggleIcon.classList.add("fa-unlock");
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove("fa-unlock");
+                toggleIcon.classList.add("fa-lock");
+            }
+        }
+    </script>
+</body>
+
+</html>
