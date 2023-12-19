@@ -32,6 +32,108 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
 
+
+
+  <style>
+    /* App Section */
+    .app-section {
+      text-align: center;
+      padding: 80px 0;
+    }
+  
+    .app-icon {
+      width: 300;
+      height: 300;
+      margin-bottom: 30px;
+      border-radius: 30px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+
+    }
+  
+    .app-title {
+      font-size: 42px;
+      font-weight: 700;
+      color: #6d2121;
+      margin-bottom: 20px;
+    }
+  
+    .app-description {
+      font-size: 20px;
+      margin-bottom: 40px;
+      color: #555;
+    }
+  
+     /* Download Button */
+  .download-button {
+    display: inline-block;
+    padding: 18px 35px;
+    font-size: 20px;
+    background-color: #6d2121;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .download-button:hover {
+    background-color: #04782b; /* Green on hover */
+  }
+
+  .download-button.clicked {
+    background-color: #555;
+    cursor: not-allowed;
+  }
+  
+  /* Trust Instructions */
+  .trust-instructions {
+    margin-top: 80px;
+    background-color: #fff;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 40px;
+  }
+
+  .trust-instructions h3 {
+    font-size: 28px;
+    color: #6d2121;
+    margin-bottom: 20px;
+  }
+
+  .trust-instructions ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    color: #555;
+  }
+
+  .trust-instructions ol li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .trust-instructions ol li::before {
+    content: '\2022';
+    color: #6d2121;
+    font-size: 24px;
+    position: absolute;
+    left: -20px;
+  }
+
+  .trust-instructions ol li:not(:last-child) {
+    border-bottom: 1px solid #ddd; /* Line between instructions */
+    padding-bottom: 15px;
+  }
+
+  .trust-instructions p {
+    font-size: 18px;
+    color: #555;
+    margin-top: 20px;
+  }
+  </style>
+  
 </head>
 
 <!--Start of Tawk.to Script-->
@@ -111,53 +213,53 @@
     <!-- end header section -->
   </div>
 
-  <!-- contact section -->
-  <section class="contact_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          Get In Touch
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form_container contact-form">
-            <form action="mailto:rythmi.info@gmail.com" method="post" enctype="text/plain">
-              <div class="form-row">
-                <div class="col-lg-6">
-                  <div>
-                    <input type="text" name="name" placeholder="Your Name" />
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div>
-                    <input type="text" name="phone" placeholder="Phone Number" />
-                  </div>
-                </div>
-              </div>
-              <div>
-                <input type="email" name="email" placeholder="Email" />
-              </div>
-              <div>
-                <input type="text" class="message-box" name="message" placeholder="Message" />
-              </div>
-              <div class="btn_box">
-                <button type="submit">
-                  SEND
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="img-box">
-            <img src="images\contactushero.webp" alt="Rhythmi Logo" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- end contact section -->
+  <!-- app Section -->
+
+  <div class="app-section">
+    <img src="images/appicon.png" alt="Rhythmi App Icon" class="app-icon">
+    <h2 class="app-title">RHYTHMI App</h2>
+    <p class="app-description">Experience the power of Rhythmi on your mobile device. Click the button below to start the download.</p>
+    <button onclick="startDownload()" class="download-button">Download App</button>
+  </div>
+
+  <script>
+    function startDownload() {
+      var count = 5;
+      var downloadButton = document.querySelector('.download-button');
+      
+      // Disable the button to prevent multiple clicks
+      downloadButton.classList.add('clicked');
+      downloadButton.disabled = true;
+      
+      var countdownInterval = setInterval(function() {
+        if (count > 0) {
+          downloadButton.innerHTML = 'Download in ' + count + ' seconds';
+          count--;
+        } else {
+          clearInterval(countdownInterval);
+          downloadButton.innerHTML = 'Downloading...';
+          window.location.href = 'https://gonativeio-apps.s3-accelerate.amazonaws.com/static/6554bbd4e341287f01d2ab5f/app-release.apk?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAYMYFO3A75OQPINCL%2F20231219%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231219T122711Z&X-Amz-Expires=14400&X-Amz-Signature=9a37ca95e857d127e8c480ac177f929d3c4ff348376aac29c9e6aac41a736e25&X-Amz-SignedHeaders=host'; // Update this with your app's actual download URL
+        }
+      }, 1000);
+    }
+  </script>
+
+   <!-- Trust Instructions -->
+   <div class="trust-instructions">
+    <h3>How to Trust RHYTHMI App:</h3>
+    <ol>
+      <li>Once the download is complete, open your device's Settings.</li>
+      <li>Navigate to the "Security" or "Privacy" settings.</li>
+      <li>Look for "Unknown Sources" or "Install Unknown Apps" and enable it.</li>
+      <li>Locate the downloaded RHYTHMI App file and tap to install.</li>
+      <li>Follow the on-screen instructions to complete the installation.</li>
+    </ol>
+    <p>If you have any issues, feel free to <a href="contact.html">contact us</a> for assistance.</p>
+  </div>
+
+
+
+  <!-- End app Section -->
 
   <!-- footer section -->
   <footer class="footer_section">
@@ -235,6 +337,7 @@
         </div>
         <div class="col-md-6 col-lg-3 footer_col ">
           <h4>
+        </div>
       </div>
       <div class="footer-info">
         <p>
@@ -246,7 +349,6 @@
     </div>
   </footer>
   <!-- footer section -->
-
   <!-- jQery -->
   <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
   <!-- popper js -->
@@ -260,7 +362,7 @@
   <!-- custom js -->
   <script type="text/javascript" src="js/custom.js"></script>
   <!-- Google Map -->
-  <script src="https://maps.app.goo.gl/xjhCgjfvR4RqYsRR6">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
 
