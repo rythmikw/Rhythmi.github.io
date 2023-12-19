@@ -132,8 +132,24 @@
     color: #555;
     margin-top: 20px;
   }
+
+
+  .google-play-icon{
+    width: 100px;
+      height: 100px;
+      margin-bottom: 30px;
+      border-radius: 30px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      margin-top: 30px;
+
+  }
+
+  .img-box img {
+  max-width: 3000px;
+  height: auto;
+  width: 170px; /* Add this line to ensure the logo takes up the full width of its container */
+}
   </style>
-  
 </head>
 
 <!--Start of Tawk.to Script-->
@@ -220,6 +236,17 @@
     <h2 class="app-title">RHYTHMI App</h2>
     <p class="app-description">Experience the power of Rhythmi on your mobile device. Click the button below to start the download.</p>
     <button onclick="startDownload()" class="download-button">Download App</button>
+    
+    <!-- Google Play Icon and Message for Android -->
+    <div class="android-info">
+      <img src="images/googlePlay.png" alt="Google Play Icon" class="google-play-icon">
+      <p>Available only for Android devices</p>
+    </div>
+    
+    <!-- Coming Soon Message for iOS -->
+    <div class="ios-info">
+      <p>iOS version coming soon!</p>
+    </div>
   </div>
 
   <script>
