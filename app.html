@@ -85,53 +85,60 @@
     cursor: not-allowed;
   }
   
-  /* Trust Instructions */
-  .trust-instructions {
-    margin-top: 80px;
-    background-color: #fff;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 40px;
-  }
+  .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-  .trust-instructions h3 {
-    font-size: 28px;
-    color: #6d2121;
-    margin-bottom: 20px;
-  }
+    .trust-instructions {
+      background-color: #fff;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 600px; /* Adjust the maximum width as needed */
+      width: 100%;
+    }
 
-  .trust-instructions ol {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 18px;
-    color: #555;
-  }
+    .trust-instructions h3 {
+      font-size: 28px;
+      color: #6d2121;
+      margin-bottom: 20px;
+    }
 
-  .trust-instructions ol li {
-    margin-bottom: 15px;
-    padding-left: 20px;
-    position: relative;
-  }
+    .trust-instructions ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+      color: #555;
+    }
 
-  .trust-instructions ol li::before {
-    content: '\2022';
-    color: #6d2121;
-    font-size: 24px;
-    position: absolute;
-    left: -20px;
-  }
+    .trust-instructions ol li {
+      margin-bottom: 15px;
+      padding-left: 20px;
+      position: relative;
+    }
 
-  .trust-instructions ol li:not(:last-child) {
-    border-bottom: 1px solid #ddd; /* Line between instructions */
-    padding-bottom: 15px;
-  }
+    .trust-instructions ol li::before {
+      content: '\2022';
+      color: #6d2121;
+      font-size: 24px;
+      position: absolute;
+      left: -20px;
+    }
 
-  .trust-instructions p {
-    font-size: 18px;
-    color: #555;
-    margin-top: 20px;
-  }
+    .trust-instructions ol li:not(:last-child) {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+    }
+
+    .trust-instructions p {
+      font-size: 18px;
+      color: #555;
+      margin-top: 20px;
+    }
 
 
   .google-play-icon{
@@ -149,6 +156,10 @@
   height: auto;
   width: 170px; /* Add this line to ensure the logo takes up the full width of its container */
 }
+
+.ios-info {
+    margin-bottom: -250px; /* Adjust the negative margin to reduce space */
+  }
   </style>
 </head>
 
@@ -272,16 +283,18 @@
   </script>
 
    <!-- Trust Instructions -->
-   <div class="trust-instructions">
-    <h3>How to Trust RHYTHMI App:</h3>
-    <ol>
-      <li>Once the download is complete, open your device's Settings.</li>
-      <li>Navigate to the "Security" or "Privacy" settings.</li>
-      <li>Look for "Unknown Sources" or "Install Unknown Apps" and enable it.</li>
-      <li>Locate the downloaded RHYTHMI App file and tap to install.</li>
-      <li>Follow the on-screen instructions to complete the installation.</li>
-    </ol>
-    <p>If you have any issues, feel free to <a href="contact.html">contact us</a> for assistance.</p>
+   <div class="center-container">
+    <div class="trust-instructions">
+      <h3><strong>How to Trust RHYTHMI App:</strong></h3>
+      <ol>
+        <li>Once the download is complete, open your device's Settings.</li>
+        <li>Navigate to the "Security" or "Privacy" settings.</li>
+        <li>Look for "Unknown Sources" or "Install Unknown Apps" and enable it.</li>
+        <li>Locate the downloaded RHYTHMI App file and tap to install.</li>
+        <li>Follow the on-screen instructions to complete the installation.</li>
+      </ol>
+      <p>If you have any issues, feel free to <a href="contact.html">contact us</a> for assistance.</p>
+    </div>
   </div>
 
 
