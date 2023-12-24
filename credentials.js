@@ -7,3 +7,6 @@ var validCredentials = {
     'Ebrahim': '0002',
     'wahab': '9699',
 };
+
+// Store in local storage
+localStorage.setItem('validCredentials', JSON.stringify(validCredentials));
