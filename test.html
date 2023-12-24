@@ -102,6 +102,80 @@
   height: auto;
   width: 170px; /* Add this line to ensure the logo takes up the full width of its container */
 }
+
+
+
+
+#welcomeMessage {
+    text-align: center;
+    font-size: 25px;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+#usernameSpan {
+    font-weight: bold;
+    color: darkred;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Black background with some transparency */
+  z-index: 1; /* Lower z-index than the popup container */
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  border-radius: 10px; /* Increase border-radius for a rounded look */
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  background-color: rgb(255, 255, 255);
+  z-index: 2; /* Higher z-index than the overlay */
+  /* Other styles for your popup container */
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 30px; /* Increase padding for a larger container */
+    border-radius: 10px; /* Increase border-radius for a rounded look */
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-weight: bold; /* Add this line to make content bold */
+    font-size: 20px; /* Increase font size for larger text */
+}
+
+.popup-content button {
+    background-color: #881111; /* Background color */
+    color: white; /* Text color */
+    padding: 7px 25px; /* Increase padding for a larger button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Increase border-radius for a rounded look */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Add a smooth hover effect */
+    font-size: 18px; /* Increase font size for a larger button */
+    outline: none; /* Remove outline on focus */
+}
+/* Media query for mobile devices (adjust the max-width as needed) */
+@media (max-width: 768px) {
+    .popup-content button {
+        margin: 5px 0; /* Add margin to the top and bottom of the buttons */
+    }
+}
+
+.popup-content button:hover {
+    background-color: #881111; /* Darker background color on hover */
+}
+
 </style>
 </head>
 
@@ -133,15 +207,12 @@
 
     <header class="header_section">
       <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
-            <span>
-              <div class="col-md-6">
-                <div class="img-box">
-                  <img src="images\whitelogo.png" alt="Rhythmi Logo" class="img-fluid">
-                </div>
-              </div>
-          </a>
+          <nav class="navbar navbar-expand-lg custom_nav-container d-flex justify-content-center align-items-center">
+              <a class="navbar-brand" href="index.html">
+                  <div class="img-box">
+                      <img src="images\whitelogo.png" alt="Rhythmi Logo" class="img-fluid">
+                  </div>
+              </a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class=""> </span>
@@ -150,31 +221,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link btn" href="index.html">Home </a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link btn" href="about.html"> About <span class="sr-only">(current)</span> </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn" href="services.html">services</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn" href="engineers.html">engineers</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn" href="contact.html">Contact</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn" href="pricing.html">Pricing</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn" href="test.html">start!</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn" href="FAQ.html">FAQ</a>
-              </li>
-                            <li class="nav-item">
-                <a class="nav-link btn" href="app.html">download</a>
+                <button class="nav-link btn" onclick="showLogoutPopup()">Logout</button>
               </li>
               <form class="form-inline">
               </form>
@@ -185,6 +232,76 @@
     </header>
     <!-- end header section -->
   </div>
+  <div id="welcomeMessage">
+    Welcome to RHYTHMI <span id="usernameSpan"></span>
+</div> 
+<div id="overlay" class="overlay"></div>
+
+<div id="logoutPopup" class="popup">
+  <div class="popup-content">
+      <p>Are you sure you want to logout?</p>
+      <button onclick="logout()">Yes</button>
+      <button onclick="cancelLogout()">Cancel</button>
+  </div>
+</div>
+
+<script>
+// Function to check if the user is logged in when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    checkLoginStatus();
+});
+
+function checkLoginStatus() {
+    var loggedIn = localStorage.getItem('loggedIn');
+    if (loggedIn === 'true') {
+        var username = localStorage.getItem('username');
+        var usernameSpan = document.getElementById('usernameSpan');
+        usernameSpan.textContent = username;
+        usernameSpan.style.fontWeight = 'bold'; // Make the username bold
+    } else {
+        // Redirect to the login page if not logged in
+        window.location.href = 'login2.html';
+    }
+}
+
+// Function to display the logout confirmation popup and apply blur effect
+function showLogoutPopup() {
+  var popup = document.getElementById('logoutPopup');
+  var overlay = document.getElementById('overlay'); // Get the overlay element
+  var pageContent = document.querySelector('body');
+
+  popup.style.display = 'block';
+  overlay.style.display = 'block'; // Show the overlay
+  pageContent.classList.add('blur'); // Apply the blur effect
+}
+
+function cancelLogout() {
+  var popup = document.getElementById('logoutPopup');
+  var overlay = document.getElementById('overlay'); // Get the overlay element
+  var pageContent = document.querySelector('body');
+
+  popup.style.display = 'none';
+  overlay.style.display = 'none'; // Hide the overlay
+  pageContent.classList.remove('blur'); // Remove the blur effect
+}
+
+// Function to handle the logout operation
+function logout() {
+    try {
+        // Clear the login status and username from localStorage
+        localStorage.removeItem('loggedIn');
+        localStorage.removeItem('username');
+
+        // Redirect back to the login page
+        window.location.href = 'index.html';
+    } catch (error) {
+        // Handle any errors that may occur during logout
+        console.error('Logout error:', error);
+        // You can display an error message to the user if needed
+    }
+}
+</script>
+
 
   <div class="container">
     <section class="image_section py-5">
@@ -195,8 +312,6 @@
         </div>
     </section>
 </div>
-
-
 
 
 <!-- test section with enhanced design -->
@@ -375,6 +490,17 @@ function displayFileName(input) {
 }
 </script>
 
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      var loggedIn = localStorage.getItem('loggedIn');
+      
+      if (!loggedIn || loggedIn !== 'true') {
+          // If not logged in, redirect to the login page
+          window.location.href = 'login2.html';
+      }
+  });
+  </script>
 
 
 </body>

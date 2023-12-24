@@ -4,4 +4,5 @@ var validCredentials = {
     '49001': 'ni002',
     'admin': '00000',
     'StartUp': '2024',
+    'Ebrahim': '0002',
 };
