@@ -41,6 +41,44 @@
   width: 170px; /* Add this line to ensure the logo takes up the full width of its container */
 }
 
+
+
+/* Style for the "Logout" and "Exit page" links */
+.nav-link.btn {
+  position: relative; /* Add relative positioning */
+  text-decoration: none; /* Remove the default underline */
+  color: inherit; /* Inherit text color */
+  font-weight: normal; /* Set normal font weight */
+  display: inline-block; /* Make the links inline-block elements */
+  padding: 0 3px; /* Add some padding to the links */
+  transition: box-shadow 0.3s ease; /* Add a transition effect for the box-shadow */
+}
+
+.nav-link.btn::before {
+  content: ''; /* Create a pseudo-element */
+  position: absolute;
+  left: 0;
+  right: 0; /* Match the width of the links */
+  bottom: -3px; /* Adjust the position to control line thickness */
+  width: auto; /* Set width to auto to match word width */
+  height: 2px; /* Adjust the line thickness */
+  background-color: white; /* Line color */
+  transform: scaleX(0); /* Initial scale to hide the line */
+  transform-origin: center; /* Line expands from the center */
+  transition: transform 0.3s ease; /* Add a transition effect for the line */
+}
+
+.nav-link.btn:hover::before {
+  transform: scaleX(0.7); /* Expand the line on hover */
+  transform-origin: center; /* Line expands from the center on hover */
+}
+
+/* Increase font-weight and add black shadow when hovered */
+.nav-link.btn:hover {
+  font-weight: bold; /* Make the text bold on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a black shadow on hover */
+}
+
   </style>
 </head>
 
