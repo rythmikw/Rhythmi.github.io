@@ -359,7 +359,7 @@ function displayExpirationDate() {
         localStorage.removeItem('username');
         localStorage.removeItem('expirationDate');
 
-        // Redirect back to the login page
+        // Redirect to the index.html page
         window.location.href = 'index.html';
     } catch (error) {
         // Handle any errors that may occur during logout
@@ -367,6 +367,7 @@ function displayExpirationDate() {
         // You can display an error message to the user if needed
     }
 }
+
 
 
 
@@ -398,23 +399,22 @@ function checkSessionExpiration() {
 
 // Function to handle the logout operation
 function logout() {
+    console.log('Logout function called'); // Add this line for debugging
     try {
         // Clear the login status, username, and expiration date from localStorage
         localStorage.removeItem('loggedIn');
         localStorage.removeItem('username');
         localStorage.removeItem('expirationDate');
-
-        // Clear the session expiration timer
-        clearInterval(sessionExpirationTimer);
-
-        // Redirect back to the login page
-        window.location.href = 'login2.html';
+        
+        // Redirect to the index.html page
+        window.location.href = 'index.html'; // Redirect to the index page
     } catch (error) {
         // Handle any errors that may occur during logout
         console.error('Logout error:', error);
         // You can display an error message to the user if needed
     }
 }
+
 
 // Call checkSessionExpiration every minute (adjust the interval as needed)
 // Call checkSessionExpiration every 10 seconds

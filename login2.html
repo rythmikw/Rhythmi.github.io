@@ -254,39 +254,52 @@ body::before {
     
         // Rest of your JavaScript code for login functionality
         function submitForm() {
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-    
-            if (validCredentials[username]) {
-                var credentials = validCredentials[username];
-    
-                // Check if the credentials have not expired
-                // Check if the credentials have not expired
-                var expirationDate = new Date(credentials.expires);
-                var currentDate = new Date();
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
 
-                if (currentDate <= expirationDate && credentials.password === password) {
-                    localStorage.setItem('loggedIn', 'true'); // Set a flag indicating successful login
-                    localStorage.setItem('username', username); // Set the logged-in username
-                    showSuccessPopup();
-                    setTimeout(function () {
-                        window.location.href = 'test.html';
-                    }, 1700); // Redirect after 3 seconds (adjust as needed)
-                } else if (currentDate > expirationDate) {
-                    // Display the expiration date in DD/MM/YYYY format
-                    var day = expirationDate.getDate().toString().padStart(2, '0');
-                    var month = (expirationDate.getMonth() + 1).toString().padStart(2, '0');
-                    var year = expirationDate.getFullYear();
-                    var formattedExpirationDate = day + '/' + month + '/' + year;
-                    var errorMessage = 'Your credentials have expired.';
-                    errorMessage += '<br>Expiration Date: ' + formattedExpirationDate; // Add expiration date
-                    document.getElementById('errorMessage').innerHTML = errorMessage;
-                } else {
-                    document.getElementById('errorMessage').innerText = 'Incorrect password';
-                }
+    if (validCredentials[username]) {
+        var credentials = validCredentials[username];
 
+        // Check if the credentials have not expired
+        var expirationDate = new Date(credentials.expires);
+        var currentDate = new Date();
+
+        if (currentDate <= expirationDate) {
+            if (credentials.password === password) {
+                localStorage.setItem('loggedIn', 'true'); // Set a flag indicating successful login
+                localStorage.setItem('username', username); // Set the logged-in username
+                showSuccessPopup();
+                setTimeout(function () {
+                    window.location.href = 'test.html';
+                }, 1700); // Redirect after 1.7 seconds (adjust as needed)
+            } else {
+                document.getElementById('errorMessage').innerText = 'Incorrect password';
+            }
+        } else {
+            // Display the expiration message only when credentials have expired
+            // and the provided password is correct
+            if (credentials.password === password) {
+                // Display the expiration date in DD/MM/YYYY format
+                var day = expirationDate.getDate().toString().padStart(2, '0');
+                var month = (expirationDate.getMonth() + 1).toString().padStart(2, '0');
+                var year = expirationDate.getFullYear();
+                var formattedExpirationDate = day + '/' + month + '/' + year;
+                var errorMessage = 'Your credentials have expired.';
+                errorMessage += '<br>Expiration Date: ' + formattedExpirationDate; // Add expiration date
+                document.getElementById('errorMessage').innerHTML = errorMessage;
+            } else {
+                document.getElementById('errorMessage').innerText = 'Incorrect password';
             }
         }
+    } else {
+        // If username is not found in validCredentials
+        document.getElementById('errorMessage').innerText = 'Account not found';
+    }
+}
+
+
+
+
         function showSuccessPopup() {
             var successPopup = document.getElementById('successPopup');
             successPopup.style.display = 'block';
