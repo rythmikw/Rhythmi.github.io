@@ -204,22 +204,23 @@ body::before {
     <div class="login-container">
         <ion-icon name="close-circle-outline" class="close-button1"style="font-size: 24px;"onclick="returnToPreviousPage()"></ion-icon>    
             <h2>Login to test page</h2>
-        <form id="loginForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required autocomplete="on">
-
-            <label for="password">Password:</label>
-            <div class="password-container">
-                <input type="password" id="password" name="password" required autocomplete="on">
-                <span class="password-toggle" onclick="togglePasswordVisibility()">
-                    <i id="toggle-icon" class="fas fa-lock"></i>
-                </span>
-            </div>
-
-            <button type="button" onclick="submitForm()">Login</button>
-
-            <div class="error-message" id="errorMessage"></div>
-        </form>
+            <form id="loginForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required autocomplete="on">
+            
+                <label for="password">Password:</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required autocomplete="on">
+                    <span class="password-toggle" onclick="togglePasswordVisibility()">
+                        <i id="toggle-icon" class="fas fa-lock"></i>
+                    </span>
+                </div>
+            
+                <!-- Use type="submit" for the login button -->
+                <button type="submit">Login</button>
+            
+                <div class="error-message" id="errorMessage"></div>
+            </form>
     </div>
 
     <div class="contact-message">
@@ -335,6 +336,14 @@ body::before {
         function returnToPreviousPage() {
             window.location.href = 'index.html';
         }
+
+
+        // Add an event listener to the form to handle Enter key press
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting
+            submitForm(); // Call the submitForm function when Enter key is pressed
+        });
+
     </script>
     
 </body>
