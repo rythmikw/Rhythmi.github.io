@@ -34,6 +34,9 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
 
+  <script src="credentials.js"></script>
+
+
 
 <style>
   
@@ -176,6 +179,18 @@
     background-color: #881111; /* Darker background color on hover */
 }
 
+
+
+
+#expirationDateMessage {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold; /* Add this line to make the font bold */
+    color: darkred; /* Change the color to red */
+    font-family: Arial, sans-serif;
+    margin-top: 20px; /* Adjust margin as needed */
+    padding: 20px;
+}
 </style>
 </head>
 
@@ -232,8 +247,13 @@
     </header>
     <!-- end header section -->
   </div>
-  <div id="welcomeMessage">
-    Welcome to RHYTHMI <span id="usernameSpan"></span>
+<div id="welcomeMessage">
+    <p>Welcome to RHYTHMI:   <span id="usernameSpan"></span></p>
+    <p id="expirationMessage">
+      Your account will expire on: <span id="expirationDateMessage" style="color: darkred;"></span>
+    </p>
+  </div>
+
 </div> 
 <div id="overlay" class="overlay"></div>
 
@@ -246,15 +266,18 @@
 </div>
 
 <script>
-// Function to check if the user is logged in when the page loads
+  // Function to check if the user is logged in when the page loads
 document.addEventListener('DOMContentLoaded', function () {
     checkLoginStatus();
+    displayExpirationDate();
 });
 
 function checkLoginStatus() {
     var loggedIn = localStorage.getItem('loggedIn');
+    console.log('loggedIn:', loggedIn); // Add this line for debugging
     if (loggedIn === 'true') {
         var username = localStorage.getItem('username');
+        console.log('username:', username); // Add this line for debugging
         var usernameSpan = document.getElementById('usernameSpan');
         usernameSpan.textContent = username;
         usernameSpan.style.fontWeight = 'bold'; // Make the username bold
@@ -264,33 +287,77 @@ function checkLoginStatus() {
     }
 }
 
-// Function to display the logout confirmation popup and apply blur effect
-function showLogoutPopup() {
-  var popup = document.getElementById('logoutPopup');
-  var overlay = document.getElementById('overlay'); // Get the overlay element
-  var pageContent = document.querySelector('body');
 
-  popup.style.display = 'block';
-  overlay.style.display = 'block'; // Show the overlay
-  pageContent.classList.add('blur'); // Apply the blur effect
+function displayExpirationDate() {
+    var expirationDateMessage = document.getElementById('expirationDateMessage');
+    var expirationMessage = document.getElementById('expirationMessage'); // Get the paragraph element
+
+    var loggedIn = localStorage.getItem('loggedIn');
+    var username = localStorage.getItem('username');
+
+    if (loggedIn === 'true' && validCredentials[username]) {
+        var credentials = validCredentials[username];
+        var expirationDate = new Date(credentials.expires);
+        var currentDate = new Date();
+        var daysRemaining = Math.floor((expirationDate - currentDate) / (1000 * 60 * 60 * 24)); // Calculate days remaining
+
+        if (daysRemaining <= 10) {
+            var formattedDate = expirationDate.toLocaleDateString('en-GB'); // Format as DD/MM/YYYY
+            expirationDateMessage.textContent = formattedDate;
+        } else {
+            // Hide the message when more than 10 days remaining
+            expirationMessage.style.display = 'none';
+        }
+    }
 }
 
-function cancelLogout() {
-  var popup = document.getElementById('logoutPopup');
-  var overlay = document.getElementById('overlay'); // Get the overlay element
-  var pageContent = document.querySelector('body');
-
-  popup.style.display = 'none';
-  overlay.style.display = 'none'; // Hide the overlay
-  pageContent.classList.remove('blur'); // Remove the blur effect
-}
-
-// Function to handle the logout operation
-function logout() {
+  function isValidExpirationDate(expirationDate) {
+      if (!expirationDate) return false; // No expiration date
+  
+      // Convert the expiration date string to a Date object
+      var expirationDateObj = new Date(expirationDate);
+  
+      // Get the current date
+      var currentDate = new Date();
+  
+      // Calculate the time difference in milliseconds
+      var timeDiff = expirationDateObj - currentDate;
+  
+      // Calculate the number of days until expiration
+      var daysUntilExpiration = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  
+      return daysUntilExpiration >= 0 && daysUntilExpiration <= 10; // Within 10 days
+  }
+  
+  // Function to display the logout confirmation popup and apply blur effect
+  function showLogoutPopup() {
+    var popup = document.getElementById('logoutPopup');
+    var overlay = document.getElementById('overlay'); // Get the overlay element
+    var pageContent = document.querySelector('body');
+  
+    popup.style.display = 'block';
+    overlay.style.display = 'block'; // Show the overlay
+    pageContent.classList.add('blur'); // Apply the blur effect
+  }
+  
+  function cancelLogout() {
+    var popup = document.getElementById('logoutPopup');
+    var overlay = document.getElementById('overlay'); // Get the overlay element
+    var pageContent = document.querySelector('body');
+  
+    popup.style.display = 'none';
+    overlay.style.display = 'none'; // Hide the overlay
+    pageContent.classList.remove('blur'); // Remove the blur effect
+  }
+  
+  // Function to handle the logout operation
+  function logout() {
+    console.log('Logout function called'); // Add this line for debugging
     try {
-        // Clear the login status and username from localStorage
+        // Clear the login status, username, and expiration date from localStorage
         localStorage.removeItem('loggedIn');
         localStorage.removeItem('username');
+        localStorage.removeItem('expirationDate');
 
         // Redirect back to the login page
         window.location.href = 'index.html';
@@ -300,8 +367,60 @@ function logout() {
         // You can display an error message to the user if needed
     }
 }
-</script>
 
+
+
+
+
+  // Add a global variable to store the timer ID
+  let sessionExpirationTimer;
+
+// ...
+
+// Function to check the session expiration date
+function checkSessionExpiration() {
+    var loggedIn = localStorage.getItem('loggedIn');
+    var username = localStorage.getItem('username');
+
+    if (loggedIn === 'true' && validCredentials[username]) {
+        var credentials = validCredentials[username];
+        var expirationDate = new Date(credentials.expires);
+        var currentDate = new Date();
+
+        if (currentDate >= expirationDate) {
+            // Session has expired, log the user out
+            logout();
+        }
+    }
+}
+
+// ...
+
+// Function to handle the logout operation
+function logout() {
+    try {
+        // Clear the login status, username, and expiration date from localStorage
+        localStorage.removeItem('loggedIn');
+        localStorage.removeItem('username');
+        localStorage.removeItem('expirationDate');
+
+        // Clear the session expiration timer
+        clearInterval(sessionExpirationTimer);
+
+        // Redirect back to the login page
+        window.location.href = 'login2.html';
+    } catch (error) {
+        // Handle any errors that may occur during logout
+        console.error('Logout error:', error);
+        // You can display an error message to the user if needed
+    }
+}
+
+// Call checkSessionExpiration every minute (adjust the interval as needed)
+// Call checkSessionExpiration every 10 seconds
+sessionExpirationTimer = setInterval(checkSessionExpiration, 10000); // 10 seconds
+
+  </script>
 
   <div class="container">
     <section class="image_section py-5">

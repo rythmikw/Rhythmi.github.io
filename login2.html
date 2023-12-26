@@ -251,29 +251,42 @@ body::before {
                 window.location.href = 'test.html'; // Redirect to test.html if already signed in
             }
         });
-
+    
         // Rest of your JavaScript code for login functionality
         function submitForm() {
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
+    
+            if (validCredentials[username]) {
+                var credentials = validCredentials[username];
+    
+                // Check if the credentials have not expired
+                // Check if the credentials have not expired
+                var expirationDate = new Date(credentials.expires);
+                var currentDate = new Date();
 
-            if (validCredentials[username] && validCredentials[username] === password) {
-                localStorage.setItem('loggedIn', 'true'); // Set a flag indicating successful login
-                localStorage.setItem('username', username); // Set the logged-in username
-                showSuccessPopup();
-                setTimeout(function () {
-                window.location.href = 'test.html';
-                }, 1700); // Redirect after 3 seconds (adjust as needed)
-            }                
-                else {
-                if (!validCredentials[username]) {
-                    document.getElementById('errorMessage').innerText = 'Username not found';
+                if (currentDate <= expirationDate && credentials.password === password) {
+                    localStorage.setItem('loggedIn', 'true'); // Set a flag indicating successful login
+                    localStorage.setItem('username', username); // Set the logged-in username
+                    showSuccessPopup();
+                    setTimeout(function () {
+                        window.location.href = 'test.html';
+                    }, 1700); // Redirect after 3 seconds (adjust as needed)
+                } else if (currentDate > expirationDate) {
+                    // Display the expiration date in DD/MM/YYYY format
+                    var day = expirationDate.getDate().toString().padStart(2, '0');
+                    var month = (expirationDate.getMonth() + 1).toString().padStart(2, '0');
+                    var year = expirationDate.getFullYear();
+                    var formattedExpirationDate = day + '/' + month + '/' + year;
+                    var errorMessage = 'Your credentials have expired.';
+                    errorMessage += '<br>Expiration Date: ' + formattedExpirationDate; // Add expiration date
+                    document.getElementById('errorMessage').innerHTML = errorMessage;
                 } else {
                     document.getElementById('errorMessage').innerText = 'Incorrect password';
                 }
+
             }
         }
-
         function showSuccessPopup() {
             var successPopup = document.getElementById('successPopup');
             successPopup.style.display = 'block';
@@ -285,11 +298,11 @@ body::before {
                 }, 2000);
             }, 1000); // Adjust the timeout as needed for the desired display duration
         }
-
+    
         function togglePasswordVisibility() {
             var passwordInput = document.getElementById("password");
             var toggleIcon = document.getElementById("toggle-icon");
-
+    
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
                 toggleIcon.classList.remove("fa-lock");
@@ -300,17 +313,17 @@ body::before {
                 toggleIcon.classList.add("fa-lock");
             }
         }
-
-
-
+    
         function closeLoginContainer() {
             var loginContainer = document.querySelector('.login-container');
             loginContainer.style.display = 'none';
         }
-            function returnToPreviousPage() {
-    window.location.href = 'index.html';
-}
+    
+        function returnToPreviousPage() {
+            window.location.href = 'index.html';
+        }
     </script>
+    
 </body>
 
 </html>

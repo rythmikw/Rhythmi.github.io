@@ -246,43 +246,41 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <script>
-
-function closeLoginContainer() {
-            var loginContainer = document.querySelector('.login-container');
-            loginContainer.style.display = 'none';
-        }
-        function returnToPreviousPage() {
-            window.history.back();
-        }
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                submitForm();
+        // Check if the user is already logged in when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            var loggedIn = localStorage.getItem('loggedIn');
+            if (loggedIn === 'true') {
+                window.location.href = 'test.html'; // Redirect to test.html if already signed in
             }
         });
 
-        var savedCredentials = JSON.parse(localStorage.getItem('credentials')) || {};
-        document.getElementById('username').value = savedCredentials.username || '';
-
-        document.querySelector('.overlay').addEventListener('click', function (event) {
-            event.stopPropagation();
-        });
-
+        // Rest of your JavaScript code for login functionality
         function submitForm() {
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
 
-            if (validCredentials[username] && validCredentials[username] === password) {
-                localStorage.setItem('credentials', JSON.stringify({ username: username, password: password }));
-                showSuccessPopup();
-                setTimeout(function () {
-                    window.location.href = 'payment/paymentPage.html';
-                }, 1700); // Redirect after 3 seconds (adjust as needed)
-            } else {
-                if (!validCredentials[username]) {
-                    document.getElementById('errorMessage').innerText = 'Username not found';
+            if (validCredentials[username]) {
+                var credentials = validCredentials[username];
+
+                // Check if the credentials have not expired
+                var expirationDate = new Date(credentials.expires);
+                var currentDate = new Date();
+
+                if (currentDate <= expirationDate && credentials.password === password) {
+                    localStorage.setItem('loggedIn', 'true'); // Set a flag indicating successful login
+                    localStorage.setItem('username', username); // Set the logged-in username
+                    showSuccessPopup();
+                    setTimeout(function () {
+                        window.location.href = 'test.html';
+                    }, 1700); // Redirect after 3 seconds (adjust as needed)
+                } else if (currentDate > expirationDate) {
+                    var errorMessage = 'Your credentials have expired on ' + expirationDate.toLocaleDateString() + '.';
+                    document.getElementById('errorMessage').innerText = errorMessage;
                 } else {
                     document.getElementById('errorMessage').innerText = 'Incorrect password';
                 }
+            } else {
+                document.getElementById('errorMessage').innerText = 'Username not found';
             }
         }
 
@@ -311,6 +309,15 @@ function closeLoginContainer() {
                 toggleIcon.classList.remove("fa-unlock");
                 toggleIcon.classList.add("fa-lock");
             }
+        }
+
+        function closeLoginContainer() {
+            var loginContainer = document.querySelector('.login-container');
+            loginContainer.style.display = 'none';
+        }
+
+        function returnToPreviousPage() {
+            window.location.href = 'index.html';
         }
     </script>
 </body>
