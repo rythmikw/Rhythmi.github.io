@@ -79,6 +79,21 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a black shadow on hover */
 }
 
+
+
+/* Initial state for animated elements */
+.animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Animation when in viewport */
+.animate.in-viewport {
+  opacity: 1;
+  transform: translateY(0);
+}
+
   </style>
 </head>
 
@@ -240,7 +255,7 @@
 
   <!-- department section -->
 
-  <section class="department_section layout_padding">
+  <section class="department_section layout_padding animate">
     <div class="department_container">
       <div class="container">
         <div class="text-center">
@@ -293,7 +308,7 @@
 
   <!-- about section -->
 
-  <section class="about_section layout_margin-bottom">
+  <section class="about_section layout_margin-bottom animate">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -325,7 +340,7 @@
   <!-- end about section -->
  
   <!-- contact section -->
-  <section class="contact_section layout_padding">
+  <section class="contact_section layout_padding animate">
     <div class="container">
       <div class="heading_container">
         <h2>
@@ -479,6 +494,36 @@
   </script>
   <!-- End Google Map -->
 
+
+  <script>
+    // Function to check if an element is in the viewport
+    function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+  
+    // Function to add a class when an element is in the viewport
+    function handleScroll() {
+      const animatedElements = document.querySelectorAll('.animate');
+      
+      animatedElements.forEach((el) => {
+        if (isElementInViewport(el)) {
+          el.classList.add('in-viewport');
+        }
+      });
+    }
+  
+    // Add a scroll event listener to trigger animations on scroll
+    window.addEventListener('scroll', handleScroll);
+  
+    // Trigger animations for elements already in the viewport when the page loads
+    window.addEventListener('load', handleScroll);
+  </script>
 </body>
 
 </html>
