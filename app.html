@@ -35,33 +35,41 @@
 
 
   <style>
-    /* App Section */
-    .app-section {
-      text-align: center;
-      padding: 80px 0;
-    }
-  
-    .app-icon {
-      width: 300;
-      height: 300;
-      margin-bottom: 30px;
-      border-radius: 30px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+/* App Section */
+.app-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Change alignment to flex-start */
+  flex-direction: row; /* Add this line to make them beside each other */
+  padding: 80px 0;
+}
 
-    }
-  
-    .app-title {
-      font-size: 42px;
-      font-weight: 700;
-      color: #6d2121;
-      margin-bottom: 20px;
-    }
-  
-    .app-description {
-      font-size: 20px;
-      margin-bottom: 40px;
-      color: #555;
-    }
+.app-content {
+  flex: 1;
+  margin: 0 10px; /* Adjust margin for spacing */
+  text-align: center;
+}
+
+.app-icon {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  margin-bottom: 30px;
+  border-radius: 30px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.app-icon.square {
+  max-width: 250px;
+  height: 250px;
+}
+
+.app-divider {
+  width: 2px;
+  height: 300px;
+  background-color: #6d2121;
+  margin: 0 20px;
+}
   
      /* Download Button */
   .download-button {
@@ -74,6 +82,7 @@
     border-radius: 8px;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    border: none;
   }
 
   .download-button:hover {
@@ -92,14 +101,15 @@
       height: 100vh;
     }
 
-    .trust-instructions {
-      background-color: #fff;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-      border-radius: 12px;
-      padding: 40px;
-      max-width: 600px; /* Adjust the maximum width as needed */
-      width: 100%;
-    }
+.trust-instructions {
+  background-color: #fff;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 600px; /* Adjust the maximum width as needed */
+  width: 100%;
+}
+
 
     .trust-instructions h3 {
       font-size: 28px;
@@ -161,42 +171,37 @@
     margin-bottom: -250px; /* Adjust the negative margin to reduce space */
   }
 
-  /* Style for the "Logout" and "Exit page" links */
-.nav-link.btn {
-  position: relative; /* Add relative positioning */
-  text-decoration: none; /* Remove the default underline */
-  color: inherit; /* Inherit text color */
-  font-weight: normal; /* Set normal font weight */
-  display: inline-block; /* Make the links inline-block elements */
-  padding: 0 3px; /* Add some padding to the links */
-  transition: box-shadow 0.3s ease; /* Add a transition effect for the box-shadow */
+  .app-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .app-container:hover {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .app-container .card-body {
+    text-align: center;
+  }
+
+  /* Define a keyframe animation called 'jump' */
+@keyframes jump {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px); /* Adjust the jump height as needed */
+  }
 }
 
-.nav-link.btn::before {
-  content: ''; /* Create a pseudo-element */
-  position: absolute;
-  left: 0;
-  right: 0; /* Match the width of the links */
-  bottom: -3px; /* Adjust the position to control line thickness */
-  width: auto; /* Set width to auto to match word width */
-  height: 2px; /* Adjust the line thickness */
-  background-color: white; /* Line color */
-  transform: scaleX(0); /* Initial scale to hide the line */
-  transform-origin: center; /* Line expands from the center */
-  transition: transform 0.3s ease; /* Add a transition effect for the line */
+/* Apply the animation to the card container when hovering */
+.app-container:hover {
+  animation: jump 0.5s ease;
 }
-
-.nav-link.btn:hover::before {
-  transform: scaleX(0.7); /* Expand the line on hover */
-  transform-origin: center; /* Line expands from the center on hover */
-}
-
-/* Increase font-weight and add black shadow when hovered */
-.nav-link.btn:hover {
-  font-weight: bold; /* Make the text bold on hover */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a black shadow on hover */
-}
-
   </style>
 </head>
 
@@ -277,25 +282,37 @@
     <!-- end header section -->
   </div>
 
-  <!-- app Section -->
-
-  <div class="app-section">
-    <img src="images/appicon.png" alt="Rhythmi App Icon" class="app-icon">
-    <h2 class="app-title">RHYTHMI App</h2>
-    <p class="app-description">Experience the power of Rhythmi on your mobile device. Click the button below to start the download.</p>
-    <button onclick="startDownload()" class="download-button">Download App</button>
-    
-    <!-- Google Play Icon and Message for Android -->
-    <div class="android-info">
-      <img src="images/googlePlay.png" alt="Google Play Icon" class="google-play-icon">
-      <p>Available only for Android devices</p>
+<!-- app Section -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card app-container h-100 mb-4">
+        <div class="card-body">
+          <img src="images/appicon.png" alt="Rhythmi App Icon" class="app-icon">
+          <h2 class="app-title"><strong>RHYTHMI App</strong></h2>
+          <p class="app-description">Experience the power of Rhythmi on your mobile device</p>
+          <p>Click the button below to start the download</p>
+          <button onclick="startDownload()" class="download-button">Download App</button>
+          <p class="mt-3"><strong>It's available on Android devices</strong></p>
+          <p>iOS coming soon!</p>
+        </div>
+      </div>
     </div>
-    
-    <!-- Coming Soon Message for iOS -->
-    <div class="ios-info">
-      <p>iOS version coming soon!</p>
+    <div class="col-md-6">
+      <div class="card app-container h-100 mb-4">
+        <div class="card-body">
+          <img src="images/opensignals_logo.png" alt="OpenSignals App Icon" class="app-icon square">
+          <h2 class="app-title"><strong>OpenSignals App</strong></h2>
+          <p class="app-description">Start taking your ECG aquesition ftom BITalino sensor</p>
+          <p>Click the button below to visit download website</p>
+          <button onclick="downloadOpenSignals()" class="download-button">Download App</button>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+<!-- End app Section -->
+
 
   <script>
     function startDownload() {
@@ -318,6 +335,16 @@
       }, 1000);
     }
   </script>
+
+<script>
+  function downloadOpenSignals() {
+      // You can replace this URL with the actual download link for OpenSignals
+      var openSignalsDownloadLink = "https://support.pluxbiosignals.com/knowledge-base/introducing-opensignals-revolution/";
+      
+      // Redirect to the OpenSignals download page
+      window.location.href = openSignalsDownloadLink;
+  }
+</script>
 
    <!-- Trust Instructions -->
    <div class="center-container">
