@@ -247,12 +247,12 @@
 
     <script>
         // Check if the user is already logged in when the page loads
-        document.addEventListener('DOMContentLoaded', function () {
-            var loggedIn = localStorage.getItem('loggedIn');
-            if (loggedIn === 'true') {
-                window.location.href = 'payment/paymentPage.html'; // Redirect to payment/paymentPage.html if already signed in
-            }
-        });
+document.addEventListener('DOMContentLoaded', function () {
+    var loggedIn = localStorage.getItem('loggedIn');
+    if (loggedIn === 'true') {
+        window.location.href = 'payment/paymentPage.html'; // Redirect to payment/paymentPage.html if already signed in
+    }
+});
 
         // Rest of your JavaScript code for login functionality
         function submitForm() {
