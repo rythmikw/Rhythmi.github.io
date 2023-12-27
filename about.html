@@ -80,7 +80,53 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a black shadow on hover */
 }
 
+/* Style the language toggle button */
+.language-toggle button {
+  background-color: #6d2121; /* Dark green color */
+  color: #fff; /* White text color */
+  padding: 10px 20px; /* Button padding */
+  border: none; /* Remove button border */
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  border-radius: 5px; /* Add rounded corners */
+}
 
+/* Define the hover effect for the language toggle button */
+.language-toggle button:hover {
+  transform: translateY(-5px); /* Adjust the value to control the jump height */
+  border: none; /* Remove button border */
+
+}
+
+/* Style the language toggle button when clicked */
+.language-toggle button.clicked {
+  background-color: #808080; /* Gray color */
+  transform: translateY(0); /* Reset the transform on click */
+  border: none; /* Remove button border */
+
+}
+
+/* Remove the focus outline on the language toggle button */
+.language-toggle button:focus {
+  outline: none;
+}
+
+.flag-image {
+  max-width: 20px; /* Set the maximum width for the flag images */
+  max-height: 20px; /* Set the maximum height for the flag images */
+  vertical-align: middle; /* Vertically align the flag images */
+  margin-left: 5px; /* Add some spacing to the left of the flag images */
+}
+
+
+/* Add media query for screens smaller than a certain width (e.g., 768px) */
+@media (max-width: 768px) {
+  /* Set the video width to 100% to make it responsive */
+  #videoPlayer {
+    width: 100%;
+    height: auto;
+  }
+}
   </style>
   
 </head>
@@ -162,37 +208,87 @@
     <!-- end header section -->
   </div>
 
-  <!-- About Section -->
-  <section class="about_section layout_margin-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="img-box">
-            <img src="images\rhythmilogo.png" alt="Rhythmi Logo" class="img-fluid">
-          </div>
+<!-- About Section -->
+<section class="about_section layout_margin-bottom text-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="img-box">
+          <img src="images\rhythmilogo.png" alt="Rhythmi Logo" class="img-fluid">
         </div>
-        <div class="col-md-6">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                About <span>us</span>
-              </h2>
-            </div>
-            <p class="text-justify">
-              Hello Rhythmi's! We are a cutting-edge company dedicated to transforming the landscape of healthcare through the power of artificial intelligence. At Rhythmi, our mission is clear: to harness the capabilities of AI and data analytics to enhance the early detection and diagnosis of heart diseases. We are committed to revolutionizing the field of electrocardiography (ECG) by developing innovative AI models that not only assist in accurate ECG interpretation but also make it more accessible and user-friendly for healthcare professionals and patients alike. With a team of passionate experts in AI, cardiology, and data science, we strive to make a significant impact on the lives of millions by providing faster, more accurate, and more convenient tools for predicting and preventing heart diseases. Join us on our journey to create a healthier world through the harmony of technology and healthcare.
-            </p>
-            
-            <video controls autoplay width="300" height="200">
-              <source src="videos\rhythmi.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+      </div>
+      <div class="col-md-6">
+        <div class="detail-box">
+          <div class="heading_container">
+            <h2>
+              About <span>us</span>
+            </h2>
+          </div>
+          <p class="text-justify">
+            Hello Rhythmi's! We are a cutting-edge company dedicated to transforming the landscape of healthcare through the power of artificial intelligence. At Rhythmi, our mission is clear: to harness the capabilities of AI and data analytics to enhance the early detection and diagnosis of heart diseases. We are committed to revolutionizing the field of electrocardiography (ECG) by developing innovative AI models that not only assist in accurate ECG interpretation but also make it more accessible and user-friendly for healthcare professionals and patients alike. With a team of passionate experts in AI, cardiology, and data science, we strive to make a significant impact on the lives of millions by providing faster, more accurate, and more convenient tools for predicting and preventing heart diseases. Join us on our journey to create a healthier world through the harmony of technology and healthcare.
+          </p>
+          <video id="videoPlayer" controls autoplay muted width="530" height="300">
+            <source src="videos/rhythmi.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <!-- Language toggle button -->
+          <div class="language-toggle mt-3">
+            <button id="languageButton" onclick="toggleLanguage()">
+              <span id="languageText">English</span>
+              <img id="languageFlag" class="flag-image" src="images/us-flag.png" alt="United States Flag">
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
   <!-- End About Section -->
-
+  <script>
+    var isEnglish = true; // Initial language is English
+    var videoPlayer = document.getElementById('videoPlayer');
+    var languageText = document.getElementById('languageText');
+    var languageFlag = document.getElementById('languageFlag');
+    var playbackTime = 0;
+  
+    // Function to toggle the language
+    function toggleLanguage() {
+      // Store the current playback time
+      playbackTime = videoPlayer.currentTime;
+  
+      if (!isEnglish) {
+        // Switch to English version
+        videoPlayer.src = 'videos/rhythmi.mp4';
+        languageText.textContent = 'English';
+        languageFlag.src = 'images/us-flag.png';
+        isEnglish = true;
+      } else {
+        // Switch to Arabic version
+        videoPlayer.src = 'videos/Arabic-rhythmi.mp4';
+        languageText.textContent = 'عربي';
+        languageFlag.src = 'images/kuwait-flag.png';
+        isEnglish = false;
+      }
+  
+      // Set the playback time after switching the video
+      videoPlayer.currentTime = playbackTime;
+  
+      // Load and play the video
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+  
+    // Initially hide the language button if the initial video is Arabic
+    if (videoPlayer.src.includes('Arabic-rhythmi.mp4')) {
+      toggleLanguage();
+    }
+    
+  </script>
+  
+  
+  
+  
+  
   <!-- footer section -->
   <footer class="footer_section">
     <div class="container">
