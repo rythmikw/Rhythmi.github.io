@@ -80,44 +80,72 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a black shadow on hover */
 }
 
-/* Style the language toggle button */
-.language-toggle button {
-  background-color: #6d2121; /* Dark green color */
-  color: #fff; /* White text color */
-  padding: 10px 20px; /* Button padding */
-  border: none; /* Remove button border */
+/* Style the dropdown container */
+.language-toggle {
+  position: relative;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+/* Style the dropdown select element */
+.language-toggle select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #6d2121; /* Dark red color */
+  border: none;
+  padding: 12px 100px; /* Increased width */
+  font-size: 20px;
+  color: #fff; /* White text */
+  width: 100%; /* Set the width to 100% for full width */
+  border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  border-radius: 5px; /* Add rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Define the hover effect for the language toggle button */
-.language-toggle button:hover {
-  transform: translateY(-5px); /* Adjust the value to control the jump height */
-  border: none; /* Remove button border */
-
+/* Style the dropdown arrow icon */
+.language-toggle select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #fff; /* White color */
+  font-size: 14px;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Style the language toggle button when clicked */
-.language-toggle button.clicked {
-  background-color: #808080; /* Gray color */
-  transform: translateY(0); /* Reset the transform on click */
-  border: none; /* Remove button border */
-
+/* Define the hover effect for the dropdown container */
+.language-toggle:hover::after {
+  transform: translateY(-50%) rotate(180deg);
 }
 
-/* Remove the focus outline on the language toggle button */
-.language-toggle button:focus {
+/* Define the hover effect for the dropdown */
+.language-toggle select:hover {
+  background-color: #5a1b1b; /* Darker red color on hover */
+}
+
+/* Define the focus outline for the dropdown */
+.language-toggle select:focus {
   outline: none;
+  background-color: #1d1d1d; /* Darker red color on focus */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+/* Style the dropdown options */
+.language-toggle select option {
+  background-color: rgba(51, 51, 51, 0.5); /* Transparent dark gray background with 50% opacity */
+  color: #fff; /* White text */
+  padding: 10px;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 5px; /* Add border-radius for rounded corners */
 }
 
-.flag-image {
-  max-width: 20px; /* Set the maximum width for the flag images */
-  max-height: 20px; /* Set the maximum height for the flag images */
-  vertical-align: middle; /* Vertically align the flag images */
-  margin-left: 5px; /* Add some spacing to the left of the flag images */
+/* Hover effect for dropdown options */
+.language-toggle select option:hover {
+  background-color: #444; /* Slightly darker gray on hover */
 }
-
 
 /* Add media query for screens smaller than a certain width (e.g., 768px) */
 @media (max-width: 768px) {
@@ -231,12 +259,14 @@
             <source src="videos/rhythmi.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-          <!-- Language toggle button -->
-          <div class="language-toggle mt-3">
-            <button id="languageButton" onclick="toggleLanguage()">
-              <span id="languageText">English</span>
-              <img id="languageFlag" class="flag-image" src="images/us-flag.png" alt="United States Flag">
-            </button>
+          <!-- Language selection dropdown -->
+          <div class="language-toggle">
+            <select id="languageDropdown" onchange="setLanguage()">
+              <option value="English">English</option>
+              <option value="عربي">عربي</option>
+              <option value="French">French</option>
+              <option value="Turkish">Turkish</option>
+            </select>
           </div>
         </div>
       </div>
@@ -245,45 +275,35 @@
 </section>
   <!-- End About Section -->
   <script>
-    var isEnglish = true; // Initial language is English
-    var videoPlayer = document.getElementById('videoPlayer');
-    var languageText = document.getElementById('languageText');
-    var languageFlag = document.getElementById('languageFlag');
-    var playbackTime = 0;
-  
-    // Function to toggle the language
-    function toggleLanguage() {
-      // Store the current playback time
-      playbackTime = videoPlayer.currentTime;
-  
-      if (!isEnglish) {
-        // Switch to English version
-        videoPlayer.src = 'videos/rhythmi.mp4';
-        languageText.textContent = 'English';
-        languageFlag.src = 'images/us-flag.png';
-        isEnglish = true;
-      } else {
-        // Switch to Arabic version
-        videoPlayer.src = 'videos/Arabic-rhythmi.mp4';
-        languageText.textContent = 'عربي';
-        languageFlag.src = 'images/kuwait-flag.png';
-        isEnglish = false;
-      }
-  
-      // Set the playback time after switching the video
-      videoPlayer.currentTime = playbackTime;
-  
-      // Load and play the video
-      videoPlayer.load();
-      videoPlayer.play();
-    }
-  
-    // Initially hide the language button if the initial video is Arabic
-    if (videoPlayer.src.includes('Arabic-rhythmi.mp4')) {
-      toggleLanguage();
-    }
-    
-  </script>
+var videoPlayer = document.getElementById('videoPlayer');
+var languageDropdown = document.getElementById('languageDropdown');
+var currentTime = 0;
+
+// Function to set the selected language
+function setLanguage() {
+  // Store the current playback time
+  currentTime = videoPlayer.currentTime;
+
+  var selectedLanguage = languageDropdown.value;
+
+  if (selectedLanguage === 'English') {
+    videoPlayer.src = 'videos/rhythmi.mp4';
+  } else if (selectedLanguage === 'عربي') {
+    videoPlayer.src = 'videos/Arabic-rhythmi.mp4';
+  } else if (selectedLanguage === 'French') {
+    videoPlayer.src = 'videos/French-rhythmi.mp4';
+  } else if (selectedLanguage === 'Turkish') {
+    videoPlayer.src = 'videos/Turkish-rhythmi.mp4';
+  }
+
+  // Load and play the video
+  videoPlayer.load();
+  videoPlayer.play();
+
+  // Set the stored playback time
+  videoPlayer.currentTime = currentTime;
+}
+ </script>
   
   
   
