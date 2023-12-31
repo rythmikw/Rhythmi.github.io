@@ -188,6 +188,34 @@
             
         }
     </style>
+    <style>
+        .whatsapp-widget {
+          position: fixed;
+          bottom: 90px;
+          right: 25px; /* Change from 'right' to 'left' */
+          width: 60px; /* Increase the width for a larger widget */
+          height: 60px; /* Increase the height for a larger widget */
+          background-color: #25D366;
+          color: #ffffff;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: background-color 0.3s ease, opacity 0.3s ease;
+          opacity: 0;
+          pointer-events: none;
+          z-index: 1001;
+        }
+        
+        .whatsapp-widget i {
+          font-size: 36px; /* Increase the font size for a larger icon */
+        }
+        
+        .whatsapp-widget:hover {
+          background-color: #128C7E;
+        }
+        </style>
 </head>
 
 <!--Start of Tawk.to Script-->
@@ -203,6 +231,29 @@
     })();
 </script>
 <!--End of Tawk.to Script-->
+
+
+  <!--whatsapp widget-->
+  <div class="whatsapp-widget" id="whatsappWidget" onclick="openWhatsApp()">
+    <i class="fa fa-whatsapp"></i>
+  </div>
+  
+  <script>
+    function openWhatsAppPage() {
+      window.open('whatsapp.html', '_blank');
+    }
+  
+    // Show the WhatsApp widget after a delay (e.g., 1 second)
+    setTimeout(function () {
+      const whatsappWidget = document.getElementById('whatsappWidget');
+      whatsappWidget.style.opacity = 1;
+      whatsappWidget.style.pointerEvents = 'auto';
+      whatsappWidget.style.display = 'flex'; // Change to 'flex' from 'block'
+      whatsappWidget.addEventListener('click', openWhatsAppPage);
+    }, 1000);
+  </script>
+  <!--end whatsapp widget-->
+
 
 <body>
     <div class="overlay"></div>
