@@ -380,29 +380,25 @@ body::before {
   </audio>
 
   <script>
-    window.onbeforeunload = function () {
+    var isMuted = false;
+    var previousVolume = 0.3; // Set the initial volume to 30%
+  
+    function toggleMute() {
       var audio = document.getElementById('pageAudio');
-      audio.pause();
-    };
-  </script>
-<script>
-  var isMuted = false;
-
-  function toggleMute() {
-    var audio = document.getElementById('pageAudio');
-    var muteIcon = document.getElementById('muteIcon');
-
-    if (isMuted) {
-      audio.volume = 0.3; // Unmute
-      muteIcon.src = "images/unmute.png";
-    } else {
-      audio.volume = 0.0; // Mute
-      muteIcon.src = "images/mute.png";
+      var muteIcon = document.getElementById('muteIcon');
+  
+      if (isMuted) {
+        audio.volume = previousVolume; // Unmute using the previous volume
+        muteIcon.src = "images/unmute.png";
+      } else {
+        previousVolume = audio.volume; // Save the current volume before muting
+        audio.volume = 0.0; // Mute
+        muteIcon.src = "images/mute.png";
+      }
+  
+      isMuted = !isMuted;
     }
-
-    isMuted = !isMuted;
-  }
-</script>
+  </script>
 <script>
   document.getElementById('pageAudio').volume = 0.3; // Set the initial volume to 30%
 </script>
