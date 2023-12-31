@@ -393,7 +393,7 @@ body::before {
     var muteIcon = document.getElementById('muteIcon');
 
     if (isMuted) {
-      audio.volume = 1.0; // Unmute
+      audio.volume = 0.3; // Unmute
       muteIcon.src = "images/unmute.png";
     } else {
       audio.volume = 0.0; // Mute
