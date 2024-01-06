@@ -15,7 +15,7 @@ app_directory = "app"
 static_directory = "static"
 images_directory = "images"
 
-project_directory = os.path.dirname(os.path.abspath(__file__))
+project_directory = os.getcwd()
 model_path = os.path.join(project_directory, "raw.h5")
 output_file_path = os.path.join(project_directory, static_directory, "output.pdf")
 logo = os.path.join(os.path.dirname(project_directory), images_directory, "rhythmilogo.png")
