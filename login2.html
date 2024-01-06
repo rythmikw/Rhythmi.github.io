@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <!-- Include Font Awesome CSS -->
-    <link href="css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="credentials.js"></script>
-    
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <style>
 body {
     font-family: 'Arial', sans-serif;
@@ -186,34 +184,34 @@ body::before {
             
         }
     </style>
-<style>
-    .whatsapp-widget {
-      position: fixed;
-      bottom: 90px;
-      right: 25px; /* Change from 'right' to 'left' */
-      width: 60px; /* Increase the width for a larger widget */
-      height: 60px; /* Increase the height for a larger widget */
-      background-color: #25D366;
-      color: #ffffff;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.3s ease, opacity 0.3s ease;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 1001;
-    }
-    
-    .whatsapp-widget i {
-      font-size: 36px; /* Increase the font size for a larger icon */
-    }
-    
-    .whatsapp-widget:hover {
-      background-color: #128C7E;
-    }
-    </style>
+    <style>
+        .whatsapp-widget {
+          position: fixed;
+          bottom: 90px;
+          right: 25px; /* Change from 'right' to 'left' */
+          width: 60px; /* Increase the width for a larger widget */
+          height: 60px; /* Increase the height for a larger widget */
+          background-color: #25D366;
+          color: #ffffff;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: background-color 0.3s ease, opacity 0.3s ease;
+          opacity: 0;
+          pointer-events: none;
+          z-index: 1001;
+        }
+        
+        .whatsapp-widget i {
+          font-size: 40px; /* Increase the font size for a larger icon */
+        }
+        
+        .whatsapp-widget:hover {
+          background-color: #128C7E;
+        }
+        </style>
 </head>
 
 <!--Start of Tawk.to Script-->
@@ -249,8 +247,6 @@ body::before {
       whatsappWidget.addEventListener('click', openWhatsAppPage);
     }, 1000);
   </script>
-  <!--end whatsapp section-->
-  </script>
   <!--end whatsapp widget-->
 
 
@@ -258,7 +254,7 @@ body::before {
 
     <div class="login-container">
         <ion-icon name="close-circle-outline" class="close-button1"style="font-size: 24px;"onclick="returnToPreviousPage()"></ion-icon>    
-            <h2>Login to test page</h2>
+            <h2>Login to dashboard page</h2>
             <form id="loginForm">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required autocomplete="on">
@@ -290,7 +286,6 @@ body::before {
         <!-- Your success popup content -->
         <p>Login successful!</p>
     </div>
-
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
@@ -304,12 +299,13 @@ body::before {
         document.addEventListener('DOMContentLoaded', function () {
             var loggedIn = localStorage.getItem('loggedIn');
             if (loggedIn === 'true') {
-                window.location.href = 'test.html'; // Redirect to test.html if already signed in
+                window.location.href = 'dashboard.html'; // Redirect to dashboard.html if already signed in
             }
         });
     
         // Rest of your JavaScript code for login functionality
-        function submitForm() {
+// Rest of your JavaScript code for login functionality
+function submitForm() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
@@ -324,9 +320,10 @@ body::before {
             if (credentials.password === password) {
                 localStorage.setItem('loggedIn', 'true'); // Set a flag indicating successful login
                 localStorage.setItem('username', username); // Set the logged-in username
+                localStorage.setItem('password', password); // Set the password in local storage
                 showSuccessPopup();
                 setTimeout(function () {
-                    window.location.href = 'test.html';
+                    window.location.href = 'dashboard.html';
                 }, 1700); // Redirect after 1.7 seconds (adjust as needed)
             } else {
                 document.getElementById('errorMessage').innerText = 'Incorrect password';
@@ -352,6 +349,7 @@ body::before {
         document.getElementById('errorMessage').innerText = 'Account not found';
     }
 }
+
 
 
 
@@ -400,6 +398,8 @@ body::before {
         });
 
     </script>
+    
+    
     
 </body>
 
