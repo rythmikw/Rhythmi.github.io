@@ -10,9 +10,6 @@ from fpdf import FPDF
 import tempfile
 import os
 import matplotlib.pyplot as plt
-import biosppy.signals.ecg as ecg
-import io
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 app_directory = "app"
 static_directory = "static"
@@ -21,10 +18,46 @@ images_directory = "images"
 project_directory = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(project_directory, "raw.h5")
 output_file_path = os.path.join(project_directory, static_directory, "output.pdf")
-
+logo = os.path.join(os.path.dirname(project_directory), images_directory, "rhythmilogo.png")
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, origins=['https://rhythmi.org'])  # Enable CORS for all routes
+
+def add_section(pdf, title, content):
+    pdf.set_font("Times", "B", size=15)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_x(10)
+    pdf.cell(200, 10, txt=title, align='L')
+    pdf.ln(10)
+    pdf.set_font("Times", size=12)
+    pdf.set_xy(15, pdf.get_y())
+    pdf.multi_cell(0, 10, txt=content, align='L')
+    pdf.ln(3)
+
+def add_contact_info(pdf):
+    pdf.line(10, pdf.get_y(), 200, pdf.get_y())
+    pdf.set_font("Times", "B", size=15)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_x(10)
+    pdf.cell(200, 10, txt="Contacts:", align='L')
+    pdf.set_x(38)
+    pdf.cell(200, 10, txt="Email: rhythmi.info@gmail.com ", align='L')
+    pdf.set_x(115)
+    pdf.cell(200, 10, txt="Instagram: rhythmi.co ", align='L')
+
+def add_result_section(pdf, result_label, disease, disease_notify):
+    pdf.set_xy(10, 145)
+    pdf.set_font("Times", "B", size=15)
+    pdf.set_xy(10, pdf.get_y())
+    pdf.set_text_color(0, 0, 0)
+    pdf.cell(200, 10, txt=result_label, align='L')
+    pdf.set_x(28)
+    pdf.set_text_color(255,165,0)
+    pdf.cell(200, 10, txt=f"{disease}", align='L')
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_x(55)
+    pdf.cell(200, 10, txt=f" {disease_notify}", align='L')
+    pdf.ln(10)
 
 def process_ecg_file(file_path):
     try:
@@ -72,36 +105,6 @@ def process_ecg_file(file_path):
 
         base_line_removal = pd.DataFrame(base_line_removal)
 
-        ecg_signal= base_line_removal/200
-
-        def HR(ecg_signal):
-            R_peaks = []
-            heart_rates = []
-            times_list = []
-
-            str_heart_rates = str(heart_rates)[1:-1]
-
-            # 'ecg_signal' is your DataFrame
-            for index, row in ecg_signal.iterrows():
-                rpeaks = ecg.engzee_segmenter(signal=row, sampling_rate=128)[0]
-                R_peaks.append(rpeaks)
-            for Rpeaks in R_peaks:
-                times = Rpeaks / 128
-                times_list.append(times)
-                # Calculate the differences between successive times
-                RR_intervals = np.diff(times)
-                # Calculate the mean of the RR intervals
-                mean_RR_interval = np.mean(RR_intervals)
-                # Calculate the heart rate from mean RR interval
-                # mean_RR_interval should be in seconds
-                heart_rate = int(60 / mean_RR_interval)
-
-                heart_rates.append(heart_rate)
-
-            Max_HR = int(np.mean(heart_rates))
-            str_heart_rates = str(Max_HR)
-            return str_heart_rates, times_list
-
         model = load_model(model_path)
 
         X_new = base_line_removal / 200
@@ -122,226 +125,134 @@ def process_ecg_file(file_path):
         else:
             result = "No Prediction"
 
- # Print the corresponding message
         if highest_count_class == int(target_names[0]):
-            fig, axs = plt.subplots(3, 1, figsize=(12,6))
-            axs[0].plot(base_line_removal.iloc[0]/200)
-            axs[1].plot(base_line_removal.iloc[1]/200)
-            axs[2].plot(base_line_removal.iloc[2]/200)
+            fig, axs = plt.subplots(3, 1, figsize=(12, 6))
+            axs[0].plot(base_line_removal.iloc[0] / 200)
+            axs[1].plot(base_line_removal.iloc[1] / 200)
+            axs[2].plot(base_line_removal.iloc[2] / 200)
             message = "Arrhythmia Detected"
 
-            
         elif highest_count_class == int(target_names[1]):
-            fig, axs = plt.subplots(3, 1, figsize=(12,6))
-            axs[0].plot(base_line_removal.iloc[0]/200)
-            axs[1].plot(base_line_removal.iloc[1]/200)
-            axs[2].plot(base_line_removal.iloc[2]/200)
-            message = "Congestive Heart Failure Detected"
+            fig, axs = plt.subplots(3, 1, figsize=(12, 6))
+            axs[0].plot(base_line_removal.iloc[0] / 200)
+            axs[1].plot(base_line_removal.iloc[1] / 200)
+            axs[2].plot(base_line_removal.iloc[2] / 200)
+            message = "Heart Failure Detected"
 
         elif highest_count_class == int(target_names[2]):
-            fig, axs = plt.subplots(3, 1, figsize=(12,6))
-            axs[0].plot(base_line_removal.iloc[0]/200)
-            axs[1].plot(base_line_removal.iloc[1]/200)
-            axs[2].plot(base_line_removal.iloc[2]/200)
+            fig, axs = plt.subplots(3, 1, figsize=(12, 6))
+            axs[0].plot(base_line_removal.iloc[0] / 200)
+            axs[1].plot(base_line_removal.iloc[1] / 200)
+            axs[2].plot(base_line_removal.iloc[2] / 200)
             message = "Normal Beat Detected"
 
         else:
             message = "No Prediction"
 
-        # Convert plot to PNG image bytes
-        buf = io.BytesIO()
-        canvas = FigureCanvas(fig)
-        canvas.print_png(buf)
-
-        # Create a new PDF with FPDF
-        pdf = FPDF(unit="mm", format=[297.01,420.03])
-        # Add a page
+        # Generate PDF
+        pdf = FPDF()
         pdf.add_page()
+        pdf.set_font("Times", size=15)
+        # Header section
+        pdf.image(logo, x=10, y=10, w=0, h=30)
+        image_width = 30
+        line_start_x = 12 + image_width + 20
+        line_y_start = 10
+        pdf.set_line_width(0.5)
+        pdf.line(line_start_x, line_y_start, line_start_x, line_y_start + 30)
+        text_line_y = 12
 
-        # Save the BytesIO object as a PNG file
-        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
-        plt.savefig(temp_file.name,format='png')
-
-        # Use correct variable name here
-        pdf.image("D:\\application\\Rhythmi.github.io-main\\images\\result_temp.png",x=0, y=0, w = 297.01 , h = 420.03)
 
         kuwait_timezone = pytz.timezone("Asia/Kuwait")
-
         kuwait_time = datetime.now(kuwait_timezone)
-
         today_date_kuwait = kuwait_time.strftime('%Y-%m-%d')
-
         current_time_kuwait = kuwait_time.strftime('%I:%M:%S %p')
+        pdf.text(line_start_x + 2, text_line_y, "Rhythmi.co")
+        pdf.text(line_start_x + 2, text_line_y + 10, f"Date: {today_date_kuwait}")
+        pdf.text(line_start_x + 2, text_line_y + 20, f"Time: {current_time_kuwait}")
 
+        # End of header section
+        pdf.set_font("Times", "B", size=15)
+        pdf.set_xy(10, 47)
+        pdf.ln(2)
+        pdf.line(10, 42, 200, 42)
+        pdf.cell(200, 10, txt="RHYTHMI's ECG Test", ln=2, align='C')
 
-        pdf.set_font("Arial","B", size=15)
-        pdf.set_text_color(0, 0, 0)
-        pdf.set_xy(97.5,22)
-        pdf.cell(200, 10, txt="Date:", align='L')
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
+        plt.savefig(temp_file.name, format='png')
+        pdf.image(temp_file.name, x=-20, y=58, w=250, h=90, type='png', link='')
 
-        pdf.set_font("Arial","B", size=15)
-        pdf.set_text_color(0, 0, 0)
-        pdf.set_xy(113,22)
-        pdf.cell(200, 10, txt=today_date_kuwait, align='L')
-        pdf.ln(10)
+        if message == "Normal Beat Detected":
 
-        pdf.set_font("Arial","B", size=15)
-        pdf.set_text_color(0, 0, 0)
-        pdf.set_xy(97.5,30)
-        pdf.cell(200, 10, txt="Time:", align='L')
-
-        pdf.set_font("Arial","B", size=15)
-        pdf.set_text_color(0, 0, 0)
-        pdf.set_xy(113,30)
-        pdf.cell(200, 10, txt=current_time_kuwait, align='L')
-        pdf.ln(10)
-
-        # add the plot
-        pdf.image(temp_file.name,x = 20, y = 92, w= 251 , h = 100, type = 'png', link = '')
-
-
-        if message == "Normal Beat Detected" : 
-
-            heart_rate = HR(ecg_signal)
-
-            pdf.set_font("Arial","B", size = 22)
-
-            pdf.set_xy(50, 207)  
+            pdf.set_xy(10, 145)
+            pdf.set_font("Times", "B", size=15)
+            pdf.set_xy(10, pdf.get_y())
+            pdf.set_text_color(0, 0, 0)
+            pdf.cell(200, 10, txt="Result:", align='L')
+            pdf.set_x(28)
             pdf.set_text_color(26, 148, 49)
-            pdf.cell(9, 11, txt="Normal", align='L')
-
-            pdf.set_xy(79,207)
+            pdf.cell(200, 10, txt="Normal", align='L')
+            pdf.set_x(47)
             pdf.set_text_color(0, 0, 0)
-            pdf.cell(9, 11, txt="Beat", align='L')
-
+            pdf.cell(200, 10, txt="Beat", align='L')
             pdf.set_text_color(0, 0, 0)
-            pdf.set_xy(98, 207)
-            pdf.cell(9, 11, txt="Detected", align='L')
-
-            pdf.set_text_color(167, 14, 14)
-            pdf.set_xy(245,207)
-            pdf.cell(100, 11, txt= heart_rate[0], align='L')
+            pdf.set_x(59)
+            pdf.cell(200, 10, txt="Detected", align='L')
             pdf.ln(10)
 
-            pdf.set_text_color(0, 0, 0)
-            pdf.set_xy(256,207)
-            pdf.cell(100, 11, txt= "bpm", align='L')
+            explanation_nrml = 'A normal ECG indicates that the heart is functioning properly. The heart rate should range from 60 to 80 beats per minute, but it may be lower in physically fit individuals.'
 
+            recommendation_nrml = "Maintain a healthy lifestyle, which includes regular exercise and a balanced diet. Regular check-ups with your healthcare provider are also important to monitor your heart health. The heart rate should be between 50 and 100 beats per minute, with the P-wave preceding every QRS complex, and the PR interval being constant. Any significant deviations from these norms should be discussed with a healthcare provider."
 
-            pdf.set_font("Arial","B", size = 15)
-            pdf.set_text_color(0, 0, 0)
-
-            pdf.set_xy(20, 236)
-
-            exp_norm = 'A normal ECG indicates that the heart is functioning properly. The heart rate should typically range from 60 to 100 beats per minute, but it may be lower in physically fit individuals.'
-            pdf.multi_cell(0, 10, txt=exp_norm)
-
-
-            pdf.set_xy(20, 300)
-            rec_norm = "Maintain a healthy lifestyle, which includes regular exercise and a balanced diet. Regular check-ups with your healthcare provider are also important to monitor your heart health. The heart rate should be between 60 and 100 beats per minute."
-            pdf.multi_cell(0, 10, txt=rec_norm)
+            add_section(pdf, "Explanation:", explanation_nrml)
+            add_section(pdf, "Recommendation:", recommendation_nrml)
+            add_contact_info(pdf)
 
         if message == "Arrhythmia Detected":
 
-            heart_rate = HR(ecg_signal)
+            arrhythmia = message.split()[0]
 
-            pdf.set_font("Arial","B", size = 22)
 
-            pdf.set_xy(50, 207)  
-            pdf.set_text_color(255, 165, 0)
-            pdf.cell(9, 11, txt="Arrhythmia", align='L')
+            arr_detected = message.split()[1]
 
-            pdf.set_xy(94,207)
+            add_result_section(pdf, "Result:", arrhythmia, arr_detected)
+            
+            explanation_arr = "Arrhythmias are disturbances in the normal cardiac rhythm of the heart, which occur as a result of alterations within the conduction of electrical impulses. They can be caused by various factors, including heart disease, stress, certain medications, and caffeine or nicotine use."
+
+            recommendation_arr = "The treatment for arrhythmias depends on the type and severity of the arrhythmia. This could include medication, lifestyle changes such as reducing stress and limiting caffeine or nicotine use, or in some cases, medical procedures or surgery. Regular monitoring of the heart's electrical activity is crucial for managing arrhythmias. It's also important to identify and manage any underlying conditions that may be causing the arrhythmia, such as heart disease."
+
+            add_section(pdf, "Explanation:", explanation_arr)
+            add_section(pdf, "Recommendation:", recommendation_arr)
+            add_contact_info(pdf)
+
+        if message == "Heart Failure Detected":
+
+            chf = message.split()[0] + message.split()[1]
+            chf_detected = message.split()[2]
+
+            # add_result_section(pdf, "Result:", chf, chf_detected)
+            pdf.set_xy(10, 145)
+            pdf.set_font("Times", "B", size=15)
+            pdf.set_xy(10, pdf.get_y())
             pdf.set_text_color(0, 0, 0)
-            pdf.cell(9, 11, txt="Detected", align='L')
-
-            pdf.set_text_color(167, 14, 14)
-            pdf.set_xy(245,207)
-            pdf.cell(100, 11, txt= heart_rate[0], align='L')
+            pdf.cell(200, 10, txt="Result:", align='L')
+            pdf.set_x(28)
+            pdf.set_text_color(255, 0, 0)
+            pdf.cell(200, 10, txt="Heart", align='L')
+            pdf.set_x(43)
+            pdf.cell(200, 10, txt="Failure", align='L')
+            pdf.set_text_color(0, 0, 0)
+            pdf.set_x(61)
+            pdf.cell(200, 10, txt="Detected", align='L')
             pdf.ln(10)
 
-            pdf.set_text_color(0, 0, 0)
-            pdf.set_xy(256,207)
-            pdf.cell(100, 11, txt= "bpm", align='L')
-                
-            
-            r1="The treatment for arrhythmias depends on the type and severity of the arrhythmia. it can be medication, lifestyle changes such"
-            r2="as reducing stress and limiting caffeine or nicotine use, or in some cases, medical procedures or surgery. Regular monitoring of" 
-            r3="The heart's electrical activity is crucial for managing arrhythmias as well as any underlying conditions such as heart disease."
-            
-            rrr= r1 + "" + r2 + "" + r3 + ""
-
-            pdf.set_font("Arial","B", size = 15)
-            pdf.set_text_color(0, 0, 0)
-
-            pdf.set_xy(20, 235)
-
-            exp_arr= 'Arrhythmias are disturbances in the normal cardiac rhythm of the heart, which occur as a result of'
-            
-
-            pdf.set_xy(20, 247)
-
-            exp_arr2 = "alterations within the conduction of electrical impulses. They can be They can be caused by various"
-            
-
-            pdf.set_xy(20, 260)
-
-            exp_arr3 = "factors, including heart disease, stress, certain medications, and caffeine or nicotine use."
-            
-        
-            eee = exp_arr + "" + exp_arr2 + "" + exp_arr3 + ""
-
-            pdf.set_font("Arial","B", size = 15)
-            pdf.set_text_color(0, 0, 0)
-
-            pdf.set_xy(20, 235)
-            pdf.multi_cell(0, 10, txt = eee)
-
-
-            pdf.set_font("Arial","B", size = 15)
-            pdf.set_text_color(0, 0, 0)
-
-            pdf.set_xy(18, 300)
-            pdf.multi_cell(0, 9, txt = rrr)
-            
-        if message == "Congestive Heart Failure Detected":
-
-            heart_rate = HR(ecg_signal)
-
-            pdf.set_font("Arial","B", size = 22)
-
-            pdf.set_xy(50, 207)  
-            pdf.set_text_color(255, 0, 0)
-            pdf.cell(9, 11, txt="Heart", align='L')
-            pdf.set_xy(72,207)
-            pdf.set_text_color(255, 0, 0)
-            pdf.cell(9, 11, txt="Failure", align='L')
-
-            pdf.set_text_color(0, 0, 0)
-            pdf.set_xy(100, 207)
-            pdf.cell(9, 11, txt="Detected", align='L')
-            
-            pdf.set_text_color(167, 14, 14)
-            pdf.set_xy(245,207)
-            pdf.cell(100, 11, txt= heart_rate[0], align='L')
-            pdf.ln(10)
-
-            pdf.set_text_color(0, 0, 0)
-            pdf.set_xy(259,207)
-            pdf.cell(100, 11, txt= "bpm", align='L')
-
-            pdf.set_font("Arial","B", size = 15)
-            pdf.set_text_color(0, 0, 0)
-
-            pdf.set_xy(20, 236)
             explanation_chf = "Heart failure is a serious condition where the heart doesn't pump blood as well as it should. It can be caused by conditions that damage the heart, such as coronary artery disease and high blood pressure."
 
-            pdf.multi_cell(0, 10, txt=explanation_chf)
-
-            pdf.set_xy(20, 300)
             recommendation_chf = "Treatment for heart failure typically involves lifestyle changes, medications, and sometimes devices or surgical procedures. Lifestyle changes could include quitting smoking, limiting salt and fluid intake, and getting regular exercise. Medications could include ACE-inhibitors or angiotensin receptor blockers for patients with left ventricular ejection fraction <=40%, and cholesterol-lowering statins for people with a history of a myocardial infarction or acute coronary syndrome5. Regular follow-ups with a healthcare provider are crucial for managing this condition.".replace('\u2264', '<=')
 
-            pdf.multi_cell(0, 10, txt=recommendation_chf)
+            add_section(pdf, "Explanation:", explanation_chf)
+            add_section(pdf, "Recommendation:", recommendation_chf)
+            add_contact_info(pdf)
 
         pdf.output(output_file_path)
 
