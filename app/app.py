@@ -25,7 +25,7 @@ logo = os.path.join(os.path.dirname(project_directory), images_directory, "resul
 
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, origins=['https://rhythmi.org'])  # Enable CORS for all routes
 
 def process_ecg_file(file_path):
     try:
