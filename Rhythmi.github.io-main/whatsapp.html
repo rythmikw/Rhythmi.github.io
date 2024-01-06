@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/whitelogo.png" type="">
+  <title>Rhythmi</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wyqq5STNQI7Guk5Hx/8L4Bk4ceqPaXrlLl" crossorigin="anonymous">
+
+
+
+  <!-- Add your WhatsApp styles below -->
+  <style>
+/* General page styles */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.823), rgba(0, 0, 0, 0)), url('images/whatsback.png') center center/cover no-repeat;
+  z-index: -1;
+}
+
+/* Header styles */
+.header_section {
+  background-color: black;
+  color: white;
+  
+}
+
+.img-box img {
+  max-width: 3000px;
+  height: auto;
+  width: 170px;
+}
+
+.nav-link.btn {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  font-weight: normal;
+  display: inline-block;
+  padding: 0 3px;
+  transition: box-shadow 0.3s ease;
+}
+
+.nav-link.btn::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  width: auto;
+  height: 2px;
+  background-color: white;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.nav-link.btn:hover::before {
+  transform: scaleX(0.7);
+  transform-origin: center;
+}
+
+.nav-link.btn:hover {
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+/* WhatsApp container styles */
+.whatsapp-container {
+  text-align: center;
+  padding: 60px;
+  background: linear-gradient(#25d366, #1a9246), #25d366;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  margin: 100px auto 20px;
+  max-width: 700px;
+  position: relative;
+}
+
+/* WhatsApp logo styles */
+.whatsapp-logo-container {
+  margin-bottom: 20px;
+}
+
+.whatsapp-logo {
+  width: 40px; /* Adjust the width as needed */
+  height: auto;
+  background-color: transparent;
+}
+
+/* Heading styles */
+.whatsapp-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Paragraph styles */
+.whatsapp-container p {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+/* WhatsApp button styles */
+.whatsapp-button {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  background-color: #34af23; /* Darker green for button */
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  background-color: #128c7e; /* Lighter green on hover */
+}
+
+/* Font Awesome icon styles */
+.fab.fa-whatsapp {
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+/* Footer styles */
+.footer_section {
+  margin-top: auto;
+  background-color: black;
+  color: white;
+  padding: 20px 0;
+}
+
+.footer-info {
+  text-align: center;
+}
+
+
+/* Responsive styles */
+@media (max-width: 767px) {
+  .whatsapp-container {
+    max-width: 79%; /* Adjust width for smaller screens */
+    padding: 30px; /* Adjust padding for smaller screens */
+  }
+
+  .whatsapp-container h1 {
+    font-size: 20px; /* Adjust heading font size for smaller screens */
+    margin-bottom: 15px;
+  }
+
+  .whatsapp-container p {
+    font-size: 14px; /* Adjust paragraph font size for smaller screens */
+    margin-bottom: 20px;
+  }
+
+  .whatsapp-button {
+    padding: 10px 20px; /* Adjust button padding for smaller screens */
+    font-size: 16px; /* Adjust button font size for smaller screens */
+  }
+}
+
+  </style>
+  <style>
+    /* Mute button styles */
+#muteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none; /* Add this to remove the border outline on click */
+  display: block; /* Ensure the button is a block-level element */
+  margin-right: 10px; /* Add margin to separate the button from other nav items */
+}
+
+#muteIcon {
+  width: 30px;
+  height: auto;
+  background-color: transparent;
+}
+
+/* Adjust styles for smaller screens */
+@media (max-width: 767px) {
+  #muteButton {
+    display: inline-block; /* Show the button as inline-block in smaller screens */
+    margin-right: 0; /* Remove margin in smaller screens */
+  }
+}
+  </style>
+
+<style>
+  /* Language Flags styles */
+  .language-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allow flags to wrap to the next line on smaller screens */
+    margin-top: 40px; /* Increased margin for more space */
+    background-color: rgba(116, 166, 119, 0.334); /* Transparent white background */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 700px; /* Set the maximum width to match the WhatsApp container */
+    margin: 20px auto; /* Center the container */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.859); /* Box shadow for the container */
+  }
+
+  .language-item {
+    margin: 0 25px 25px 20px; /* Adjusted spacing between flags and margins */
+  }
+
+  .language-flag {
+    width: 40px; /* Adjust the width as needed */
+    height: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.663); /* Box shadow for the entire element */
+    border-radius: 50%; /* Maintain circular shape */
+
+  }
+
+  .language-message {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .language-name {
+    margin-top: 5px;
+    font-size: 15px;
+    color: white; /* Set text color to white */
+    font-weight: bold; /* Make the text bold */
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.631); /* Add text shadow */
+  
+  }
+
+    /* Adjusted styles for smaller screens */
+    @media (max-width: 767px) {
+    .language-container {
+      max-width: 80%; /* Adjusted maximum width for smaller screens */
+      padding: 15px; /* Adjusted padding for smaller screens */
+    }
+
+    .language-item {
+      margin: 0 10px 10px 10px; /* Adjusted spacing between flags and margins for smaller screens */
+    }
+  }
+</style>
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <!-- Header Section from the provided page -->
+    <header class="header_section" style="background-color: black; color: white;">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="index.html">
+                <div class="img-box">
+                  <img src="images\whitelogo.png" alt="Rhythmi Logo" class="img-fluid">
+                  <!-- Add the WhatsApp logo here -->
+                  <img src="images/whatsapp.png" alt="WhatsApp Logo" class="whatsapp-logo">
+                </div>
+              </a>
+
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn" href="index.html">home </a>
+              </li>
+              <li class="nav-item">
+                <!-- Change href to "javascript:window.close()" -->
+                <a class="nav-link btn" href="javascript:window.close();">close</a>
+              </li>
+              <!-- Mute/Unmute Button -->
+                <!-- Mute/Unmute Button -->
+                <!-- Mute/Unmute Button -->
+                <button id="muteButton" onclick="toggleMute()" style="background: none; border: none; cursor: pointer;">
+                  <img id="muteIcon" src="images/unmute.png" alt="Mute Icon" style="width: 30px; height: auto; background-color: transparent;">
+                </button>
+              <form class="form-inline">
+              </form>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+<!-- Content Section (Your existing WhatsApp content) -->
+<div class="whatsapp-container">
+    <div class="whatsapp-logo-container">
+      <img src="images/whatsapplogo.webp" alt="WhatsApp Logo" class="whatsapp-logo">
+    </div>
+    <h1>Welcome to Rhythmi's WhatsApp Page</h1>
+    <p>Contact us through WhatsApp to get instant support or information.</p>
+    <a href="https://wa.me/+15512615218" target="_blank" class="whatsapp-button">
+        <i class></i> Chat on WhatsApp
+
+    </a>
+  </div>
+<!-- Above Language Flags Container -->
+<div class="language-message" style="text-align: center; margin-bottom: 20px; font-size: 18px; font-weight: bold; color: white; text-shadow: 4px 4px 4px rgb(0, 0, 0);">
+    Our chat supports these languages!
+  </div>
+<!-- Language Flags Container -->
+<div class="language-container">
+
+  
+    <div class="language-item" style="margin-bottom: 20px;">
+      <img src="images/us-flag.png" alt="English Flag" class="language-flag" />
+      <div class="language-name">English</div>
+    </div>
+  
+    <div class="language-item" style="margin-bottom: 20px;">
+      <img src="images/kuwait-flag.png" alt="Arabic Flag" class="language-flag" />
+      <div class="language-name">العربية</div>
+    </div>
+  
+    <div class="language-item" style="margin-bottom: 20px;">
+      <img src="images/fr-flag.png" alt="French Flag" class="language-flag" />
+      <div class="language-name">Français</div>
+    </div>
+  
+    <div class="language-item" style="margin-bottom: 20px;">
+      <img src="images/tr-flag.png" alt="Turkish Flag" class="language-flag" />
+      <div class="language-name">Türkçe</div>
+    </div>
+  </div>
+
+  <!-- Footer Section from the provided page -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <!-- Add your existing footer content here -->
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By Rhythmi
+        </p>
+      </div>
+    </div>
+  </footer>
+  <!-- end footer section -->
+
+  <audio id="pageAudio" autoplay loop>
+    <source src="videos/whatsong.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    var isMuted = false;
+    var previousVolume = 0.3; // Set the initial volume to 30%
+  
+    function toggleMute() {
+      var audio = document.getElementById('pageAudio');
+      var muteIcon = document.getElementById('muteIcon');
+  
+      if (isMuted) {
+        audio.volume = previousVolume; // Unmute using the previous volume
+        muteIcon.src = "images/unmute.png";
+      } else {
+        previousVolume = audio.volume; // Save the current volume before muting
+        audio.volume = 0.0; // Mute
+        muteIcon.src = "images/mute.png";
+      }
+  
+      isMuted = !isMuted;
+    }
+  </script>
+<script>
+  document.getElementById('pageAudio').volume = 0.3; // Set the initial volume to 30%
+</script>
+
+  
+
+  <!-- Your existing script tags and closing body/html tags -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script type="text/javascript" src="js/custom.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+</body>
+
+</html>
+

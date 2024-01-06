@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/whitelogo.png" type="">
+
+  <title> Rhythmi </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+
+  <style>
+    .wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        background-color: #6d2121;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .faq {
+        margin-bottom: 20px;
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .accordion {
+        background-color: #6d2121;
+        color: #fff;
+        cursor: pointer;
+        padding: 15px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        transition: background-color 0.3s ease;
+        border-bottom: 1px solid #e1e1e1;
+        position: relative;
+    }
+
+    .accordion:hover {
+        background-color: #9a4242;
+        /* Darken the background color on hover */
+    }
+
+    .accordion::before {
+        content: '\25BC';
+        /* Unicode character for a down-pointing arrow */
+        font-size: 18px;
+        color: #fff;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.3s ease;
+    }
+
+    .accordion.active::before {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    .pannel {
+        display: none;
+        padding: 15px;
+        background-color: #f8f9fa;
+    }
+
+    .pannel.show {
+        display: block;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .panel {
+    background-color: rgb(224, 222, 222);
+    border-radius: 10px;
+    padding: 15px;
+    width: 100%;
+    max-width: 600px;
+    /* Adjusted max-width */
+    margin: 0 auto;
+    /* Center the panel */
+    box-sizing: border-box;
+    margin-top: 50px;
+    /* Adjusted margin-top */
+    margin-bottom: 20px;
+    /* Adjusted margin-bottom */
+    box-shadow: 0 4px 8px rgba(0, 0, 0.3, 0.4); /* Add this line for box shadow */
+}
+
+    .pricing-plan {
+        border-bottom: 1px solid #e1f1ff;
+        text-align: center;
+        /* Center the price */
+        margin: 0 auto;
+        /* Center the pricing plan */
+        max-width: 400px;
+        /* Adjusted max-width */
+    }
+
+    .pricing-img {
+        margin-bottom: 15px;
+        max-width: 100%;
+    }
+
+    .pricing-features {
+        margin: 25px 0 15px;
+        color: #000000;
+    }
+
+    .pricing-header {
+    font-weight: bold; /* Add this line to make the text bold */
+    font-size: 30px;
+
+}
+
+    .pricing-features-item {
+    font-weight: bold; /* Add this line to make the text bold */
+    letter-spacing: 1px;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 10px 0;
+    border-top: 1px solid #e1f1ff;
+    transition: color 0.3s ease-in-out;
+}
+
+.pricing-features-item:hover {
+    color: #910202;
+}
+
+    .pricing-features-item:last-child {
+        border-bottom: 1px solid #e1f1ff;
+    }
+
+    .pricing-price {
+        color: #3e8418;
+        display: block;
+        font-size: 40px;
+        /* Adjusted font-size */
+        font-weight: 700;
+        text-shadow: 0 4px 8px rgba(0, 0, 0.3, 0.4); /* Add this line for box shadow */
+    }
+
+.pricing-button {
+    background-color: #6d2121; /* Add this line to set the background color to red */
+    border-radius: 10px;
+    color: #ffffff;
+    font-weight: bold; /* Add this line to make the text bold */
+    display: inline-block;
+    padding: 10px 25px;
+    /* Adjusted padding */
+    text-decoration: none;
+    margin: 15px 0;
+    /* Adjusted margin */
+    transition: background-color 200ms ease-in-out;
+}
+
+.pricing-button:hover {
+    background-color: #3e8418; /* Add this line to set the background color to a darker red on hover */
+}
+
+    .toggle-bar-overlay {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .toggle-bar-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+
+    .toggle-bar-label {
+    margin: 0 10px;
+    color: #6d2121;
+    font-weight: bold; /* Add this line to make the text bold */
+}
+
+
+    .toggle-bar {
+        width: 50px;
+        margin: 0 10px;
+        appearance: none;
+        background: #cfcfcf;
+        /* Adjust the background color as needed */
+        border: 2px solid #6d2121;
+        /* Adjust the border color as needed */
+        border-radius: 20px;
+        outline: none;
+        height: 4px;
+        /* Adjust the height of the bar */
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .toggle-bar::-webkit-slider-thumb {
+        appearance: none;
+        width: 20px;
+        /* Adjust the thumb size */
+        height: 20px;
+        /* Adjust the thumb size */
+        background: #6d2121;
+        /* Adjust the thumb color as needed */
+        border: 2px solid #fff;
+        /* Adjust the thumb border color as needed */
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .toggle-bar::-moz-range-thumb {
+        width: 20px;
+        /* Adjust the thumb size */
+        height: 20px;
+        /* Adjust the thumb size */
+        background: #6d2121;
+        /* Adjust the thumb color as needed */
+        border: 2px solid #fff;
+        /* Adjust the thumb border color as needed */
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .toggle-bar-overlay {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        /* Adjust the background color as needed */
+        padding: 10px 20px;
+        /* Adjust the padding as needed */
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Add a subtle shadow */
+    }
+
+    /* Optional: Adjust the color of the labels and the background when active */
+    .toggle-bar-label.active {
+        color: #fff;
+        background: #6d2121;
+    }
+
+    /* Optional: Add a transition effect for the labels when active */
+    .toggle-bar-label.active {
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    .img-box img {
+  max-width: 3000px;
+  height: auto;
+  width: 170px; /* Add this line to ensure the logo takes up the full width of its container */
+}
+
+
+
+/* Style for the "Logout" and "Exit page" links */
+.nav-link.btn {
+  position: relative; /* Add relative positioning */
+  text-decoration: none; /* Remove the default underline */
+  color: inherit; /* Inherit text color */
+  font-weight: normal; /* Set normal font weight */
+  display: inline-block; /* Make the links inline-block elements */
+  padding: 0 3px; /* Add some padding to the links */
+  transition: box-shadow 0.3s ease; /* Add a transition effect for the box-shadow */
+}
+
+.nav-link.btn::before {
+  content: ''; /* Create a pseudo-element */
+  position: absolute;
+  left: 0;
+  right: 0; /* Match the width of the links */
+  bottom: -3px; /* Adjust the position to control line thickness */
+  width: auto; /* Set width to auto to match word width */
+  height: 2px; /* Adjust the line thickness */
+  background-color: white; /* Line color */
+  transform: scaleX(0); /* Initial scale to hide the line */
+  transform-origin: center; /* Line expands from the center */
+  transition: transform 0.3s ease; /* Add a transition effect for the line */
+}
+
+.nav-link.btn:hover::before {
+  transform: scaleX(0.7); /* Expand the line on hover */
+  transform-origin: center; /* Line expands from the center on hover */
+}
+
+/* Increase font-weight and add black shadow when hovered */
+.nav-link.btn:hover {
+  font-weight: bold; /* Make the text bold on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a black shadow on hover */
+}
+
+</style>
+<style>
+  .whatsapp-widget {
+    position: fixed;
+    bottom: 90px;
+    right: 25px; /* Change from 'right' to 'left' */
+    width: 60px; /* Increase the width for a larger widget */
+    height: 60px; /* Increase the height for a larger widget */
+    background-color: #25D366;
+    color: #ffffff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1001;
+  }
+  
+  .whatsapp-widget i {
+    font-size: 36px; /* Increase the font size for a larger icon */
+  }
+  
+  .whatsapp-widget:hover {
+    background-color: #128C7E;
+  }
+  </style>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Get the toggle bar element
+    var toggleBar = document.getElementById("toggle-bar");
+
+    // Add event listener for toggle bar input
+    toggleBar.addEventListener("input", function () {
+        // Get the selected value (0 for Monthly, 1 for Annually)
+        var selectedValue = toggleBar.value;
+
+        // Get the pricing price element
+        var pricingPrice = document.querySelector(".pricing-price");
+          // Get all pricing plans
+          var pricingPlans = document.querySelectorAll(".pricing-plan");
+
+          // Loop through each pricing plan and update pricing information
+          pricingPlans.forEach(function (plan) {
+              // Get the pricing details elements within the current plan
+              var priceElement = plan.querySelector(".pricing-price");
+              var buttonElement = plan.querySelector(".pricing-button");
+              var imgElement = plan.querySelector(".pricing-img");
+
+              // Update pricing details based on the selected plan (monthly or annually)
+              if (selectedValue === "1") { // If annually
+                  priceElement.textContent = "Annually/$199";
+                  buttonElement.textContent = "PAY now!";
+                  imgElement.src = "images/annual.png"; // Update image source for annually
+                  pricingPrice.style.color = "#aa8822"; // Gold color
+                  pricingPrice.style.textShadow = "2px 2px 4px rgba(0, 0, 0, 0.3)"; // Shadow for Annually
+              } else { // If monthly
+                  priceElement.textContent = "Monthly/$20";
+                  buttonElement.textContent = "PAY now!";
+                  imgElement.src = "images/monthly.png"; // Update image source for monthly
+                  pricingPrice.style.color = "#3e8418"; // Green color
+                  pricingPrice.style.textShadow = "2px 2px 4px rgba(0, 0, 0, 0.3)"; // Shadow for Monthly
+              }
+          });
+      });
+  });
+</script>
+
+</head>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/65679c37e8301d47ec57f640/1hgebkeoq';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+  <!--whatsapp widget-->
+  <div class="whatsapp-widget" id="whatsappWidget" onclick="openWhatsApp()">
+    <i class="fa fa-whatsapp"></i>
+  </div>
+  
+  <script>
+    function openWhatsAppPage() {
+      window.open('whatsapp.html', '_blank');
+    }
+  
+    // Show the WhatsApp widget after a delay (e.g., 1 second)
+    setTimeout(function () {
+      const whatsappWidget = document.getElementById('whatsappWidget');
+      whatsappWidget.style.opacity = 1;
+      whatsappWidget.style.pointerEvents = 'auto';
+      whatsappWidget.style.display = 'flex'; // Change to 'flex' from 'block'
+      whatsappWidget.addEventListener('click', openWhatsAppPage);
+    }, 1000);
+  </script>
+  <!--end whatsapp widget-->
+
+<body class="sub_page">
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <img src="images/hero-bg.png" alt="">
+    </div>
+
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              <div class="col-md-6">
+                <div class="img-box">
+                  <img src="images\whitelogo.png" alt="Rhythmi Logo" class="img-fluid">
+                </div>
+              </div>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn" href="index.html">Home </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link btn" href="about.html"> About <span class="sr-only">(current)</span> </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="services.html">services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="engineers.html">engineers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="contact.html">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="pricing.html">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="login2.html">start!</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="FAQ.html">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="app.html">download</a>
+              </li>
+              <form class="form-inline">
+              </form>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+    <div class="panel">
+
+        <div class="toggle-bar-overlay">
+            <span class="toggle-bar-label">Monthly</span>
+            <input type="range" min="0" max="1" step="1" value="0" class="toggle-bar" id="toggle-bar">
+            <span class="toggle-bar-label">Annually</span>
+        </div>
+
+
+        <div class="pricing-plan">
+            <img src="images/monthly.png" alt="" class="pricing-img">
+            <h2 class="pricing-header">RHYTHMI Subscription plan</h2>
+            <ul class="pricing-features">
+                <li class="pricing-features-item">unlimited ECG test</li>
+                <li class="pricing-features-item">unlimited PDF reports download</li>
+                <li class="pricing-features-item">providing private credentials</li>
+            </ul>
+            <span class="pricing-price">Monthly/$20</span>
+            <a href="loginPay.html" class="pricing-button is-featured">PAY now!</a>
+        </div>
+
+        </div>
+
+    </div>
+
+
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 footer_col">
+          <div class="footer_contact">
+            <h4>
+              Reach at..
+            </h4>
+            <div class="contact_link_box">
+              <a href="https://maps.app.goo.gl/cGZutF6bBtGnhcty6">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Kuwait, Eqaila - AUM
+                </span>
+              </a>
+              <a href="tel:15512615218">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +1 551-261-5218
+                </span>
+              </a>
+              <a href="mailto:rhythmi.info@gmail.com">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  Rhythmi.info@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="footer_social">
+            <a href="https://www.linkedin.com/in/rhythmi-co-a71a332a5/">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.instagram.com/rhythmi.co/">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="https://wa.me/+15512615218">
+              <i class="fa fa-whatsapp" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 footer_col">
+          <div class="footer_detail">
+            <h4>
+              About
+            </h4>
+            <p>
+              Rhythmi's is a cutting-edge company utilizing artificial intelligence to improve early detection and diagnosis of heart diseases, focusing on electrocardiography and data analytics to enhance accessibility and user-friendliness.          </div>
+        </div>
+        <div class="col-md-6 col-lg-2 mx-auto footer_col">
+          <div class="footer_link_box">
+            <h4>
+              Links
+            </h4>
+            <div class="footer_links">
+              <a class="active" href="index.html">
+                Home
+              </a>
+              <a class="" href="about.html">
+                About
+              </a>
+              <a class="" href="services.html">
+                services
+              </a>
+              <a class="" href="engineers.html">
+                engineers
+              </a>
+              <a class="" href="contact.html">
+                Contact Us
+              </a>
+              <a class="" href="login2.html">
+                start!
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 footer_col ">
+          <h4>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By Rhythmi
+
+        </p>
+       
+      </div>  
+    </div>
+  </footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <!-- owl slider -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- custom js -->
+  <script type="text/javascript" src="js/custom.js"></script>
+  <!-- Google Map -->
+  <script src="https://maps.app.goo.gl/xjhCgjfvR4RqYsRR6">
+  </script>
+  <!-- End Google Map -->
+
+</body>
+
+</html>

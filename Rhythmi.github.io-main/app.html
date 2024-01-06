@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/whitelogo.png" type="">
+
+  <title> Rhythmi </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+
+
+
+  <style>
+/* App Section */
+.app-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Change alignment to flex-start */
+  flex-direction: row; /* Add this line to make them beside each other */
+  padding: 80px 0;
+}
+
+.app-content {
+  flex: 1;
+  margin: 0 10px; /* Adjust margin for spacing */
+  text-align: center;
+}
+
+.app-icon {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  margin-bottom: 30px;
+  border-radius: 30px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.app-icon.square {
+  max-width: 250px;
+  height: 250px;
+}
+
+.app-divider {
+  width: 2px;
+  height: 300px;
+  background-color: #6d2121;
+  margin: 0 20px;
+}
+  
+     /* Download Button */
+  .download-button {
+    display: inline-block;
+    padding: 18px 35px;
+    font-size: 20px;
+    background-color: #6d2121;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .download-button:hover {
+    background-color: #04782b; /* Green on hover */
+  }
+
+  .download-button.clicked {
+    background-color: #555;
+    cursor: not-allowed;
+  }
+  
+  .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+.trust-instructions {
+  background-color: #fff;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 600px; /* Adjust the maximum width as needed */
+  width: 100%;
+}
+
+
+    .trust-instructions h3 {
+      font-size: 28px;
+      color: #6d2121;
+      margin-bottom: 20px;
+    }
+
+    .trust-instructions ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+      color: #555;
+    }
+
+    .trust-instructions ol li {
+      margin-bottom: 15px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .trust-instructions ol li::before {
+      content: '\2022';
+      color: #6d2121;
+      font-size: 24px;
+      position: absolute;
+      left: -20px;
+    }
+
+    .trust-instructions ol li:not(:last-child) {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+    }
+
+    .trust-instructions p {
+      font-size: 18px;
+      color: #555;
+      margin-top: 20px;
+    }
+
+
+  .google-play-icon{
+    width: 100px;
+      height: 100px;
+      margin-bottom: 30px;
+      border-radius: 30px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      margin-top: 30px;
+
+  }
+
+  .img-box img {
+  max-width: 3000px;
+  height: auto;
+  width: 170px; /* Add this line to ensure the logo takes up the full width of its container */
+}
+
+.ios-info {
+    margin-bottom: -250px; /* Adjust the negative margin to reduce space */
+  }
+
+  .app-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .app-container:hover {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .app-container .card-body {
+    text-align: center;
+  }
+
+  /* Define a keyframe animation called 'jump' */
+@keyframes jump {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px); /* Adjust the jump height as needed */
+  }
+}
+
+/* Apply the animation to the card container when hovering */
+.app-container:hover {
+  animation: jump 0.5s ease;
+}
+  </style>
+  <style>
+    .whatsapp-widget {
+      position: fixed;
+      bottom: 90px;
+      right: 25px; /* Change from 'right' to 'left' */
+      width: 60px; /* Increase the width for a larger widget */
+      height: 60px; /* Increase the height for a larger widget */
+      background-color: #25D366;
+      color: #ffffff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1001;
+    }
+    
+    .whatsapp-widget i {
+      font-size: 36px; /* Increase the font size for a larger icon */
+    }
+    
+    .whatsapp-widget:hover {
+      background-color: #128C7E;
+    }
+    </style>
+</head>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/65679c37e8301d47ec57f640/1hgebkeoq';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+
+  <!--whatsapp widget-->
+  <div class="whatsapp-widget" id="whatsappWidget" onclick="openWhatsApp()">
+    <i class="fa fa-whatsapp"></i>
+  </div>
+  
+  <script>
+    function openWhatsAppPage() {
+      window.open('whatsapp.html', '_blank');
+    }
+  
+    // Show the WhatsApp widget after a delay (e.g., 1 second)
+    setTimeout(function () {
+      const whatsappWidget = document.getElementById('whatsappWidget');
+      whatsappWidget.style.opacity = 1;
+      whatsappWidget.style.pointerEvents = 'auto';
+      whatsappWidget.style.display = 'flex'; // Change to 'flex' from 'block'
+      whatsappWidget.addEventListener('click', openWhatsAppPage);
+    }, 1000);
+  </script>
+  <!--end whatsapp widget-->
+
+
+<body class="sub_page">
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <img src="images/hero-bg.png" alt="">
+    </div>
+
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              <div class="col-md-6">
+                <div class="img-box">
+                  <img src="images\whitelogo.png" alt="Rhythmi Logo" class="img-fluid">
+                </div>
+              </div>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn" href="index.html">Home </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link btn" href="about.html"> About <span class="sr-only">(current)</span> </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="services.html">services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="engineers.html">engineers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="contact.html">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="pricing.html">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="login2.html">start!</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="FAQ.html">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="app.html">download</a>
+              </li>
+              <form class="form-inline">
+              </form>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+<!-- app Section -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card app-container h-100 mb-4">
+        <div class="card-body">
+          <img src="images/appicon.png" alt="Rhythmi App Icon" class="app-icon">
+          <h2 class="app-title"><strong>RHYTHMI App</strong></h2>
+          <p class="app-description">Experience the power of Rhythmi on your mobile device</p>
+          <p>Click the button below to start the download</p>
+          <button onclick="startDownload()" class="download-button">Download App</button>
+          <p class="mt-3"><strong>It's available on Android devices</strong></p>
+          <p>iOS coming soon!</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card app-container h-100 mb-4">
+        <div class="card-body">
+          <img src="images/opensignals_logo.png" alt="OpenSignals App Icon" class="app-icon square">
+          <h2 class="app-title"><strong>OpenSignals App</strong></h2>
+          <p class="app-description">Start taking your ECG aquesition ftom BITalino sensor</p>
+          <p>Click the button below to visit download website</p>
+          <button onclick="downloadOpenSignals()" class="download-button">Download App</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End app Section -->
+
+
+  <script>
+    function startDownload() {
+      var count = 5;
+      var downloadButton = document.querySelector('.download-button');
+      
+      // Disable the button to prevent multiple clicks
+      downloadButton.classList.add('clicked');
+      downloadButton.disabled = true;
+      
+      var countdownInterval = setInterval(function() {
+        if (count > 0) {
+          downloadButton.innerHTML = 'Download in ' + count + ' seconds';
+          count--;
+        } else {
+          clearInterval(countdownInterval);
+          downloadButton.innerHTML = 'Downloading...';
+          window.location.href = 'app-release.apk'; // Update this with your app's actual download URL
+        }
+      }, 1000);
+    }
+  </script>
+
+<script>
+  function downloadOpenSignals() {
+      // You can replace this URL with the actual download link for OpenSignals
+      var openSignalsDownloadLink = "https://support.pluxbiosignals.com/knowledge-base/introducing-opensignals-revolution/";
+      
+      // Redirect to the OpenSignals download page
+      window.location.href = openSignalsDownloadLink;
+  }
+</script>
+
+   <!-- Trust Instructions -->
+   <div class="center-container">
+    <div class="trust-instructions">
+      <h3><strong>How to Trust RHYTHMI App:</strong></h3>
+      <ol>
+        <li>Once the download is complete, open your device's Settings.</li>
+        <li>Navigate to the "Security" or "Privacy" settings.</li>
+        <li>Look for "Unknown Sources" or "Install Unknown Apps" and enable it.</li>
+        <li>Locate the downloaded RHYTHMI App file and tap to install.</li>
+        <li>Follow the on-screen instructions to complete the installation.</li>
+      </ol>
+      <p>If you have any issues, feel free to <a href="contact.html">contact us</a> for assistance.</p>
+    </div>
+  </div>
+
+
+
+  <!-- End app Section -->
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 footer_col">
+          <div class="footer_contact">
+            <h4>
+              Reach at..
+            </h4>
+            <div class="contact_link_box">
+              <a href="https://maps.app.goo.gl/cGZutF6bBtGnhcty6">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Kuwait, Eqaila - AUM
+                </span>
+              </a>
+              <a href="tel:15512615218">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +1 551-261-5218
+              </a>
+              <a href="mailto:rhythmi.info@gmail.com">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  Rhythmi.info@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="footer_social">
+            <a href="https://www.linkedin.com/in/rhythmi-co-a71a332a5/">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.instagram.com/rhythmi.co/">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="https://wa.me/+15512615218">
+              <i class="fa fa-whatsapp" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 footer_col">
+          <div class="footer_detail">
+            <h4>
+              About
+            </h4>
+            <p>
+              Rhythmi's is a cutting-edge company utilizing artificial intelligence to improve early detection and diagnosis of heart diseases, focusing on electrocardiography and data analytics to enhance accessibility and user-friendliness.          </div>
+        </div>
+        <div class="col-md-6 col-lg-2 mx-auto footer_col">
+          <div class="footer_link_box">
+            <h4>
+              Links
+            </h4>
+            <div class="footer_links">
+              <a class="active" href="index.html">
+                Home
+              </a>
+              <a class="" href="about.html">
+                About
+              </a>
+              <a class="" href="services.html">
+                services
+              </a>
+              <a class="" href="engineers.html">
+                engineers
+              </a>
+              <a class="" href="contact.html">
+                Contact Us
+              </a>
+              <a class="" href="login2.html">
+                start!
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 footer_col ">
+          <h4>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By Rhythmi
+
+        </p>
+       
+      </div>  
+    </div>
+  </footer>
+  <!-- footer section -->
+  <!-- jQery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <!-- owl slider -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- custom js -->
+  <script type="text/javascript" src="js/custom.js"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  </script>
+  <!-- End Google Map -->
+
+</body>
+
+</html>

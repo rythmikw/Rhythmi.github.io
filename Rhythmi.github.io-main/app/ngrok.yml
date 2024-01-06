@@ -1,0 +1,4 @@
+authtoken: 2Z8wjjVAfagboMAsOhx9v1KEe0Z_3LdG95iMF9TnEQCYsG9KH
+tunnels:
+  your-app:
+    addr: 5000  # Replace with the port your server is running on

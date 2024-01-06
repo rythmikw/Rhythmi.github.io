@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/whitelogo.png" type="">
+
+
+  <title> Rhythmi </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-ezBSnL3BMzQQpTcCAH/Qm3m5d+J5uJ/JQjljsXtmFfmGjK/ZJh5Q4uUJs2ktaM1S" crossorigin="anonymous">
+
+  <style>
+
+.img-box img {
+  max-width: 3000px;
+  height: auto;
+  width: 170px; /* Add this line to ensure the logo takes up the full width of its container */
+}
+
+
+
+/* Style for the "Logout" and "Exit page" links */
+.nav-link.btn {
+  position: relative; /* Add relative positioning */
+  text-decoration: none; /* Remove the default underline */
+  color: inherit; /* Inherit text color */
+  font-weight: normal; /* Set normal font weight */
+  display: inline-block; /* Make the links inline-block elements */
+  padding: 0 3px; /* Add some padding to the links */
+  transition: box-shadow 0.3s ease; /* Add a transition effect for the box-shadow */
+}
+
+.nav-link.btn::before {
+  content: ''; /* Create a pseudo-element */
+  position: absolute;
+  left: 0;
+  right: 0; /* Match the width of the links */
+  bottom: -3px; /* Adjust the position to control line thickness */
+  width: auto; /* Set width to auto to match word width */
+  height: 2px; /* Adjust the line thickness */
+  background-color: white; /* Line color */
+  transform: scaleX(0); /* Initial scale to hide the line */
+  transform-origin: center; /* Line expands from the center */
+  transition: transform 0.3s ease; /* Add a transition effect for the line */
+}
+
+.nav-link.btn:hover::before {
+  transform: scaleX(0.7); /* Expand the line on hover */
+  transform-origin: center; /* Line expands from the center on hover */
+}
+
+/* Increase font-weight and add black shadow when hovered */
+.nav-link.btn:hover {
+  font-weight: bold; /* Make the text bold on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a black shadow on hover */
+}
+
+
+
+/* Initial state for animated elements */
+.animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Animation when in viewport */
+.animate.in-viewport {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .animate {
+    /* Adjust animation properties or disable animations */
+    opacity: 1;
+    transform: translateY(0);
+    transition: none; /* Remove transitions for instant appearance */
+  }
+}
+
+  </style>
+
+<style>
+.whatsapp-widget {
+  position: fixed;
+  bottom: 90px;
+  right: 25px; /* Change from 'right' to 'left' */
+  width: 60px; /* Increase the width for a larger widget */
+  height: 60px; /* Increase the height for a larger widget */
+  background-color: #25D366;
+  color: #ffffff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.whatsapp-widget i {
+  font-size: 36px; /* Increase the font size for a larger icon */
+}
+
+.whatsapp-widget:hover {
+  background-color: #128C7E;
+}
+</style>
+</head>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/65679c37e8301d47ec57f640/1hgebkeoq';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+
+
+
+  
+<body>
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <img src="images/hero-bg.png" alt="">
+    </div>
+
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              <div class="col-md-6">
+                <div class="img-box">
+                  <img src="images\whitelogo.png" alt="Rhythmi Logo" class="img-fluid">
+                </div>
+              </div>
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn" href="index.html">Home </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link btn" href="about.html"> About <span class="sr-only">(current)</span> </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="services.html">services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="engineers.html">engineers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="contact.html">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="pricing.html">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="login2.html">start!</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="FAQ.html">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="app.html">download</a>
+              </li>
+              <form class="form-inline">
+              </form>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class="slider_section ">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7">
+                  <div class="detail-box">
+                    <h1>
+                      providing the latest and smartest test of ECG 
+                    </h1>
+                    <p>
+                    </p>
+                    <div class="btn-box">
+                      <a href="login2.html" class="btn1">
+                        test now!
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item ">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7">
+                  <div class="detail-box">
+                    <h1>
+                      Trusted engineers who seek to improve the Cardiologist sector
+                    </h1>
+                    <p>
+                    </p>
+                    <div class="btn-box">
+                      <a href="engineers.html" class="btn1">
+                        see!
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-7">
+                  <div class="detail-box">
+                    <h1>
+                      We Provide Best system
+                    </h1>
+                    <p>
+                    </p>
+                    <div class="btn-box">
+                      <a href="" class="btn1">
+                        Read More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ol class="carousel-indicators">
+          <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+          <li data-target="#customCarousel1" data-slide-to="1"></li>
+          <li data-target="#customCarousel1" data-slide-to="2"></li>
+        </ol>
+      </div>
+
+    </section>
+    <!-- end slider section -->
+  </div>
+
+
+
+<div class="whatsapp-widget" id="whatsappWidget" onclick="openWhatsApp()">
+  <i class="fa fa-whatsapp"></i>
+</div>
+
+<script>
+  function openWhatsAppPage() {
+    window.open('whatsapp.html', '_blank');
+  }
+
+  // Show the WhatsApp widget after a delay (e.g., 1 second)
+  setTimeout(function () {
+    const whatsappWidget = document.getElementById('whatsappWidget');
+    whatsappWidget.style.opacity = 1;
+    whatsappWidget.style.pointerEvents = 'auto';
+    whatsappWidget.style.display = 'flex'; // Change to 'flex' from 'block'
+    whatsappWidget.addEventListener('click', openWhatsAppPage);
+  }, 1000);
+</script>
+<!--end whatsapp section-->
+
+
+
+
+
+  <!-- department section -->
+
+  <section class="department_section layout_padding animate">
+    <div class="department_container">
+      <div class="container">
+        <div class="text-center">
+          <h2>
+            OUR SERVICES
+          </h2>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-3">
+            <div class="box">
+              <div class="img-box">
+                <img src="images/s1.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Cardiology
+                </h5>
+                <p class="text-justify">
+                  Explore our Cardiology section to understand heart health, learn about various cardiovascular conditions, and find out how we can help you maintain a healthy heart
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="box">
+              <div class="img-box">
+                <img src="images/s2.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Diagnosis
+                </h5>
+                  <p class="text-justify">
+                  Our Diagnosis section provides comprehensive insights into various medical tests and procedures, aiding in accurate identification of health issues for effective treatment.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-box">
+          <a href="services.html">
+            View All
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- end department section -->
+
+  <!-- about section -->
+
+  <section class="about_section layout_margin-bottom animate">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="img-box">
+            <img src="images\rhythmilogo.png" alt="Rhythmi Logo" class="img-fluid">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                About <span>Us</span>
+              </h2>
+            </div>
+            <p class="text-justify">
+              Hello Rhythmi's! We are a cutting-edge company dedicated to transforming the landscape of healthcare through the power of artificial intelligence. At Rhythmi, our mission is clear: to harness the capabilities of AI and data analytics to enhance the early detection and diagnosis of heart diseases. We are committed to revolutionizing the field of electrocardiography (ECG) by developing innovative AI models that not only assist in accurate ECG interpretation but also make it more accessible and user-friendly for healthcare professionals and patients alike. With a team of passionate experts in AI, cardiology, and data science, we strive to make a significant impact on the lives of millions by providing faster, more accurate, and more convenient tools for predicting and preventing heart diseases. Join us on our journey to create a healthier world through the harmony of technology and healthcare.
+            </p>
+            <a href="about.html">
+              Read More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <!-- end about section -->
+ 
+  <!-- contact section -->
+  <section class="contact_section layout_padding animate">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          Get In Touch
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form_container contact-form">
+            <form action="mailto:rythmi.info@gmail.com" method="post" enctype="text/plain">
+              <div class="form-row">
+                <div class="col-lg-6">
+                  <div>
+                    <input type="text" name="name" placeholder="Your Name" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div>
+                    <input type="text" name="phone" placeholder="Phone Number" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input type="email" name="email" placeholder="Email" />
+              </div>
+              <div>
+                <input type="text" class="message-box" name="message" placeholder="Message" />
+              </div>
+              <div class="btn_box">
+                <button type="submit">
+                  SEND
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="img-box2">
+            <img src="images\contactushero.webp" alt="Rhythmi Logo" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end contact section -->
+
+
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 footer_col">
+          <div class="footer_contact">
+            <h4>
+              Reach at..
+            </h4>
+            <div class="contact_link_box">
+              <a href="https://maps.app.goo.gl/cGZutF6bBtGnhcty6">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Kuwait, Eqaila - AUM
+                </span>
+              </a>
+              <a href="tel:15512615218">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +1 551-261-5218
+                </span>
+              </a>
+              <a href="mailto:rhythmi.info@gmail.com">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  Rhythmi.info@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="footer_social">
+            <a href="https://www.linkedin.com/in/rhythmi-co-a71a332a5/">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.instagram.com/rhythmi.co/">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="https://wa.me/+15512615218">
+              <i class="fa fa-whatsapp" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 footer_col">
+          <div class="footer_detail">
+            <h4>
+              About
+            </h4>
+            <p>
+              Rhythmi's is a cutting-edge company utilizing artificial intelligence to improve early detection and diagnosis of heart diseases, focusing on electrocardiography and data analytics to enhance accessibility and user-friendliness.          </div>
+        </div>
+        <div class="col-md-6 col-lg-2 mx-auto footer_col">
+          <div class="footer_link_box">
+            <h4>
+              Links
+            </h4>
+            <div class="footer_links">
+              <a class="active" href="index.html">
+                Home
+              </a>
+              <a class="" href="about.html">
+                About
+              </a>
+              <a class="" href="services.html">
+                services
+              </a>
+              <a class="" href="engineers.html">
+                engineers
+              </a>
+              <a class="" href="contact.html">
+                Contact Us
+              </a>
+              <a class="" href="login2.html">
+                start!
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 footer_col ">
+          <h4>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By Rhythmi
+
+        </p>
+       
+      </div>  
+    </div>
+  </footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <!-- owl slider -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- custom js -->
+  <script type="text/javascript" src="js/custom.js"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  </script>
+  <!-- End Google Map -->
+
+
+  <script>
+    // Function to check if an element is in the viewport
+    function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+  
+    // Function to add a class when an element is in the viewport
+    function handleScroll() {
+      const animatedElements = document.querySelectorAll('.animate');
+      
+      animatedElements.forEach((el) => {
+        if (isElementInViewport(el)) {
+          el.classList.add('in-viewport');
+        }
+      });
+    }
+  
+    // Add a scroll event listener to trigger animations on scroll
+    window.addEventListener('scroll', handleScroll);
+  
+    // Trigger animations for elements already in the viewport when the page loads
+    window.addEventListener('load', handleScroll);
+  </script>
+</body>
+
+</html>

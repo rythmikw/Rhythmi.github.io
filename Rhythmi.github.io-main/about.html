@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/whitelogo.png" type="">
+
+  <title> Rhythmi </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+
+
+  <style>
+    .about_section {
+      margin-top: 50px; /* Adjust the value as needed */
+    }
+    
+
+    .img-box img {
+  max-width: 3000px;
+  height: auto;
+  width: 170px; /* Add this line to ensure the logo takes up the full width of its container */
+}
+/* Style for the "Logout" and "Exit page" links */
+.nav-link.btn {
+  position: relative; /* Add relative positioning */
+  text-decoration: none; /* Remove the default underline */
+  color: inherit; /* Inherit text color */
+  font-weight: normal; /* Set normal font weight */
+  display: inline-block; /* Make the links inline-block elements */
+  padding: 0 3px; /* Add some padding to the links */
+  transition: box-shadow 0.3s ease; /* Add a transition effect for the box-shadow */
+}
+
+.nav-link.btn::before {
+  content: ''; /* Create a pseudo-element */
+  position: absolute;
+  left: 0;
+  right: 0; /* Match the width of the links */
+  bottom: -3px; /* Adjust the position to control line thickness */
+  width: auto; /* Set width to auto to match word width */
+  height: 2px; /* Adjust the line thickness */
+  background-color: white; /* Line color */
+  transform: scaleX(0); /* Initial scale to hide the line */
+  transform-origin: center; /* Line expands from the center */
+  transition: transform 0.3s ease; /* Add a transition effect for the line */
+}
+
+.nav-link.btn:hover::before {
+  transform: scaleX(0.7); /* Expand the line on hover */
+  transform-origin: center; /* Line expands from the center on hover */
+}
+
+/* Increase font-weight and add black shadow when hovered */
+.nav-link.btn:hover {
+  font-weight: bold; /* Make the text bold on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a black shadow on hover */
+}
+
+/* Style the dropdown container */
+.language-toggle {
+  position: relative;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+/* Style the dropdown select element */
+.language-toggle select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #6d2121; /* Dark red color */
+  border: none;
+  padding: 12px 100px; /* Increased width */
+  font-size: 20px;
+  color: #fff; /* White text */
+  width: 100%; /* Set the width to 100% for full width */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Style the dropdown arrow icon */
+.language-toggle select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #fff; /* White color */
+  font-size: 14px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Define the hover effect for the dropdown container */
+.language-toggle:hover::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Define the hover effect for the dropdown */
+.language-toggle select:hover {
+  background-color: #5a1b1b; /* Darker red color on hover */
+}
+
+/* Define the focus outline for the dropdown */
+.language-toggle select:focus {
+  outline: none;
+  background-color: #1d1d1d; /* Darker red color on focus */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+/* Style the dropdown options */
+.language-toggle select option {
+  background-color: rgba(51, 51, 51, 0.5); /* Transparent dark gray background with 50% opacity */
+  color: #fff; /* White text */
+  padding: 10px;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 5px; /* Add border-radius for rounded corners */
+}
+
+/* Hover effect for dropdown options */
+.language-toggle select option:hover {
+  background-color: #444; /* Slightly darker gray on hover */
+}
+
+/* Add media query for screens smaller than a certain width (e.g., 768px) */
+@media (max-width: 768px) {
+  /* Set the video width to 100% to make it responsive */
+  #videoPlayer {
+    width: 100%;
+    height: auto;
+  }
+}
+  </style>
+  <style>
+    .whatsapp-widget {
+      position: fixed;
+      bottom: 90px;
+      right: 25px; /* Change from 'right' to 'left' */
+      width: 60px; /* Increase the width for a larger widget */
+      height: 60px; /* Increase the height for a larger widget */
+      background-color: #25D366;
+      color: #ffffff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1001;
+    }
+    
+    .whatsapp-widget i {
+      font-size: 36px; /* Increase the font size for a larger icon */
+    }
+    
+    .whatsapp-widget:hover {
+      background-color: #128C7E;
+    }
+    </style>
+  
+</head>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/65679c37e8301d47ec57f640/1hgebkeoq';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+    <!--whatsapp widget-->
+    <div class="whatsapp-widget" id="whatsappWidget" onclick="openWhatsApp()">
+      <i class="fa fa-whatsapp"></i>
+    </div>
+    
+    <script>
+      function openWhatsAppPage() {
+        window.open('whatsapp.html', '_blank');
+      }
+    
+      // Show the WhatsApp widget after a delay (e.g., 1 second)
+      setTimeout(function () {
+        const whatsappWidget = document.getElementById('whatsappWidget');
+        whatsappWidget.style.opacity = 1;
+        whatsappWidget.style.pointerEvents = 'auto';
+        whatsappWidget.style.display = 'flex'; // Change to 'flex' from 'block'
+        whatsappWidget.addEventListener('click', openWhatsAppPage);
+      }, 1000);
+    </script>
+    <!--end whatsapp widget-->
+  
+
+<body class="sub_page">
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <img src="images/hero-bg.png" alt="">
+    </div>
+
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              <div class="col-md-6">
+                <div class="img-box">
+                  <img src="images\whitelogo.png" alt="Rhythmi Logo" class="img-fluid">
+                </div>
+              </div>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn" href="index.html">Home </a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link btn" href="about.html"> About <span class="sr-only">(current)</span> </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="services.html">services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="engineers.html">engineers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="contact.html">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="pricing.html">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="login2.html">start!</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="FAQ.html">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn" href="app.html">download</a>
+              </li>
+              <form class="form-inline">
+              </form>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+<!-- About Section -->
+<section class="about_section layout_margin-bottom text-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="img-box">
+          <img src="images\rhythmilogo.png" alt="Rhythmi Logo" class="img-fluid">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="detail-box">
+          <div class="heading_container">
+            <h2>
+              About <span>us</span>
+            </h2>
+          </div>
+          <p class="text-justify">
+            Hello Rhythmi's! We are a cutting-edge company dedicated to transforming the landscape of healthcare through the power of artificial intelligence. At Rhythmi, our mission is clear: to harness the capabilities of AI and data analytics to enhance the early detection and diagnosis of heart diseases. We are committed to revolutionizing the field of electrocardiography (ECG) by developing innovative AI models that not only assist in accurate ECG interpretation but also make it more accessible and user-friendly for healthcare professionals and patients alike. With a team of passionate experts in AI, cardiology, and data science, we strive to make a significant impact on the lives of millions by providing faster, more accurate, and more convenient tools for predicting and preventing heart diseases. Join us on our journey to create a healthier world through the harmony of technology and healthcare.
+          </p>
+          <video id="videoPlayer" controls autoplay muted width="530" height="300">
+            <source src="videos/rhythmi.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <!-- Language selection dropdown -->
+          <div class="language-toggle">
+            <select id="languageDropdown" onchange="setLanguage()">
+              <option value="English">English</option>
+              <option value="عربي">عربي</option>
+              <option value="French">French</option>
+              <option value="Turkish">Turkish</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- End About Section -->
+  <script>
+var videoPlayer = document.getElementById('videoPlayer');
+var languageDropdown = document.getElementById('languageDropdown');
+var currentTime = 0;
+
+// Function to set the selected language
+function setLanguage() {
+  // Store the current playback time
+  currentTime = videoPlayer.currentTime;
+
+  var selectedLanguage = languageDropdown.value;
+
+  if (selectedLanguage === 'English') {
+    videoPlayer.src = 'videos/rhythmi.mp4';
+  } else if (selectedLanguage === 'عربي') {
+    videoPlayer.src = 'videos/Arabic-rhythmi.mp4';
+  } else if (selectedLanguage === 'French') {
+    videoPlayer.src = 'videos/French-rhythmi.mp4';
+  } else if (selectedLanguage === 'Turkish') {
+    videoPlayer.src = 'videos/Turkish-rhythmi.mp4';
+  }
+
+  // Load and play the video
+  videoPlayer.load();
+  videoPlayer.play();
+
+  // Set the stored playback time
+  videoPlayer.currentTime = currentTime;
+}
+ </script>
+  
+  
+  
+  
+  
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 footer_col">
+          <div class="footer_contact">
+            <h4>
+              Reach at..
+            </h4>
+            <div class="contact_link_box">
+              <a href="https://maps.app.goo.gl/cGZutF6bBtGnhcty6">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Kuwait, Eqaila - AUM
+                </span>
+              </a>
+              <a href="tel:15512615218">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +1 551-261-5218
+                </span>
+              </a>
+              <a href="mailto:rhythmi.info@gmail.com">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  Rhythmi.info@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="footer_social">
+            <a href="https://www.linkedin.com/in/rhythmi-co-a71a332a5/">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.instagram.com/rhythmi.co/">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+                        <a href="https://wa.me/+15512615218">
+              <i class="fa fa-whatsapp" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 footer_col">
+          <div class="footer_detail">
+            <h4>
+              About
+            </h4>
+            <p>
+              Rhythmi's is a cutting-edge company utilizing artificial intelligence to improve early detection and diagnosis of heart diseases, focusing on electrocardiography and data analytics to enhance accessibility and user-friendliness.          </div>
+        </div>
+        <div class="col-md-6 col-lg-2 mx-auto footer_col">
+          <div class="footer_link_box">
+            <h4>
+              Links
+            </h4>
+            <div class="footer_links">
+              <a class="active" href="index.html">
+                Home
+              </a>
+              <a class="" href="about.html">
+                About
+              </a>
+              <a class="" href="services.html">
+                services
+              </a>
+              <a class="" href="engineers.html">
+                engineers
+              </a>
+              <a class="" href="contact.html">
+                Contact Us
+              </a>
+              <a class="" href="login2.html">
+                start!
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 footer_col ">
+          <h4>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By Rhythmi
+
+        </p>
+       
+      </div>  
+    </div>
+  </footer>
+  <!-- footer section -->
+  <!-- jQery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <!-- owl slider -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- custom js -->
+  <script type="text/javascript" src="js/custom.js"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  </script>
+  <!-- End Google Map -->
+
+</body>
+
+</html>
