@@ -1,0 +1,112 @@
+
+<!DOCTYPE html> 
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Rhythmi Dashboard </title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="main.js" defer></script>
+     
+   </head>
+<body>
+   <div class="sidebar">
+     <div class="logo_content">
+       <div class="logo">
+         <div class="logo_name">Rhythmi</div>
+       </div>
+       <i class='bx bx-menu' id="btn"></i>
+     </div>
+     <ul class="nav_list">
+       <li>
+        <a href="dashboard.html">
+         <i class='bx bx-grid-alt'></i>
+         <span class="links_name">Dashboard</span>
+        </a>
+        <span class="tooltip">Dashboard</span>
+      </li>
+       <li>
+         <a href="User.html">
+          <i class='bx bx-user'></i>
+          <span class="links_name">User</span>
+         </a>
+         <span class="tooltip">User</span>
+       </li>
+      <li>
+        <a href="ECG.html">
+         <i class='bx bx-pulse'></i>
+         <span class="links_name">ECG Test</span>
+        </a>
+        <span class="tooltip">ECG Test</span>
+      </li>
+      <li>
+      </li>
+      <li>
+        <li class="nav-item">
+          <button class="nav-link btn" onclick="showLogoutPopup()">
+            <i class='bx bx-exit'></i>
+            <span class="links_name">Logout</span>
+        </button>
+        <span class="tooltip">Logout</span>
+        </li>
+     </ul>
+     <div class="content">
+       <div class="user">
+        <div class="user_details">
+          <div class="name_job">
+              <div class="name">login name</div>
+              <div class="job" id="expirationDate">Expiration: YYYY-MM-DD</div>
+          </div>
+      </div>
+       </div>
+     </div>
+   </div>
+   <div class="home_content">
+    <div class="dashboard-container">
+      <div class="text">User</div>
+      <div class="welcome-message">
+      </div>
+    </div>
+
+    <div class="soon-container">
+      <div class="soon"></div>
+              Coming soon!
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+
+   <div id="overlay" class="overlay"></div>
+
+<div id="logoutPopup" class="popup">
+  <div class="popup-content">
+      <p>Are you sure you want to logout?</p>
+      <button onclick="logout()">Yes</button>
+      <button onclick="cancelLogout()">Cancel</button>
+  </div>
+</div>
+<div class="bottom-navigation">
+  <a href="dashboard.html" class="nav-link">
+    <i class='bx bx-grid-alt'></i>
+    
+  </a>
+  <a href="User.html" class="nav-link">
+    <i class='bx bx-user'></i>
+    
+  </a>
+  <a href="ECG.html" class="nav-link">
+    <i class='bx bx-pulse'></i>
+  </a>
+  <a href="#" class="nav-link" onclick="showLogoutPopup()">
+    <i class='bx bx-exit'></i>
+    
+  </a>
+</div>
+   
+<script src="main.js"></script>
+</body>
+</html>
+
