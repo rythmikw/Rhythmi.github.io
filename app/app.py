@@ -18,7 +18,7 @@ images_directory = "images"
 project_directory = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(project_directory, "raw.h5")
 output_file_path = os.path.join(project_directory, static_directory, "output.pdf")
-logo = os.path.join(images_directory, "resulttemp.png")
+#logo = os.path.join(images_directory, "resulttemp.png")
 
 app = Flask(__name__)
 CORS(app,origins=['https://rhythmi.org'])  # Enable CORS for all routes
@@ -158,7 +158,7 @@ def process_ecg_file(file_path):
         plt.savefig(temp_file.name,format='png')
 
         # Use correct variable name here
-        pdf.image(logo,x=0, y=0, w = 297.01 , h = 420.03)
+        #pdf.image(logo,x=0, y=0, w = 297.01 , h = 420.03)
 
         temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
         plt.savefig(temp_file.name, format='png')
