@@ -18,10 +18,10 @@ images_directory = "images"
 project_directory = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(project_directory, "raw.h5")
 output_file_path = os.path.join(project_directory, static_directory, "output.pdf")
-logo = os.path.join(os.path.dirname(project_directory), images_directory, "rhythmilogo.png")
+logo = os.path.join(images_directory, "result_temp.png")
 
 app = Flask(__name__)
-CORS(app, origins=['https://rhythmi.org'])  # Enable CORS for all routes
+CORS(app,origins=['https://rhythmi.org'])  # Enable CORS for all routes
 
 def add_section(pdf, title, content):
     pdf.set_font("Times", "B", size=15)
@@ -149,38 +149,21 @@ def process_ecg_file(file_path):
         else:
             message = "No Prediction"
 
-        # Generate PDF
-        pdf = FPDF()
+        pdf = FPDF(unit="mm", format=[297.01,420.03])
+        # Add a page
         pdf.add_page()
-        pdf.set_font("Times", size=15)
-        # Header section
-        pdf.image(logo, x=10, y=10, w=0, h=30)
-        image_width = 30
-        line_start_x = 12 + image_width + 20
-        line_y_start = 10
-        pdf.set_line_width(0.5)
-        pdf.line(line_start_x, line_y_start, line_start_x, line_y_start + 30)
-        text_line_y = 12
 
+        # Save the BytesIO object as a PNG file
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
+        plt.savefig(temp_file.name,format='png')
 
-        kuwait_timezone = pytz.timezone("Asia/Kuwait")
-        kuwait_time = datetime.now(kuwait_timezone)
-        today_date_kuwait = kuwait_time.strftime('%Y-%m-%d')
-        current_time_kuwait = kuwait_time.strftime('%I:%M:%S %p')
-        pdf.text(line_start_x + 2, text_line_y, "Rhythmi.co")
-        pdf.text(line_start_x + 2, text_line_y + 10, f"Date: {today_date_kuwait}")
-        pdf.text(line_start_x + 2, text_line_y + 20, f"Time: {current_time_kuwait}")
-
-        # End of header section
-        pdf.set_font("Times", "B", size=15)
-        pdf.set_xy(10, 47)
-        pdf.ln(2)
-        pdf.line(10, 42, 200, 42)
-        pdf.cell(200, 10, txt="RHYTHMI's ECG Test", ln=2, align='C')
+        # Use correct variable name here
+        pdf.image(logo,x=0, y=0, w = 297.01 , h = 420.03)
 
         temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
         plt.savefig(temp_file.name, format='png')
         pdf.image(temp_file.name, x=-20, y=58, w=250, h=90, type='png', link='')
+
 
         if message == "Normal Beat Detected":
 
