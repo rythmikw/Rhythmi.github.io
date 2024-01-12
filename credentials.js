@@ -11,7 +11,7 @@ var validCredentials = {
     'AUM': { password: '2024', expires: '2025-1-16' },
 
     'Alaa.Eleyan': { password: '2024', expires: '2025-1-16' },
-    'Khanled.Chaine' : { password: '2024', expires: '2025-1-16' },
+    'Khaled.Chaine' : { password: '2024', expires: '2025-1-16' },
     'Bilal.Jabakhanji': { password: '2024', expires: '2025-1-16' },
     'Samer.Al Kork': { password: '2024', expires: '2025-1-16' },
     'Taha.Beyrouthy': { password: '2024', expires: '2025-1-16' },
