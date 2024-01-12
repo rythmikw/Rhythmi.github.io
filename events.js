@@ -36,7 +36,7 @@ var userEvents = {
       { date: '2025-1-16', event: 'Welcome Dear Dr. Alaa Eleyan, This is your events part' },
       { date: '2025-1-16', event: 'RHYTHMI appreciate your remarkable effort upon making this project possible'},
     ],
-    'Khanled.Chaine': [
+    'Khaled.Chaine': [
       { date: '2025-1-16', event: 'Welcome Dear Dr. Khanled Chaine, This is your events part' },
     ],
     'Bilal.Jabakhanji': [
