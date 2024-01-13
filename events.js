@@ -29,39 +29,39 @@ var userEvents = {
 
 
     'AUM': [
-      { date: '2025-1-16', event: 'Welcome Dear Doctor, This is your events part' },
+      { date: '2025-01-16', event: 'Welcome Dear Doctor, This is your events part' },
     ],
 
     'Alaa.Eleyan': [
-      { date: '2025-1-16', event: 'Welcome Dear Dr. Alaa Eleyan, This is your events part' },
-      { date: '2025-1-16', event: 'RHYTHMI appreciate your remarkable effort upon making this project possible'},
+      { date: '2025-01-16', event: 'Welcome Dear Dr. Alaa Eleyan, This is your events part' },
+      { date: '2025-01-16', event: 'RHYTHMI appreciate your remarkable effort upon making this project possible'},
     ],
     'Khaled.Chaine': [
-      { date: '2025-1-16', event: 'Welcome Dear Dr. Khanled Chaine, This is your events part' },
+      { date: '2025-01-16', event: 'Welcome Dear Dr. Khanled Chaine, This is your events part' },
     ],
     'Bilal.Jabakhanji': [
-      { date: '2025-1-16', event: 'Welcome Dear Dr. Bilal Jabakhanji, This is your events part'},
+      { date: '2025-01-16', event: 'Welcome Dear Dr. Bilal Jabakhanji, This is your events part'},
     ],
     'Samer.Al Kork': [
-      { date: '2025-1-16', event: 'Welcome Dear Dr. Samer Al Kork, This is your events part' },
+      { date: '2025-01-16', event: 'Welcome Dear Dr. Samer Al Kork, This is your events part' },
     ],
     'Taha.Beyrouthy': [
-      { date: '2025-1-16', event: 'Welcome Dear Dr. Taha Beyrouthy, This is your events part' },
+      { date: '2025-01-16', event: 'Welcome Dear Dr. Taha Beyrouthy, This is your events part' },
     ],
     'Abdullah.Karar': [
-      { date: '2025-1-16', event:'Welcome Dear Dr. Abdullah Karar, This is your events part'},
+      { date: '2025-01-16', event:'Welcome Dear Dr. Abdullah Karar, This is your events part'},
     ],
     'Fahmi.El-Sayed': [
-      { date: '2025-1-16', event: 'Welcome Dear Dr. Fahmi El-Sayed, This is your events part'},
+      { date: '2025-01-16', event: 'Welcome Dear Dr. Fahmi El-Sayed, This is your events part'},
     ],
     'Mouhammad.AlAkkoumi': [
-      { date: '2025-1-16', event: 'Welcome Dear Dr. Mouhammad AlAkkoumi, This is your events part' },
+      { date: '2025-01-16', event: 'Welcome Dear Dr. Mouhammad AlAkkoumi, This is your events part' },
     ],
     'Mehmet.Karaman': [
-      { date: '2025-1-16', event: 'Welcome Dear Dr. Mehmet Karaman, This is your events part' },
+      { date: '2025-01-16', event: 'Welcome Dear Dr. Mehmet Karaman, This is your events part' },
     ],
     'Wael.Farag': [
-      { date: '2025-1-16', event: 'Welcome Dear Dr. Wael Farag, This is your events part'},
+      { date: '2025-01-16', event: 'Welcome Dear Dr. Wael Farag, This is your events part'},
     ],
 
 
