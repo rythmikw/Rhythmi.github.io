@@ -312,10 +312,8 @@ function submitForm() {
     if (validCredentials[username]) {
         var credentials = validCredentials[username];
 
-        // Updated expiration date parsing logic
-        var expirationDateParts = credentials.expires.split('-');
-        var expirationDate = new Date(expirationDateParts[0], expirationDateParts[1] - 1, expirationDateParts[2]);
-
+        // Check if the credentials have not expired
+        var expirationDate = new Date(credentials.expires);
         var currentDate = new Date();
 
         if (currentDate <= expirationDate) {
@@ -336,7 +334,7 @@ function submitForm() {
             if (credentials.password === password) {
                 // Display the expiration date in DD/MM/YYYY format
                 var day = expirationDate.getDate().toString().padStart(2, '0');
-                var month = (expirationDate.getMonth() + 1).toString().padStart(2, '0'); // Add 1 because months are 0-indexed
+                var month = (expirationDate.getMonth() + 1).toString().padStart(2, '0');
                 var year = expirationDate.getFullYear();
                 var formattedExpirationDate = day + '/' + month + '/' + year;
                 var errorMessage = 'Your credentials have expired.';
