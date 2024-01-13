@@ -329,7 +329,20 @@ function submitForm() {
                 document.getElementById('errorMessage').innerText = 'Incorrect password';
             }
         } else {
-
+            // Display the expiration message only when credentials have expired
+            // and the provided password is correct
+            if (credentials.password === password) {
+                // Display the expiration date in DD/MM/YYYY format
+                var day = expirationDate.getDate().toString().padStart(2, '0');
+                var month = (expirationDate.getMonth() + 1).toString().padStart(2, '0');
+                var year = expirationDate.getFullYear();
+                var formattedExpirationDate = day + '/' + month + '/' + year;
+                var errorMessage = 'Your credentials have expired.';
+                errorMessage += '<br>Expiration Date: ' + formattedExpirationDate; // Add expiration date
+                document.getElementById('errorMessage').innerHTML = errorMessage;
+            } else {
+                document.getElementById('errorMessage').innerText = 'Incorrect password';
+            }
         }
     } else {
         // If username is not found in validCredentials

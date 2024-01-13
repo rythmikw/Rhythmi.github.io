@@ -6,17 +6,17 @@ var validCredentials = {
     'StartUp': { password: '2024', expires: '2024-04-10' },
     'Ebrahim': { password: '0002', expires: '2023-12-31' },
     'wahab': { password: '9699', expires: '2023-12-6' },
-    'AUM': { password: '2024', expires: '2025-1-16' },
+    'AUM': { password: '2024', expires: '2025-1-15' },
     'Alaa.Eleyan': { password: '2024', expires: '2025-1-16' },
-    'Khaled.Chaine' : { password: '2024', expires: '2025-1-16' },
-    'Bilal.Jabakhanji': { password: '2024', expires: '2025-1-16' },
-    'Samer.Al Kork': { password: '2024', expires: '2025-1-16' },
-    'Taha.Beyrouthy': { password: '2024', expires: '2025-1-16' },
-    'Abdullah.Karar': { password: '2024', expires: '2025-1-16' },
-    'Fahmi.El-Sayed': { password: '2024', expires: '2025-1-16' },
-    'Mouhammad.AlAkkoumi': { password: '2024', expires: '2025-1-16' },
-    'Mehmet.Karaman': { password: '2024', expires: '2025-1-16' },
-    'Wael.Farag': { password: '2024', expires: '2025-1-16' } 
+    'Khaled.Chaine' : { password: '2024', expires: '2025-1-17' },
+    'Bilal.Jabakhanji': { password: '2024', expires: '2025-1-18' },
+    'Samer.Al Kork': { password: '2024', expires: '2025-1-19' },
+    'Taha.Beyrouthy': { password: '2024', expires: '2025-1-20' },
+    'Abdullah.Karar': { password: '2024', expires: '2025-1-21' },
+    'Fahmi.El-Sayed': { password: '2024', expires: '2025-1-22' },
+    'Mouhammad.AlAkkoumi': { password: '2024', expires: '2025-1-23' },
+    'Mehmet.Karaman': { password: '2024', expires: '2025-1-24' },
+    'Wael.Farag': { password: '2024', expires: '2025-1-25' } 
 };
 
 // Store in local storage
